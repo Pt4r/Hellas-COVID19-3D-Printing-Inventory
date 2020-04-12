@@ -16,7 +16,7 @@ exports.config = {
     'browserName': 'chrome'
   },
   directConnect: true,
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: 'https://hellas3dprintinginventory.azurewebsites.net',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
