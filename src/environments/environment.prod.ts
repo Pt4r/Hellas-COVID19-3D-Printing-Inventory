@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://hellas3dprintinginventorybackoffice.azurewebsites.net'
+    apiUrl: 'http://hellas3dprintinginventory.azurewebsites.net'
 };

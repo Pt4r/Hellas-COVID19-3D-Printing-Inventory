@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "repository": {
         "type": "git",
-        "url": "https://hellas3dprintinginventorybackoffice.azurewebsites.net"
+        "url": "https://http://hellas3dprintinginventory.azurewebsites.net/"
     },
     "scripts": {
         "ng": "ng",

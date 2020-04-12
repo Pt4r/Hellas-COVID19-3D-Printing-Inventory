@@ -29,14 +29,16 @@ export class ShipmentsComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.columns = [
-      { prop: 'quantity', name: 'First Name', draggable: false, canAutoResize: false, sortable: true, resizeable: false },
-      { prop: 'shippingCompany', name: 'Last Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
-      { prop: 'trackingNumber', name: 'Total Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      { prop: 'quantity', name: 'Total Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       {
-        prop: 'dateShipped', name: 'Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+        prop: 'shippingCompany', name: 'Shipping Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+      },
+      { prop: 'trackingNumber', name: 'Tracking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      { prop: 'fileName', name: 'File', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      {
+        prop: 'dateShipped', name: 'Date Shipped', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
         cellTemplate: this._dateTemplate
       },
-      { prop: 'fileName', name: 'Tracking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       {
         prop: 'recieved', name: 'Recieved', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
         cellTemplate: this._deliveryTemplate

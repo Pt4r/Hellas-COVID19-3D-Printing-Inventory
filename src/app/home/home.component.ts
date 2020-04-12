@@ -47,6 +47,9 @@ export class HomeComponent implements OnInit {
         this.userService.getById(this.currentUser.id).pipe(first()).subscribe((user: UserModel) => {
             this.loading = false;
             this.currentUser = user;
+            if (user.shippedQuantity === null) {
+                this.currentUser.shippedQuantity = 0;
+            }
         });
         this.shipmentService.getShipmentsByUser(this.currentUser.id).subscribe((shipments: Shipment[]) => {
             this.shipments = shipments;

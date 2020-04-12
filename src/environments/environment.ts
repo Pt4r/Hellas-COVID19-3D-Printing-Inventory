@@ -4,8 +4,7 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'https://hellas3dprintinginventorybackoffice.azurewebsites.net',
-    // local: 'http://localhost:4000'
+    apiUrl: 'http://localhost:4000',
 };
 
 /*

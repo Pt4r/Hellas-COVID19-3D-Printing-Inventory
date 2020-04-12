@@ -8,7 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { appRoutingModule } from './app.routing';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { JwtInterceptor, ErrorInterceptor, BACKOFFICE_API_BASE_URL } from './_helpers';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 import { HomeComponent } from './home';
@@ -21,6 +21,7 @@ import { ViewComponent } from './admin/users/view/view.component';
 import { ShipmentsComponent } from './admin/shipments/shipments.component';
 import { FilamentComponent } from './admin/filament/filament.component';
 import { ProfileComponent } from './home/profile/profile.component';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -51,6 +52,7 @@ import { ProfileComponent } from './home/profile/profile.component';
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: BACKOFFICE_API_BASE_URL, useFactory: () => environment.apiUrl },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]

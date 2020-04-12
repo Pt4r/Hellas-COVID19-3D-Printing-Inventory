@@ -43,7 +43,7 @@ export class BackofficeApiService implements IBackofficeApiService {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(BACKOFFICE_API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://hellas3dprintinginventorybackoffice.azurewebsites.net";
+        this.baseUrl = baseUrl ? baseUrl : "http://hellas3dprintinginventory.azurewebsites.net";
     }
 
     shipments_GetAll(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<ShipmentModel[]> {

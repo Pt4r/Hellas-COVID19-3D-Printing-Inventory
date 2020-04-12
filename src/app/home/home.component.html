@@ -59,7 +59,7 @@
                         <div class="form-group col-md-3">
                             <label for="address">Τελευταία αποστολή:</label>
                             <div class="form-group col-md-12">
-                                {{currentUser.latestShippedDate.toDateString()}}
+                                {{ currentUser.latestShippedDate | date }}
                             </div>
                         </div>
                     </div>
