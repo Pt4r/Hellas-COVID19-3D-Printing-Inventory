@@ -1,0 +1,177 @@
+<div class="card mt-4">
+    <h4 class="card-header">Επεξεργασία Προφίλ</h4>
+    <div class="card-body">
+        <form [formGroup]="updateForm"
+              (ngSubmit)="onSubmit()">
+            <div class="form-row col-12">
+                <div class="form-group col-md-6">
+                    <label for="firstName">Όνομα*</label>
+                    <input type="text"
+                           formControlName="firstName"
+                           class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                    <div *ngIf="submitted && f.firstName.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.required">Το Όνομα είναι απαραίτητο</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lastName">Επίθετο*</label>
+                    <input type="text"
+                           formControlName="lastName"
+                           [(ngModel)]="user.lastName"
+                           class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                    <div *ngIf="submitted && f.lastName.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="f.lastName.errors.required">Το Επίθετο είναι απαραίτητο</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="form-group col-md-6">
+                    <label for="email">Email*</label>
+                    <input type="email"
+                           formControlName="email"
+                           class="form-control"
+                           [(ngModel)]="user.email"
+                           required
+                           [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Το Email είναι απαραίτητο</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="phoneNumber">Τηλέφωνο*</label>
+                    <input type="tel"
+                           placeholder="6934567891"
+                           formControlName="phoneNumber"
+                           [(ngModel)]="user.phoneNumber"
+                           class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
+                    <div *ngIf="submitted && f.phoneNumber.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="f.phoneNumber.errors.required">Το τηλέφωνο είναι απαραίτητο</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="form-group col-md-12">
+                    <label for="address">Διεύθυνση αποστολής νέου χορηγούμενου υλικού*</label>
+                    <textarea formControlName="address"
+                              name="address"
+                              rows="4"
+                              [(ngModel)]="user.address"
+                              class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+                </textarea>
+                    <div *ngIf="submitted && f.address.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="f.address.errors.required">Η Περιοχή είναι απαραίτητη</div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-row col-12 mb-4">
+                <div class="form-check-inline col-md-12">
+                    <label for="printerActive"
+                           class="form-check-label pr-5">Είναι ο εκτυπωτής λειτουργικός?*</label>
+                    <bSwitch name="printerActive"
+                             [switch-animate]="'animate'"
+                             [switch-size]="'small'"
+                             [switch-on-text]="'ΝΑΙ'"
+                             [switch-off-text]="'ΟΧΙ'"
+                             [(ngModel)]="user.printerActive"
+                             class="form-check-input"
+                             id="printerActive"
+                             formControlName="printerActive"></bSwitch>
+                </div>
+            </div>
+            <div class="form-row col-12 align-items-baseline">
+                <div class="form-group col-md-6">
+                    <label for="printerModel">Μάρκα 3D Printer*</label>
+                    <input type="text"
+                           formControlName="printerModel"
+                           [(ngModel)]="user.printerModel"
+                           class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.printerModel.errors }" />
+                    <div *ngIf="submitted && f.printerModel.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="f.printerModel.errors.required">Η Μάρκα 3D Printer είναι απαραίτητη</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="batchRequiredTime">Εκτεινόμενος χρόνος εκτύπωσης 1 μάσκας (λεπτά)</label>
+                    <input type="number"
+                           min=0
+                           [(ngModel)]="user.batchRequiredTime"
+                           name="batchRequiredTime"
+                           id="batchRequiredTime"
+                           formControlName="batchRequiredTime"
+                           class="form-control without" />
+                </div>
+            </div>
+            <hr />
+            <div class="form-row col-12">
+                <div class="form-group col-md-6 mb-0">
+                    <label for="newPassword">Νέος κωδικός</label>
+                    <input type="password"
+                           formControlName="newPassword"
+                           [(ngModel)]="updatedUser.newPassword"
+                           class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.newPassword.errors }"
+                           aria-describedby="newPasswordHelpBlock" />
+                </div>
+                <small id="newPasswordHelpBlock"
+                       class="form-text text-muted pb-4 mt-2">
+                    Αφίστε το κενό αν δεν θέλετε να αλλάξετε τον κωδικό σας. Ο κωδικός σας πρέπει να έχει τουλάχιστον 4 χαρακτήρες, ένα κεφαλαίο, ένα μικρό γράμμα και έναν αριθμό.
+                </small>
+            </div>
+            <hr />
+            <div class="form-row col-12 mb-3">
+                <div class="form-group col-md-6">
+                    <label for="username">Username*</label>
+                    <input type="text"
+                           formControlName="username"
+                           [(ngModel)]="user.username"
+                           class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                    <div *ngIf="submitted && f.username.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="f.username.errors.required">To Username είναι απαραίτητο</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="password">Παλιός κωδικός*</label>
+                    <input type="password"
+                           formControlName="password"
+                           [(ngModel)]="updatedUser.password"
+                           class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                           aria-describedby="passwordHelpBlock" />
+                    <div *ngIf="submitted && f.password.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Ο Παλιός κωδικός είναι απαραίτητος</div>
+                    </div>
+                </div>
+            </div>
+            <button [disabled]="loading"
+                    class="btn btn-info ml-3"
+                    type="submit">
+                <span *ngIf="loading"
+                      class="spinner-border spinner-border-sm mr-1"></span>
+                Ανανέωση
+            </button>
+            <button type="button"
+                    (click)="goBack()"
+                    class="btn btn-danger ml-3">Πίσω
+            </button>
+            <div *ngIf="error || formError"
+                 class="alert alert-danger mt-3 mb-0">
+                <p>{{error}}</p>
+                <p>{{formError}}</p>
+            </div>
+        </form>
+    </div>
+</div>

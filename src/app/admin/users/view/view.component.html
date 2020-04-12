@@ -1,0 +1,148 @@
+<div class="card mt-4">
+    <h4 class="card-header">{{user.firstName}} {{user.lastName}}</h4>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-primary"
+                        [routerLink]="['/admin/users']">
+                    Πίσω
+                </button>
+            </div>
+        </div>
+        <hr />
+        <form>
+            <div class="form-row col-12">
+                <div class="form-group col-md-6">
+                    <label for="firstName">Όνομα*</label>
+                    <input type="text"
+                           disabled
+                           value='{{user.firstName}}'
+                           class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lastName">Επίθετο*</label>
+                    <input type="text"
+                           disabled
+                           value='{{user.lastName}}'
+                           class="form-control">
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="form-group col-md-2">
+                    <label for="lastName">Ρόλος*</label>
+                    <input type="text"
+                           disabled
+                           value='{{user.role}}'
+                           class="form-control">
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="email">Email*</label>
+                    <input type="email"
+                           disabled
+                           value='{{user.email}}'
+                           class="form-control"
+                           required />
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="phoneNumber">Τηλέφωνο*</label>
+                    <input type="tel"
+                           disabled
+                           value='{{user.phoneNumber}}'
+                           placeholder="6934567891"
+                           class="form-control" />
+                </div>
+            </div>
+            <div class="form-row col-12">
+                <div class="form-group col-md-12">
+                    <label for="address">Διεύθυνση Αποστολής*</label>
+                    <textarea disabled
+                              rows="4"
+                              value='{{user.address}}'
+                              class="form-control">
+                        </textarea>
+                </div>
+            </div>
+            <hr />
+            <div class="form-row col-12 align-items-center pt-4">
+                <div class="form-check col-md-6">
+                    <label for="printerActive"
+                           class="form-check-label pr-5">Λειτουργικός εκτυπωτής*</label>
+                    <bSwitch name="printerActive"
+                             [switch-animate]="'animate'"
+                             [switch-size]="'small'"
+                             [switch-on-text]="'ΝΑΙ'"
+                             [switch-off-text]="'ΟΧΙ'"
+                             [switch-disabled]="'disabled'"
+                             [ngModel]="user.printerActive"
+                             class="form-check-input"
+                             id="printerActive"></bSwitch>
+                </div>
+                <div class="form-check col-md-6 mt-sm-3 mt-md-0">
+                    <label for="needsFilament"
+                           class="form-check-label pr-5">Χρειάζεται Filament*</label>
+                    <bSwitch name="needsFilament"
+                             [switch-animate]="'animate'"
+                             [switch-size]="'small'"
+                             [switch-on-text]="'ΝΑΙ'"
+                             [switch-off-text]="'ΟΧΙ'"
+                             [switch-disabled]="'disabled'"
+                             [ngModel]="user.needsFilament"
+                             class="form-check-input"
+                             id="needsFilament"></bSwitch>
+                </div>
+            </div>
+            <div class="form-row col-12 align-items-center pt-4">
+                <div class="col"></div>
+                <div class="form-group col-md-6">
+                    <label for="printerModel">Μάρκα 3D Printer*</label>
+                    <input type="text"
+                           disabled
+                           value='{{user.printerModel}}'
+                           class="form-control" />
+                </div>
+            </div>
+            <hr />
+            <div class="form-row col-12 align-items-center pt-4">
+                <div class="form-group col-md-4">
+                    <label for="batchRequiredTime">Εκτεινόμενος Χρόνος Εκτύπωσης*</label>
+                    <input type="text"
+                           disabled
+                           value='{{user.batchRequiredTime}}'
+                           class="form-control" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="printerModel">Συνολικά Απεσταλμένα*</label>
+                    <input type="text"
+                           disabled
+                           value='{{user.shippedQuantity}}'
+                           class="form-control" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="printerModel">Τελευταία Αποστολή*</label>
+                    <input type="text"
+                           disabled
+                           value='{{user.latestShippedDate.toDateString()}}'
+                           class="form-control" />
+                </div>
+            </div>
+            <hr />
+            <div class="form-row col-12">
+                <div class="form-group col-md-6">
+                    <label for="username">Username*</label>
+                    <input type="text"
+                           disabled
+                           value='{{user.username}}'
+                           class="form-control" />
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    <label for="password">Password*</label>
+                    <input type="password"
+                           disabled
+                           value='{{user.firstName}}'
+                           class="form-control"
+                           aria-describedby="passwordHelpBlock" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

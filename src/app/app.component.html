@@ -1,0 +1,37 @@
+﻿<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-between"
+     *ngIf="currentUser">
+   <div class="navbar-nav">
+      <a class="nav-item nav-link"
+         routerLink="/"
+         *ngIf="!isAdmin">Home</a>
+      <a class="nav-item nav-link"
+         routerLink="/admin"
+         *ngIf="isAdmin">Home</a>
+      <a class="nav-item nav-link"
+         (click)="logout()">Logout</a>
+   </div>
+   <a class="mr-3"
+      href="https://www.3dhub.gr/shop/consumables/covid19-1kg-pla/"
+      target="_blank">
+      <button type="button"
+              class="btn btn-warning px-4">
+         Δώρησε
+      </button>
+   </a>
+</nav>
+
+<!-- main app container -->
+<div class="container">
+   <router-outlet></router-outlet>
+</div>
+
+<!-- credits -->
+<footer class="footer mt-5">
+   <div class="container d-flex justify-content-between">
+      <a href="#"
+         target="_top">Hellas COVID19 3D Printing Inventory</a>
+      <a href="https://visitagiasos.gr"
+         target="_blank">A donation by VisitAgiasos.gr</a>
+   </div>
+</footer>

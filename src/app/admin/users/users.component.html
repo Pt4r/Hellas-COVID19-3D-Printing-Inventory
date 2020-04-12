@@ -1,0 +1,44 @@
+<div class="card mt-4">
+    <h4 class="card-header">Χρήστες</h4>
+    <div class="card-body">
+        <div *ngIf="loading"
+             class="spinner-border spinner-border-sm"></div>
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-primary"
+                        [routerLink]="['/admin']">
+                    Αρχική
+                </button>
+                <button class="btn btn-success ml-3"
+                        [routerLink]="['/admin/shipments']">
+                    Όλες οι Αποστολές
+                </button>
+            </div>
+        </div>
+        <hr />
+        <div class="col-12 mt-3">
+            <app-list-view [clientSide]="true"
+                           [columns]="columns"
+                           [rows]="users"
+                           [rowsPerPage]="2147483647"
+                           [defaultSortField]="'lastName'"
+                           [defaultSortDirection]="'Desc'"
+                           [showFooter]="'false'"
+                           (search)="getUsers($event)"
+                           [canFilter]="true"
+                           #usersList>
+            </app-list-view>
+            <ng-template let-row="row"
+                         let-value="value"
+                         #actionsTemplate>
+                <button class="btn btn-primary px-4 py-0 my-0"
+                        *ngIf="value"
+                        [routerLink]="value + '/view'">
+                    <i class="material-icons material-action align-text-top text-light">
+                        search
+                    </i>
+                </button>
+            </ng-template>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+﻿<div class="card mt-4">
+    <div class="card-header d-flex flex-row justify-content-between align-items-center">
+        <div>
+            <h4>Το προφίλ μου</h4>
+        </div>
+        <div>
+            <a class="btn btn-secondary btn-sm text-light"
+               role="button"
+               [routerLink]="['/profile']">
+                <span class="material-icons">
+                    edit
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div *ngIf="loading"
+             class="spinner-border spinner-border-sm"></div>
+        <p *ngIf="currentUser">
+            Γεία σου {{currentUser.firstName}}!
+        </p>
+        <p *ngIf="currentUser.needsFilament"
+           class="text-success">
+            Έχουμε ενημερωθεί για την έλλειψη σου σε filament και θα σου στείλουμε σύντομα!
+        </p>
+        <div class="col-12 mt-3">
+            <hr />
+            <div>
+                <form>
+                    <div class="form-row col-6">
+                        <div class="form-group col-md-6">
+                            <label for="activePrinter">Σε λειτουργία: </label>
+                            <bSwitch name="activePrinter"
+                                     class="pl-3"
+                                     [switch-size]="'small'"
+                                     [switch-readonly]="'readonly'"
+                                     [(ngModel)]="currentUser.printerActive"></bSwitch>
+                        </div>
+                    </div>
+                    <div class="form-row col-12 text-center">
+                        <div class="form-group col-md-3">
+                            <label for="lastName">Μοντέλο:</label>
+                            <div class="form-group col-md-12">
+                                {{currentUser.printerModel}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="address">Εκτεινόμενος χρόνος:</label>
+                            <div class="form-group col-md-12">
+                                {{currentUser.batchRequiredTime}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="address">Συνολική προσφορά:</label>
+                            <div class="form-group col-md-12">
+                                {{currentUser.shippedQuantity}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="address">Τελευταία αποστολή:</label>
+                            <div class="form-group col-md-12">
+                                {{currentUser.latestShippedDate.toDateString()}}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr />
+            <button class="btn btn-primary mb-3"
+                    routerLink="/shipments">
+                Καταγραφή Μετακίνησης Υλικών
+            </button>
+            <div class="col-md-12">
+                <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Πρόσφατη Δραστηριότητα</h5>
+                <app-list-view [clientSide]="true"
+                               [columns]="columns"
+                               [rows]="shipments"
+                               [rowsPerPage]="2147483647"
+                               [defaultSortField]="'dateShipped'"
+                               [defaultSortDirection]="'Desc'"
+                               [showFooter]="'false'"
+                               [emptyMessage]="'Στείλε μας την κούτα σου με (30) μάσκες για 2kg PLA filament!'"
+                               (search)="getShipments()"
+                               #shipmentsList>
+                </app-list-view>
+                <ng-template let-row="row"
+                             let-value="value"
+                             #dateTemplate>
+                    {{ value | date }}
+                </ng-template>
+                <ng-template let-row="row"
+                             let-value="value"
+                             #deliveryTemplate>
+                    <span class="material-icons text-success"
+                          *ngIf="row.recieved else notRecieved">
+                        done
+                    </span>
+                    <ng-template #notRecieved>
+                        <span class="material-icons text-muted">
+                            local_shipping
+                        </span>
+                    </ng-template>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

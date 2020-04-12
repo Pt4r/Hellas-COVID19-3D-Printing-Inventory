@@ -1,0 +1,122 @@
+<div class="container">
+    <div class="col-md-7 offset-md-2 py-5">
+        <div class="card">
+            <h4 class="card-header text-center"> Καταγραφή Μετακίνησης Υλικών </h4>
+            <div class="card-body">
+                <div class="alert alert-primary"
+                     role="alert">
+                    <div>
+                        <small>
+                            Μετά την ολοκλήρωση της εκτύπωσης των συνολικών τεμαχίων, η αποστολή γίνεται με <strong>Γενική Ταχυδρομική και με χρέωση παραλήπτη</strong> στην διεύθυνση:
+                        </small>
+                    </div>
+                    <div class="col text-center py-3">
+                        <h6>3D HUB</h6>
+                        <h6>Ψαρών 20, Πειραιάς, Αθήνα, 18546</h6>
+                    </div>
+                </div>
+                <form [formGroup]="shipmentForm"
+                      (ngSubmit)="onSubmit()">
+                    <div class="form-row col-12 align-items-baseline my-4">
+                        <div class="form-group col-md-6">
+                            <label for="quantity">Ποσότητα (ελάχιστο 30)*</label>
+                            <input type="number"
+                                   value="30"
+                                   min="30"
+                                   formControlName="quantity"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" />
+                            <div *ngIf="submitted && f.quantity.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.quantity.errors.required">Η ποσότητα είναι απαραίτητη</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="fileName">Όνομα αρχείου*</label>
+                            <input type="text"
+                                   formControlName="fileName"
+                                   class="form-control"
+                                   required
+                                   [ngClass]="{ 'is-invalid': submitted && f.fileName.errors }" />
+                            <div *ngIf="submitted && f.fileName.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.fileName.errors.required">Το όνομα αρχείου εκτύπωσης είναι απαραίτητο</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12">
+                        <div class="form-group col-md-6">
+                            <label for="shippingCompany">Εταιρία Αποστολής*</label>
+                            <input type="text"
+                                   formControlName="shippingCompany"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.shippingCompany.errors }" />
+                            <div *ngIf="submitted && f.shippingCompany.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.shippingCompany.errors.required">Η Εταιρία Αποστολής είναι απαραίτητη</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="dateShipped">Ημερομηνία Αποστολής*</label>
+                            <input type="date"
+                                   formControlName="dateShipped"
+                                   class="form-control"
+                                   required
+                                   [ngClass]="{ 'is-invalid': submitted && f.dateShipped.errors }" />
+                            <div *ngIf="submitted && f.dateShipped.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.dateShipped.errors.required">Η Ημερομηνία Αποστολής είναι απαραίτητη</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12 my-4">
+                        <div class="form-group col-md-12">
+                            <label for="trackingNumber">
+                                Αριθμός φορτωτικής αποστολής εκτυπώσεων. Σε περίπτωση παράδοσης με άλλο τρόπο παρακαλώ κάντε περιγραφή*
+                            </label>
+                            <textarea formControlName="trackingNumber"
+                                      rows="1"
+                                      class="form-control"
+                                      [ngClass]="{ 'is-invalid': submitted && f.trackingNumber.errors }">
+                        </textarea>
+                            <div *ngIf="submitted && f.trackingNumber.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.trackingNumber.errors.required">Το Tracking Number είναι απαραίτητο</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12 mb-5">
+                        <div class="form-check-inline col-md-12">
+                            <label for="needsFilament"
+                                   class="form-check-label pr-5">Θέλεις να σου στείλουμε filament?</label>
+                            <bSwitch name="needsFilament"
+                                     [switch-animate]="'animate'"
+                                     [switch-size]="'small'"
+                                     [switch-on-text]="'ΝΑΙ'"
+                                     [switch-off-text]="'ΟΧΙ'"
+                                     class="form-check-input"
+                                     id="needsFilament"
+                                     formControlName="needsFilament"></bSwitch>
+                        </div>
+                    </div>
+                    <button [disabled]="loading"
+                            class="btn btn-info ml-3"
+                            type="submit">
+                        <span *ngIf="loading"
+                              class="spinner-border spinner-border-sm mr-1"></span>
+                        Επιβεβαίωση
+                    </button>
+                    <button type="button"
+                            (click)="goBack()"
+                            class="btn btn-danger ml-3">Πίσω
+                    </button>
+                    <div *ngIf="error || formError"
+                         class="alert alert-danger mt-3 mb-0">
+                        <p>{{error}}</p>
+                        <p>{{formError}}</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

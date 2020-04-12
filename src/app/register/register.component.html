@@ -1,0 +1,174 @@
+<div class="container">
+    <div class="col-md-6 offset-md-3 py-5">
+        <div class="card">
+            <h4 class="card-header text-center">Εγγραφή</h4>
+            <div class="card-body">
+                <form [formGroup]="registerForm"
+                      (ngSubmit)="onSubmit()">
+                    <div class="form-row col-12">
+                        <div class="form-group col-md-6">
+                            <label for="firstName">Όνομα*</label>
+                            <input type="text"
+                                   formControlName="firstName"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                            <div *ngIf="submitted && f.firstName.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.firstName.errors.required">Το Όνομα είναι απαραίτητο</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastName">Επίθετο*</label>
+                            <input type="text"
+                                   formControlName="lastName"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                            <div *ngIf="submitted && f.lastName.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.lastName.errors.required">Το Επίθετο είναι απαραίτητο</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12">
+                        <div class="form-group col-md-6">
+                            <label for="email">Email*</label>
+                            <input type="email"
+                                   formControlName="email"
+                                   class="form-control"
+                                   required
+                                   [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                            <div *ngIf="submitted && f.email.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.email.errors.required">Το Email είναι απαραίτητο</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phoneNumber">Τηλέφωνο*</label>
+                            <input type="tel"
+                                   placeholder="6934567891"
+                                   formControlName="phoneNumber"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
+                            <div *ngIf="submitted && f.phoneNumber.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.phoneNumber.errors.required">Το τηλέφωνο είναι απαραίτητο</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12">
+                        <div class="form-group col-md-12">
+                            <label for="address">Διεύθυνση αποστολής νέου χορηγούμενου υλικού*</label>
+                            <textarea formControlName="address"
+                                      class="form-control"
+                                      [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+                        </textarea>
+                            <div *ngIf="submitted && f.address.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.address.errors.required">Η Περιοχή είναι απαραίτητη</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-row col-12 align-items-baseline">
+                        <div class="form-group col-md-6">
+                            <label for="printerModel">Μάρκα 3D Printer*</label>
+                            <input type="text"
+                                   formControlName="printerModel"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.printerModel.errors }" />
+                            <div *ngIf="submitted && f.printerModel.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.printerModel.errors.required">Η Μάρκα 3D Printer είναι απαραίτητη</div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group col-md-6">
+                            <label for="batchRequiredTime">Εκτεινόμενος χρόνος εκτύπωσης 1 μάσκας</label>
+                            <input type="time"
+                                   step="1"
+                                   type="time"
+                                   name="batchRequiredTime"
+                                   id="batchRequiredTime"
+                                   formControlName="batchRequiredTime"
+                                   class="form-control without" />
+                        </div> -->
+                    </div>
+                    <div class="form-row col-12">
+                        <div class="form-check-inline col-md-12">
+
+                            <label for="printerActive"
+                                   class="form-check-label pr-5">Είναι ο εκτυπωτής λειτουργικός?*</label>
+                            <bSwitch name="printerActive"
+                                     [switch-animate]="'animate'"
+                                     [switch-size]="'small'"
+                                     [switch-on-text]="'ΝΑΙ'"
+                                     [switch-off-text]="'ΟΧΙ'"
+                                     class="form-check-input"
+                                     id="printerActive"
+                                     formControlName="printerActive"></bSwitch>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-row col-12">
+                        <div class="form-group col-md-6">
+                            <label for="username">Username*</label>
+                            <input type="text"
+                                   formControlName="username"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                            <div *ngIf="submitted && f.username.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">To Username είναι απαραίτητο</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 mb-0">
+                            <label for="password">Password*</label>
+                            <input type="password"
+                                   formControlName="password"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                                   aria-describedby="passwordHelpBlock" />
+
+                            <div *ngIf="submitted && f.password.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">To Password είναι απαραίτητο</div>
+                            </div>
+                        </div>
+                        <small id="passwordHelpBlock"
+                               class="form-text text-muted pb-4 mt-0">
+                            Ο κωδικός σας πρέπει να έχει τουλάχιστον 4 χαρακτήρες, ένα κεφαλαίο, ένα μικρό γράμμα και έναν αριθμό.
+                        </small>
+                    </div>
+                    <button [disabled]="loading"
+                            class="btn btn-info ml-3"
+                            type="submit">
+                        <span *ngIf="loading"
+                              class="spinner-border spinner-border-sm mr-1"></span>
+                        Register
+                    </button>
+                    <button type="button"
+                            (click)="goBack()"
+                            class="btn btn-danger ml-3">Πίσω
+                    </button>
+                    <div *ngIf="error || formError"
+                         class="alert alert-danger mt-3 mb-0">
+                        <p>{{error}}</p>
+                        <p>{{formError}}</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 offset-md-1 text-center pt-4">
+        <div>
+            <p>
+                Στήριξε και εσύ την προσπάθεια του 3DHUB και της ομάδας εθελοντών που σε συνεργασία με το υπουργείου Υγείας ανέλαβαν παραγωγή χιλιάδων ασπίδων προστασίας για το νοσηλευτικό προσωπικό όλης της χώρας!
+            </p>
+        </div>
+        <a href="https://www.3dhub.gr/shop/consumables/covid19-1kg-pla/"
+           target="_blank">
+            <button type="button"
+                    class="btn btn-warning">Δώρησε
+            </button>
+        </a>
+    </div>
+</div>

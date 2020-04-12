@@ -1,0 +1,61 @@
+﻿<div class="container">
+    <div class="col-md-6 offset-md-3 py-5">
+        <div class="card">
+            <h4 class="card-header text-center">Hellas COVID19 3D Printing Inventory</h4>
+            <div class="card-body">
+                <form [formGroup]="loginForm"
+                      (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text"
+                               formControlName="username"
+                               class="form-control"
+                               [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                        <div *ngIf="submitted && f.username.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="f.username.errors.required">Username is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password"
+                               formControlName="password"
+                               class="form-control"
+                               [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors"
+                             class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                        </div>
+                    </div>
+                    <button [disabled]="loading"
+                            class="btn btn-primary"
+                            type="submit">
+                        <span *ngIf="loading"
+                              class="spinner-border spinner-border-sm mr-1"></span>
+                        Login
+                    </button>
+                    <button class="btn btn-info ml-3"
+                            (click)="onRegister()"
+                            type="button">
+                        Register
+                    </button>
+                    <div *ngIf="error"
+                         class="alert alert-danger mt-3 mb-0">{{error}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 offset-md-1 text-center pt-4">
+        <div>
+            <p>
+                Στήριξε και εσύ την προσπάθεια του 3DHUB και της ομάδας εθελοντών που σε συνεργασία με το υπουργείου Υγείας ανέλαβαν την παραγωγή χιλιάδων ασπίδων προστασίας για το νοσηλευτικό προσωπικό όλης της χώρας!
+            </p>
+        </div>
+        <a href="https://www.3dhub.gr/shop/consumables/covid19-1kg-pla/"
+           target="_blank">
+            <button type="button"
+                    class="btn btn-warning">Δώρησε
+            </button>
+        </a>
+    </div>
+</div>
