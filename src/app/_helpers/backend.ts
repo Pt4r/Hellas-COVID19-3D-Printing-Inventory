@@ -43,7 +43,7 @@ export class BackofficeApiService implements IBackofficeApiService {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(BACKOFFICE_API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://hellas3dprintinginventory.azurewebsites.net";
+        this.baseUrl = baseUrl ? baseUrl : "http://localhost:4000";
     }
 
     shipments_GetAll(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<ShipmentModel[]> {
@@ -1500,6 +1500,8 @@ export class User implements IUser {
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
     needsFilament!: boolean;
+    sentFilamentDate?: Date | undefined;
+    filamentTrackingNumber?: string | undefined;
     shipments?: Shipment[] | undefined;
 
     constructor(data?: IUser) {
@@ -1531,6 +1533,8 @@ export class User implements IUser {
             this.shippedQuantity = _data["shippedQuantity"];
             this.latestShippedDate = _data["latestShippedDate"] ? new Date(_data["latestShippedDate"].toString()) : <any>undefined;
             this.needsFilament = _data["needsFilament"];
+            this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
+            this.filamentTrackingNumber = _data["filamentTrackingNumber"];
             if (Array.isArray(_data["shipments"])) {
                 this.shipments = [] as any;
                 for (let item of _data["shipments"])
@@ -1566,6 +1570,8 @@ export class User implements IUser {
         data["shippedQuantity"] = this.shippedQuantity;
         data["latestShippedDate"] = this.latestShippedDate ? this.latestShippedDate.toISOString() : <any>undefined;
         data["needsFilament"] = this.needsFilament;
+        data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
+        data["filamentTrackingNumber"] = this.filamentTrackingNumber;
         if (Array.isArray(this.shipments)) {
             data["shipments"] = [];
             for (let item of this.shipments)
@@ -1594,6 +1600,8 @@ export interface IUser {
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
     needsFilament: boolean;
+    sentFilamentDate?: Date | undefined;
+    filamentTrackingNumber?: string | undefined;
     shipments?: Shipment[] | undefined;
 }
 
@@ -1757,6 +1765,8 @@ export class UserModel implements IUserModel {
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
     needsFilament!: boolean;
+    sentFilamentDate?: Date | undefined;
+    filamentTrackingNumber?: string | undefined;
     batchRequiredTime!: number;
     shipments?: Shipment[] | undefined;
 
@@ -1786,6 +1796,8 @@ export class UserModel implements IUserModel {
             this.shippedQuantity = _data["shippedQuantity"];
             this.latestShippedDate = _data["latestShippedDate"] ? new Date(_data["latestShippedDate"].toString()) : <any>undefined;
             this.needsFilament = _data["needsFilament"];
+            this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
+            this.filamentTrackingNumber = _data["filamentTrackingNumber"];
             this.batchRequiredTime = _data["batchRequiredTime"];
             if (Array.isArray(_data["shipments"])) {
                 this.shipments = [] as any;
@@ -1819,6 +1831,8 @@ export class UserModel implements IUserModel {
         data["shippedQuantity"] = this.shippedQuantity;
         data["latestShippedDate"] = this.latestShippedDate ? this.latestShippedDate.toISOString() : <any>undefined;
         data["needsFilament"] = this.needsFilament;
+        data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
+        data["filamentTrackingNumber"] = this.filamentTrackingNumber;
         data["batchRequiredTime"] = this.batchRequiredTime;
         if (Array.isArray(this.shipments)) {
             data["shipments"] = [];
@@ -1845,6 +1859,8 @@ export interface IUserModel {
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
     needsFilament: boolean;
+    sentFilamentDate?: Date | undefined;
+    filamentTrackingNumber?: string | undefined;
     batchRequiredTime: number;
     shipments?: Shipment[] | undefined;
 }
@@ -2046,6 +2062,8 @@ export class UserFilamentModel implements IUserFilamentModel {
     firstName?: string | undefined;
     lastName?: string | undefined;
     needsFilament!: boolean;
+    sentFilamentDate?: Date | undefined;
+    filamentTrackingNumber?: string | undefined;
 
     constructor(data?: IUserFilamentModel) {
         if (data) {
@@ -2062,6 +2080,8 @@ export class UserFilamentModel implements IUserFilamentModel {
             this.firstName = _data["firstName"];
             this.lastName = _data["lastName"];
             this.needsFilament = _data["needsFilament"];
+            this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
+            this.filamentTrackingNumber = _data["filamentTrackingNumber"];
         }
     }
 
@@ -2078,6 +2098,8 @@ export class UserFilamentModel implements IUserFilamentModel {
         data["firstName"] = this.firstName;
         data["lastName"] = this.lastName;
         data["needsFilament"] = this.needsFilament;
+        data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
+        data["filamentTrackingNumber"] = this.filamentTrackingNumber;
         return data; 
     }
 }
@@ -2087,6 +2109,8 @@ export interface IUserFilamentModel {
     firstName?: string | undefined;
     lastName?: string | undefined;
     needsFilament: boolean;
+    sentFilamentDate?: Date | undefined;
+    filamentTrackingNumber?: string | undefined;
 }
 
 export class SwaggerException extends Error {

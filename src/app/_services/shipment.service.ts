@@ -10,12 +10,10 @@ import { SearchEvent } from '@app/_helpers/list-view/models/search-event';
 @Injectable({ providedIn: 'root' })
 export class ShipmentService {
     private _shipment: AsyncSubject<Shipment>;
-    private _shipments: AsyncSubject<Shipment[]>;
+    private _shipmentsByUser: AsyncSubject<Shipment[]>;
 
     constructor(
-        private backoffice: BackofficeApiService,
-        private _authenticationService: AuthenticationService,
-        private _shipmentervice: UserService
+        private backoffice: BackofficeApiService
     ) { }
 
     getAll(event: SearchEvent): Observable<ShipmentModel[]> {
@@ -23,7 +21,7 @@ export class ShipmentService {
     }
 
     getById(id: string): Observable<Shipment> {
-        if (!this._shipment || id !== null) {
+        if (!this._shipment) {
             this._shipment = new AsyncSubject<Shipment>();
             this.backoffice.shipments_GetById(id).subscribe((shipment: Shipment) => {
                 this._shipment.next(shipment);
@@ -34,14 +32,14 @@ export class ShipmentService {
     }
 
     getShipmentsByUser(id: string): Observable<Shipment[]> {
-        if (!this._shipments || id !== null) {
-            this._shipments = new AsyncSubject<Shipment[]>();
+        if (!this._shipmentsByUser) {
+            this._shipmentsByUser = new AsyncSubject<Shipment[]>();
             this.backoffice.shipments_GetShipmentsByUser(id).subscribe((shipment: Shipment[]) => {
-                this._shipments.next(shipment);
-                this._shipments.complete();
+                this._shipmentsByUser.next(shipment);
+                this._shipmentsByUser.complete();
             });
         }
-        return this._shipments;
+        return this._shipmentsByUser;
     }
 
     createShipment(shipment: CreateShipmentModel) {

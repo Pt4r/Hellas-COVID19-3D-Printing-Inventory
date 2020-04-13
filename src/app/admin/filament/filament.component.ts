@@ -17,6 +17,7 @@ export class FilamentComponent implements OnInit {
   deliveryLoading = false;
   users: User[] = new Array<User>();
   columns: TableColumn[] = [];
+  modalResult = '';
   private event: SearchEvent;
   private _newUser: UserFilamentModel = new UserFilamentModel();
 
@@ -56,10 +57,14 @@ export class FilamentComponent implements OnInit {
     this._newUser.firstName = row.firstName;
     this._newUser.lastName = row.lastName;
     this._newUser.needsFilament = row.needsFilament;
+    this._newUser.sentFilamentDate = new Date();
+    this._newUser.filamentTrackingNumber = 'test';
+
     this.userService.deliverFilament(this._newUser).subscribe(() => {
       this.deliveryLoading = false;
       this.getUsers(this.event);
     });
   }
+
 
 }

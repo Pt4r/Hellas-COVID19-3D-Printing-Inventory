@@ -50,6 +50,15 @@ export class HomeComponent implements OnInit {
             if (user.shippedQuantity === null) {
                 this.currentUser.shippedQuantity = 0;
             }
+
+            if (user.sentFilamentDate) {
+                var nextweek = new Date(user.sentFilamentDate.getFullYear(), user.sentFilamentDate.getMonth(), user.sentFilamentDate.getDate() + 7);
+                if (user.sentFilamentDate > nextweek) {
+                    this.currentUser.sentFilamentDate = null;
+                } else {
+                    this.currentUser.sentFilamentDate = user.sentFilamentDate;
+                }
+            }
         });
         this.shipmentService.getShipmentsByUser(this.currentUser.id).subscribe((shipments: Shipment[]) => {
             this.shipments = shipments;

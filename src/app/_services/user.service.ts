@@ -19,7 +19,7 @@ export class UserService {
     }
 
     getById(id: string): Observable<UserModel> {
-        if (!this._users || id !== null) {
+        if (!this._users) {
             this._users = new AsyncSubject<User>();
             this.backoffice.users_GetById(id).subscribe((user: User) => {
                 this._users.next(user);
