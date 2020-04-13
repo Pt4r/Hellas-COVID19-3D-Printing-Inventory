@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Hellas-COVID19-3D-printing-inventory": {
+    "hellas-covid19-printing-inventory": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Hellas-COVID19-3D-printing-inventory:build"
+            "browserTarget": "hellas-covid19-printing-inventory:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Hellas-COVID19-3D-printing-inventory:build:production"
+              "browserTarget": "hellas-covid19-printing-inventory:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Hellas-COVID19-3D-printing-inventory:build"
+            "browserTarget": "hellas-covid19-printing-inventory:build"
           }
         },
         "test": {
@@ -110,18 +110,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Hellas-COVID19-3D-printing-inventory:serve"
+            "devServerTarget": "hellas-covid19-printing-inventory:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Hellas-COVID19-3D-printing-inventory:serve:production"
+              "devServerTarget": "hellas-covid19-printing-inventory:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "Hellas-COVID19-3D-printing-inventory",
+  "defaultProject": "hellas-covid19-printing-inventory",
   "schematics": {
     "@schematics/angular:component": {
       "styleext": "scss"
