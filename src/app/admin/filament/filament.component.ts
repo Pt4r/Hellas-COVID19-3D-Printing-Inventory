@@ -70,8 +70,6 @@ export class FilamentComponent implements OnInit {
 
   sendFilament(row: User) {
     this._newUser = row;
-    // this._newUser.sentFilamentDate = new Date();
-    // this._newUser.filamentTrackingNumber = 'EL6854646545645';
 
     this.userService.deliverFilament(this._newUser).subscribe(() => {
       this.deliveryLoading = false;

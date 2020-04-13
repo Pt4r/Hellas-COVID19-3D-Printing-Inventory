@@ -1,3 +1,4 @@
+import { User } from './../../../_helpers/backend';
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FilamentComponent } from '../filament.component';
@@ -15,7 +16,7 @@ export class ConfirmDialogComponent implements OnInit{
 
   constructor(
     public dialogRef: MatDialogRef<FilamentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UserFilamentModel,
+    @Inject(MAT_DIALOG_DATA) public data: User,
     private _form: FormBuilder) { }
 
   ngOnInit(): void {
