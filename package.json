@@ -1,63 +1,63 @@
 {
-    "name": "hellas-covid19-printing-inventory",
-    "version": "1.0.0",
-    "repository": {
-        "type": "git",
-        "url": "https://http://hellas3dprintinginventory.azurewebsites.net/"
-    },
-    "scripts": {
-        "ng": "ng",
-        "build": "ng build --prod",
-        "test": "ng test",
-        "lint": "ng lint",
-        "e2e": "ng e2e"
-    },
-    "license": "MIT",
-    "private": true,
-    "dependencies": {
-        "@angular-devkit/build-angular": "0.803.24",
-        "@angular/animations": "~8.2.0",
-        "@angular/common": "~8.2.0",
-        "@angular/compiler": "~8.2.0",
-        "@angular/core": "~8.2.0",
-        "@angular/forms": "~8.2.0",
-        "@angular/localize": "^9.1.1",
-        "@angular/platform-browser": "~8.2.0",
-        "@angular/platform-browser-dynamic": "~8.2.0",
-        "@angular/router": "~8.2.0",
-        "@azure/ng-deploy": "^0.2.3",
-        "@babel/compat-data": "^7.8.0",
-        "@ng-bootstrap/ng-bootstrap": "^6.0.2",
-        "@swimlane/ngx-datatable": "^16.0.3",
-        "bootstrap": "^4.4.1",
-        "jw-bootstrap-switch-ng2": "^2.0.5",
-        "material-design-icons": "^3.0.1",
-        "rxjs": "~6.4.0",
-        "scss": "^0.2.4",
-        "tslib": "^1.10.0",
-        "zone.js": "~0.9.1"
-    },
-    "devDependencies": {
-        "@angular/cli": "~8.2.0",
-        "@angular/compiler-cli": "~8.2.0",
-        "@angular/language-service": "~8.2.0",
-        "@types/jasmine": "~3.3.8",
-        "@types/jasminewd2": "~2.0.3",
-        "@types/node": "~8.9.4",
-        "codelyzer": "^5.0.0",
-        "jasmine-core": "~3.4.0",
-        "jasmine-spec-reporter": "~4.2.1",
-        "karma": "^4.4.1",
-        "karma-chrome-launcher": "~2.2.0",
-        "karma-coverage-istanbul-reporter": "~2.0.1",
-        "karma-jasmine": "~2.0.1",
-        "karma-jasmine-html-reporter": "^1.4.0",
-        "protractor": "~5.4.0",
-        "ts-node": "~7.0.0",
-        "tslint": "~5.15.0",
-        "typescript": "3.8.3"
-    },
-    "resolutions": {
-        "@babel/preset-env": "7.5.5"
-    }
+  "name": "hellas-covid19-printing-inventory",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://http://hellas3dprintinginventory.azurewebsites.net/"
+  },
+  "scripts": {
+    "ng": "ng",
+    "build": "ng build --prod",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@angular-devkit/build-angular": "0.803.26",
+    "@angular/animations": "~8.2.14",
+    "@angular/common": "~8.2.14",
+    "@angular/compiler": "~8.2.14",
+    "@angular/core": "~8.2.14",
+    "@angular/forms": "~8.2.14",
+    "@angular/localize": "^9.1.1",
+    "@angular/platform-browser": "~8.2.14",
+    "@angular/platform-browser-dynamic": "~8.2.14",
+    "@angular/router": "~8.2.14",
+    "@azure/ng-deploy": "^0.2.3",
+    "@babel/compat-data": "^7.8.0",
+    "@ng-bootstrap/ng-bootstrap": "^6.0.2",
+    "@swimlane/ngx-datatable": "^16.0.3",
+    "bootstrap": "^4.4.1",
+    "jw-bootstrap-switch-ng2": "^2.0.5",
+    "material-design-icons": "^3.0.1",
+    "rxjs": "~6.5.5",
+    "scss": "^0.2.4",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
+  },
+  "devDependencies": {
+    "@angular/cli": "~8.3.26",
+    "@angular/compiler-cli": "~8.2.14",
+    "@angular/language-service": "~8.2.14",
+    "@types/jasmine": "~3.3.8",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
+    "codelyzer": "^5.0.0",
+    "jasmine-core": "~3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "^4.4.1",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "protractor": "~5.4.0",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.15.0",
+    "typescript": "3.8.3"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.5.5"
+  }
 }
