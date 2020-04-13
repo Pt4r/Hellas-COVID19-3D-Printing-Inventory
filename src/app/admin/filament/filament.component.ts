@@ -5,6 +5,8 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 import { UserService } from '@app/_services';
 import { SearchEvent } from '@app/_helpers/list-view/models/search-event';
 import { first } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-filament',
@@ -22,7 +24,8 @@ export class FilamentComponent implements OnInit {
   private _newUser: UserFilamentModel = new UserFilamentModel();
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -52,19 +55,27 @@ export class FilamentComponent implements OnInit {
     });
   }
 
+  openDialog(row: User) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        row.sentFilamentDate =  result.sentFilamentDate;
+        row.filamentTrackingNumber = result.filamentTrackingNumber;
+        this.sendFilament(row);
+      }
+    });
+  }
+
   sendFilament(row: User) {
-    this._newUser.id = row.id;
-    this._newUser.firstName = row.firstName;
-    this._newUser.lastName = row.lastName;
-    this._newUser.needsFilament = row.needsFilament;
-    this._newUser.sentFilamentDate = new Date();
-    this._newUser.filamentTrackingNumber = 'test';
+    this._newUser = row;
+    // this._newUser.sentFilamentDate = new Date();
+    // this._newUser.filamentTrackingNumber = 'EL6854646545645';
 
     this.userService.deliverFilament(this._newUser).subscribe(() => {
       this.deliveryLoading = false;
       this.getUsers(this.event);
     });
   }
-
-
 }

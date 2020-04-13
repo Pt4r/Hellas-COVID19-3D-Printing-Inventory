@@ -2,7 +2,7 @@
 import { BackofficeApiService, User, UserModel, AdminShipmentsModel, UpdateModel, UserFilamentModel } from './../_helpers/backend';
 import { Injectable } from '@angular/core';
 import { Observable, AsyncSubject } from 'rxjs';
-import { publishReplay, refCount } from 'rxjs/operators';
+import { publishReplay, refCount, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -30,10 +30,14 @@ export class UserService {
     }
 
     update(userId: string, model: UpdateModel) {
-        return this.backoffice.users_Update(userId, model).pipe((error) => error);
+        return this.backoffice.users_Update(userId, model).pipe(map(_ => {
+            this._users = null;
+        }));
     }
 
     deliverFilament(user: UserFilamentModel) {
-        return this.backoffice.users_deliverFilament(user);
+        return this.backoffice.users_deliverFilament(user).pipe(map(_ => {
+            this._users = null;
+        }));
     }
 }

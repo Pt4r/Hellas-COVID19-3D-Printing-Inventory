@@ -10,6 +10,7 @@ import { TableColumn } from '@swimlane/ngx-datatable';
 export class HomeComponent implements OnInit {
     @ViewChild('deliveryTemplate', { static: true }) private _deliveryTemplate: TemplateRef<HTMLElement>;
     @ViewChild('dateTemplate', { static: true }) private _dateTemplate: TemplateRef<HTMLElement>;
+    @ViewChild('trackingNumberTemplate', { static: true }) private _trackingNumberTemplate: TemplateRef<HTMLElement>;
     loading = false;
     currentUser: UserModel = new UserModel();
     shipments: Shipment[] = new Array<Shipment>();
@@ -27,8 +28,11 @@ export class HomeComponent implements OnInit {
         this.loading = true;
         this.columns = [
             { prop: 'quantity', name: '#', draggable: false, canAutoResize: false, sortable: true, resizeable: false },
-            { prop: 'trackingNumber', name: 'Trancking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
             { prop: 'shippingCompany', name: 'Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+            {
+                prop: 'trackingNumber', name: 'Trancking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+                cellTemplate: this._trackingNumberTemplate
+            },
             {
                 prop: 'dateShipped', name: 'Date shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
                 cellTemplate: this._dateTemplate
@@ -58,6 +62,8 @@ export class HomeComponent implements OnInit {
                 } else {
                     this.currentUser.sentFilamentDate = user.sentFilamentDate;
                 }
+            } else {
+                user.sentFilamentDate = null;
             }
         });
         this.shipmentService.getShipmentsByUser(this.currentUser.id).subscribe((shipments: Shipment[]) => {

@@ -10,6 +10,11 @@ import { appRoutingModule } from './app.routing';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { JwtInterceptor, ErrorInterceptor, BACKOFFICE_API_BASE_URL } from './_helpers';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { HomeComponent } from './home';
 import { AdminComponent } from './admin';
@@ -22,6 +27,8 @@ import { ShipmentsComponent } from './admin/shipments/shipments.component';
 import { FilamentComponent } from './admin/filament/filament.component';
 import { ProfileComponent } from './home/profile/profile.component';
 import { environment } from 'src/environments/environment';
+import { ConfirmDialogComponent } from './admin/filament/confirm-dialog/confirm-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -34,7 +41,13 @@ import { environment } from 'src/environments/environment';
         appRoutingModule,
         FormsModule,
         JwBootstrapSwitchNg2Module,
-        NgxDatatableModule
+        NgxDatatableModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule 
     ],
     declarations: [
         AppComponent,
@@ -48,9 +61,14 @@ import { environment } from 'src/environments/environment';
         ViewComponent,
         ShipmentsComponent,
         FilamentComponent,
-        ProfileComponent
+        ProfileComponent,
+        ConfirmDialogComponent
+    ],
+    entryComponents: [
+        ConfirmDialogComponent
     ],
     providers: [
+        MatDatepickerModule,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: BACKOFFICE_API_BASE_URL, useFactory: () => environment.apiUrl },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

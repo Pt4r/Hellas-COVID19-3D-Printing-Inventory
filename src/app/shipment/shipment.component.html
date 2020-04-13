@@ -46,14 +46,17 @@
                     </div>
                     <div class="form-row col-12">
                         <div class="form-group col-md-6">
-                            <label for="shippingCompany">Εταιρία Αποστολής*</label>
-                            <input type="text"
-                                   formControlName="shippingCompany"
-                                   class="form-control"
-                                   [ngClass]="{ 'is-invalid': submitted && f.shippingCompany.errors }" />
+                            <label for="shippingCompany">Τρόπος Αποστολής*</label>
+                            <select class="custom-select"
+                                    id="shippingCompany"
+                                    formControlName="shippingCompany"
+                                    [ngClass]="{ 'is-invalid': submitted && f.shippingCompany.errors }">
+                                <option value="Γενική Ταχυδρομική" selected>Γενική Ταχυδρομική</option>
+                                <option value="Άλλο">'Αλλο</option>
+                            </select>
                             <div *ngIf="submitted && f.shippingCompany.errors"
                                  class="invalid-feedback">
-                                <div *ngIf="f.shippingCompany.errors.required">Η Εταιρία Αποστολής είναι απαραίτητη</div>
+                                <div *ngIf="f.shippingCompany.errors.required">Ο Τρόπος Αποστολής είναι απαραίτητη</div>
                             </div>
                         </div>
                         <div class="form-group col-md-6">

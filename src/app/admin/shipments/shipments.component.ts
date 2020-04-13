@@ -13,6 +13,7 @@ import { first } from 'rxjs/operators';
 export class ShipmentsComponent implements OnInit {
   @ViewChild('deliveryTemplate', { static: true }) private _deliveryTemplate: TemplateRef<HTMLElement>;
   @ViewChild('dateTemplate', { static: true }) private _dateTemplate: TemplateRef<HTMLElement>;
+  @ViewChild('trackingNumberTemplate', { static: true }) private _trackingNumberTemplate: TemplateRef<HTMLElement>;
   loading = false;
   deliveryLoading = false;
   pendingShipments: ShipmentModel[] = new Array<ShipmentModel>();
@@ -33,7 +34,10 @@ export class ShipmentsComponent implements OnInit {
       {
         prop: 'shippingCompany', name: 'Shipping Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
       },
-      { prop: 'trackingNumber', name: 'Tracking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      {
+        prop: 'trackingNumber', name: 'Trancking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+        cellTemplate: this._trackingNumberTemplate
+      },
       { prop: 'fileName', name: 'File', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       {
         prop: 'dateShipped', name: 'Date Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false,

@@ -26,8 +26,9 @@
         <ng-template #filament>
             <p *ngIf="currentUser.sentFilamentDate !== null"
                class="text-success">
-                Το filament σου έχει σταλεί στις {{ currentUser.sentFilamentDate | date }} με αριθμό αποστολής: {{currentUser.filamentTrackingNumber}}.
-        </p>
+                Το filament σου έχει σταλεί στις <strong>{{ currentUser.sentFilamentDate | date }}</strong> με αριθμό αποστολής: <strong><a target="_blank"
+                       href="https://www.taxydromiki.com/track/{{currentUser.filamentTrackingNumber}}">{{currentUser.filamentTrackingNumber}}</a></strong>.
+            </p>
         </ng-template>
         <div class="col-12 mt-3">
             <hr />
@@ -48,66 +49,73 @@
                             <label for="lastName">Μοντέλο:</label>
                             <div class="form-group col-md-12">
                                 {{currentUser.printerModel}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="address">Εκτεινόμενος χρόνος:</label>
+                            <div class="form-group col-md-12">
+                                {{currentUser.batchRequiredTime}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="address">Συνολική προσφορά:</label>
+                            <div class="form-group col-md-12">
+                                {{currentUser.shippedQuantity}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="address">Τελευταία αποστολή:</label>
+                            <div class="form-group col-md-12">
+                                {{ currentUser.latestShippedDate | date }}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr />
+            <button class="btn btn-primary mb-3"
+                    routerLink="/shipments">
+                Καταγραφή Μετακίνησης Υλικών
+            </button>
+            <div class="col-md-12">
+                <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Πρόσφατη Δραστηριότητα</h5>
+                <app-list-view [clientSide]="true"
+                               [columns]="columns"
+                               [rows]="shipments"
+                               [rowsPerPage]="2147483647"
+                               [defaultSortField]="'dateShipped'"
+                               [defaultSortDirection]="'Desc'"
+                               [showFooter]="'false'"
+                               [emptyMessage]="'Στείλε μας την κούτα σου με (30) μάσκες για 2kg PLA filament!'"
+                               (search)="getShipments()"
+                               #shipmentsList>
+                </app-list-view>
+                <ng-template let-row="row"
+                             let-value="value"
+                             #dateTemplate>
+                    {{ value | date }}
+                </ng-template>
+                <ng-template let-row="row"
+                             let-value="value"
+                             #trackingNumberTemplate>
+                    <a target="_blank"
+                       href="https://www.taxydromiki.com/track/{{value}}"
+                       class="text-dark">{{value}}</a>
+                </ng-template>
+                <ng-template let-row="row"
+                             let-value="value"
+                             #deliveryTemplate>
+                    <span class="material-icons text-success"
+                          *ngIf="row.recieved else notRecieved">
+                        done
+                    </span>
+                    <ng-template #notRecieved>
+                        <span class="material-icons text-muted">
+                            local_shipping
+                        </span>
+                    </ng-template>
+                </ng-template>
+            </div>
+        </div>
     </div>
-</div>
-<div class="form-group col-md-3">
-    <label for="address">Εκτεινόμενος χρόνος:</label>
-    <div class="form-group col-md-12">
-        {{currentUser.batchRequiredTime}}
-    </div>
-</div>
-<div class="form-group col-md-3">
-    <label for="address">Συνολική προσφορά:</label>
-    <div class="form-group col-md-12">
-        {{currentUser.shippedQuantity}}
-    </div>
-</div>
-<div class="form-group col-md-3">
-    <label for="address">Τελευταία αποστολή:</label>
-    <div class="form-group col-md-12">
-        {{ currentUser.latestShippedDate | date }}
-    </div>
-</div>
-</div>
-</form>
-</div>
-<hr />
-<button class="btn btn-primary mb-3"
-        routerLink="/shipments">
-    Καταγραφή Μετακίνησης Υλικών
-</button>
-<div class="col-md-12">
-    <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Πρόσφατη Δραστηριότητα</h5>
-    <app-list-view [clientSide]="true"
-                   [columns]="columns"
-                   [rows]="shipments"
-                   [rowsPerPage]="2147483647"
-                   [defaultSortField]="'dateShipped'"
-                   [defaultSortDirection]="'Desc'"
-                   [showFooter]="'false'"
-                   [emptyMessage]="'Στείλε μας την κούτα σου με (30) μάσκες για 2kg PLA filament!'"
-                   (search)="getShipments()"
-                   #shipmentsList>
-    </app-list-view>
-    <ng-template let-row="row"
-                 let-value="value"
-                 #dateTemplate>
-        {{ value | date }}
-    </ng-template>
-    <ng-template let-row="row"
-                 let-value="value"
-                 #deliveryTemplate>
-        <span class="material-icons text-success"
-              *ngIf="row.recieved else notRecieved">
-            done
-        </span>
-        <ng-template #notRecieved>
-            <span class="material-icons text-muted">
-                local_shipping
-            </span>
-        </ng-template>
-    </ng-template>
-</div>
-</div>
-</div>
 </div>

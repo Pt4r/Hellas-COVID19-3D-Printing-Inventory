@@ -11,6 +11,7 @@ import { SearchEvent } from '@app/_helpers/list-view/models/search-event';
 export class AdminComponent implements OnInit {
     @ViewChild('deliveryTemplate', { static: true }) private _deliveryTemplate: TemplateRef<HTMLElement>;
     @ViewChild('dateTemplate', { static: true }) private _dateTemplate: TemplateRef<HTMLElement>;
+    @ViewChild('trackingNumberTemplate', { static: true }) private _trackingNumberTemplate: TemplateRef<HTMLElement>;
     loading = false;
     deliveryLoading = false;
     pendingUsers: AdminShipmentsModel[] = new Array<AdminShipmentsModel>();
@@ -31,7 +32,10 @@ export class AdminComponent implements OnInit {
             { prop: 'lastName', name: 'Last Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
             { prop: 'shippedQuantity', name: 'Total Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
             { prop: 'shippingCompany', name: 'Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
-            { prop: 'trackingNumber', name: 'Tracking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+            {
+                prop: 'trackingNumber', name: 'Trancking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+                cellTemplate: this._trackingNumberTemplate
+            },
             {
                 prop: 'latestShippedDate', name: 'Last Date Shipped', draggable: false, canAutoResize: true, sortable: true,
                 resizeable: false, cellTemplate: this._dateTemplate

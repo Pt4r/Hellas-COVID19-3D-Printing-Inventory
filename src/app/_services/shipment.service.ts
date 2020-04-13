@@ -43,7 +43,9 @@ export class ShipmentService {
     }
 
     createShipment(shipment: CreateShipmentModel) {
-        return this.backoffice.shipments_Create(shipment);
+        return this.backoffice.shipments_Create(shipment).pipe(map(_ => {
+            this._shipment = null;
+        }));
     }
 
     getUsersWithShipments(event: SearchEvent): Observable<AdminShipmentsModel[]> {

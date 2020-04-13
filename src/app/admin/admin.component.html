@@ -39,7 +39,7 @@
                            [columns]="columns"
                            [rows]="pendingUsers"
                            [rowsPerPage]="2147483647"
-                           [defaultSortField]="'dateShipped'"
+                           [defaultSortField]="'latestShippedDate'"
                            [defaultSortDirection]="'Desc'"
                            [showFooter]="'false'"
                            (search)="getUsersWithShipments($event)"
@@ -50,6 +50,13 @@
                          let-value="value"
                          #dateTemplate>
                 {{ value | date }}
+            </ng-template>
+            <ng-template let-row="row"
+                         let-value="value"
+                         #trackingNumberTemplate>
+                <a target="_blank"
+                   href="https://www.taxydromiki.com/track/{{value}}"
+                   class="text-dark">{{value}}</a>
             </ng-template>
             <ng-template let-row="row"
                          let-value="value"

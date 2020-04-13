@@ -1,0 +1,48 @@
+<div class="modal-header p-0">
+    <h5 mat-dialog-title
+        class="modal-title">Αποστολή υλικού σε: <strong>{{data.firstName}} {{data.lastName}}</strong></h5>
+</div>
+<form [formGroup]="filamentForm">
+    <div mat-dialog-content
+         class="col-12 mt-2">
+        <mat-form-field>
+            <mat-label>Tracking Number</mat-label>
+            <input matInput
+                   [(ngModel)]="data.filamentTrackingNumber"
+                   formControlName="filamentTrackingNumber">
+            <mat-error *ngIf="f.filamentTrackingNumber.hasError('required')">
+                Tracking Number is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="py-2">
+            <mat-label>Ημερ/νια Αποστολής</mat-label>
+            <input matInput
+                   [matDatepicker]="picker"
+                   required
+                   [(ngModel)]="data.sentFilamentDate"
+                   formControlName="sentFilamentDate">
+            <mat-datepicker-toggle matSuffix
+                                   [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="f.sentFilamentDate.hasError('required')">
+                Date is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions
+         class="modal-footer">
+        <button mat-button
+                type="button"
+                class="btn btn-primary"
+                (click)="onNoClick()">Άκυρο</button>
+        <button mat-button
+                class="btn btn-danger ml-3"
+                type="submit"
+                [disabled]="!filamentForm.valid"
+                [mat-dialog-close]="data">
+            <i class="material-icons material-action align-text-top text-light">
+                send
+            </i>
+        </button>
+    </div>
+</form>

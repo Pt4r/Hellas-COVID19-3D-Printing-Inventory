@@ -1,3 +1,4 @@
+import { HomeComponent } from './../home/home.component';
 import { CreateShipmentModel } from './../_helpers/backend';
 import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { ShipmentService } from '@app/_services';
@@ -75,7 +76,7 @@ export class ShipmentComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._router.navigate([this.returnUrl]);
+          this._router.navigate([HomeComponent]);
         },
         error => {
           this.error = error;
