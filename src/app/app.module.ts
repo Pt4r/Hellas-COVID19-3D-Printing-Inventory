@@ -10,7 +10,6 @@ import { appRoutingModule } from './app.routing';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { JwtInterceptor, ErrorInterceptor, BACKOFFICE_API_BASE_URL } from './_helpers';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
-import {NgbToast, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import { HomeComponent } from './home';
 import { AdminComponent } from './admin';
@@ -35,9 +34,7 @@ import { environment } from 'src/environments/environment';
         appRoutingModule,
         FormsModule,
         JwBootstrapSwitchNg2Module,
-        NgxDatatableModule,
-        NgbToast,
-        NgbModal
+        NgxDatatableModule
     ],
     declarations: [
         AppComponent,

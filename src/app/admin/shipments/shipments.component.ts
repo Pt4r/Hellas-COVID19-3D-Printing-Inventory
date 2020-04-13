@@ -36,11 +36,11 @@ export class ShipmentsComponent implements OnInit {
       { prop: 'trackingNumber', name: 'Tracking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       { prop: 'fileName', name: 'File', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       {
-        prop: 'dateShipped', name: 'Date Shipped', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
+        prop: 'dateShipped', name: 'Date Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
         cellTemplate: this._dateTemplate
       },
       {
-        prop: 'recieved', name: 'Recieved', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
+        prop: 'recieved', name: 'Recieved', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
         cellTemplate: this._deliveryTemplate
       }
     ];

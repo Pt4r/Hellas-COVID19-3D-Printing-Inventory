@@ -14,9 +14,13 @@ import { SearchEvent } from './models/search-event';
 })
 export class ListViewComponent extends ListView implements OnInit, OnDestroy {
     @ViewChild('filterInput', { static: true }) private _filterInput: ElementRef;
+    scrollBarHorizontal = (window.innerWidth < 1200);
 
     constructor(private route: ActivatedRoute, private router: Router) {
         super();
+        window.onresize = () => {
+            this.scrollBarHorizontal = (window.innerWidth < 750);
+        };
     }
 
     public ngOnInit(): void {

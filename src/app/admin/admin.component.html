@@ -10,7 +10,7 @@
                             [routerLink]="['/admin/users']">
                         Όλοι οι Χρήστες
                     </button>
-                    <button class="btn btn-success ml-3"
+                    <button class="btn btn-success ml-3 mt-3 mt-md-0"
                             [routerLink]="['/admin/shipments']">
                         Όλες οι Αποστολές
                     </button>
@@ -22,19 +22,19 @@
             </div>
         </div>
         <hr />
-        <div class="row text-center">
+        <div class="row text-center text-nowrap">
             <div class="col-4">
                 Χρήστες
             </div>
-            <div class="col-4">
+            <div class="col-4 text-center text-nowrap">
                 Εκτυπώσεις
             </div>
-            <div class="col-4">
+            <div class="col-4 text-center text-nowrap">
                 Απεσταλμένα
             </div>
         </div>
         <hr />
-        <div class="col-12 mt-3">
+        <div class="col-12 mt-3 p-0">
             <app-list-view [clientSide]="true"
                            [columns]="columns"
                            [rows]="pendingUsers"

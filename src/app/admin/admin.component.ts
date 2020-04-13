@@ -27,7 +27,7 @@ export class AdminComponent implements OnInit {
     ngOnInit() {
         this.loading = true;
         this.columns = [
-            { prop: 'firstName', name: 'First Name', draggable: false, canAutoResize: false, sortable: true, resizeable: false },
+            { prop: 'firstName', name: 'First Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
             { prop: 'lastName', name: 'Last Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
             { prop: 'shippedQuantity', name: 'Total Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
             { prop: 'shippingCompany', name: 'Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
@@ -37,7 +37,7 @@ export class AdminComponent implements OnInit {
                 resizeable: false, cellTemplate: this._dateTemplate
             },
             {
-                prop: 'recieved', name: 'Recieved', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
+                prop: 'recieved', name: 'Recieved', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
                 cellTemplate: this._deliveryTemplate
             }
         ];

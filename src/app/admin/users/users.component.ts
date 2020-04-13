@@ -31,7 +31,7 @@ export class UsersComponent implements OnInit {
       { prop: 'username', name: 'Username', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       { prop: 'role', name: 'Role', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       {
-        prop: 'id', name: 'Actions', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
+        prop: 'id', name: 'Actions', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
         cellTemplate: this._actionsTemplate, cellClass: 'd-flex align-items-center'
       }
     ];

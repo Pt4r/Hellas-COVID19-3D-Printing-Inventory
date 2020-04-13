@@ -27,18 +27,26 @@
                             <div *ngIf="f.password.errors.required">Password is required</div>
                         </div>
                     </div>
-                    <button [disabled]="loading"
-                            class="btn btn-primary"
-                            type="submit">
-                        <span *ngIf="loading"
-                              class="spinner-border spinner-border-sm mr-1"></span>
-                        Login
-                    </button>
-                    <button class="btn btn-info ml-3"
-                            (click)="onRegister()"
-                            type="button">
-                        Register
-                    </button>
+                    <div class="button-group d-flex justify-content-between">
+                        <div>
+                            <button [disabled]="loading"
+                                    class="btn btn-primary"
+                                    type="submit">
+                                <span *ngIf="loading"
+                                      class="spinner-border spinner-border-sm mr-1"></span>
+                                Login
+                            </button>
+                            <button class="btn btn-info ml-3"
+                                    (click)="onRegister()"
+                                    type="button">
+                                Register
+                            </button>
+                        </div>
+                        <button class="btn btn-success"
+                                [routerLink]="['/guide']">
+                            Οδηγός Εκτύπωσης
+                        </button>
+                    </div>
                     <div *ngIf="error"
                          class="alert alert-danger mt-3 mb-0">{{error}}</div>
                 </form>
