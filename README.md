@@ -1,3 +1,3 @@
-# Hellas-COVID19-3D-printing-inventory
+# Hellas COVID19 3DPrinting Inventory
 
 Inventory app for the Hellenic 3D Printing forefront of the Coronavirus war.
