@@ -71,30 +71,30 @@
                     <hr />
                     <div class="form-row col-12 align-items-baseline">
                         <div class="form-group col-md-6">
-                            <label for="printerModel">Μάρκα 3D Printer*</label>
+                            <label for="printerModel">Μοντέλο 3D Printer*</label>
                             <input type="text"
                                    formControlName="printerModel"
                                    class="form-control"
                                    [ngClass]="{ 'is-invalid': submitted && f.printerModel.errors }" />
                             <div *ngIf="submitted && f.printerModel.errors"
                                  class="invalid-feedback">
-                                <div *ngIf="f.printerModel.errors.required">Η Μάρκα 3D Printer είναι απαραίτητη</div>
+                                <div *ngIf="f.printerModel.errors.required">Το Μοντέλο 3D Printer είναι απαραίτητο</div>
                             </div>
                         </div>
-                        <!-- <div class="form-group col-md-6">
-                            <label for="batchRequiredTime">Εκτεινόμενος χρόνος εκτύπωσης 1 μάσκας</label>
-                            <input type="time"
-                                   step="1"
-                                   type="time"
+                        <div class="form-group col-md-6 text-center">
+                            <label for="batchRequiredTime">Απαιτούμενος χρόνος εκτύπωσης 1 μάσκας</label>
+                            <input type="number"
+                                   pattern="^[0-9]+$"
                                    name="batchRequiredTime"
                                    id="batchRequiredTime"
                                    formControlName="batchRequiredTime"
-                                   class="form-control without" />
-                        </div> -->
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.batchRequiredTime.errors }" />
+                            <div *ngIf="f.batchRequiredTime.errors">Ο αριθμός πρέπει να είναι ακέραιος</div>
+                        </div>
                     </div>
                     <div class="form-row col-12">
                         <div class="form-check-inline col-md-12">
-
                             <label for="printerActive"
                                    class="form-check-label pr-5">Είναι ο εκτυπωτής λειτουργικός?*</label>
                             <bSwitch name="printerActive"

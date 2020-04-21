@@ -90,7 +90,7 @@
             </div>
             <div class="form-row col-12 align-items-baseline">
                 <div class="form-group col-md-6">
-                    <label for="printerModel">Μάρκα 3D Printer*</label>
+                    <label for="printerModel">Μοντέλο 3D Printer*</label>
                     <input type="text"
                            formControlName="printerModel"
                            [(ngModel)]="user.printerModel"
@@ -98,18 +98,21 @@
                            [ngClass]="{ 'is-invalid': submitted && f.printerModel.errors }" />
                     <div *ngIf="submitted && f.printerModel.errors"
                          class="invalid-feedback">
-                        <div *ngIf="f.printerModel.errors.required">Η Μάρκα 3D Printer είναι απαραίτητη</div>
+                        <div *ngIf="f.printerModel.errors.required">Το Μοντέλο 3D Printer είναι απαραίτητο</div>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="batchRequiredTime">Εκτεινόμενος χρόνος εκτύπωσης 1 μάσκας (λεπτά)</label>
+                    <label for="batchRequiredTime">Απαιτούμενος χρόνος εκτύπωσης 1 μάσκας (λεπτά)</label>
                     <input type="number"
                            min=0
+                           pattern="^[0-9]+$"
                            [(ngModel)]="user.batchRequiredTime"
                            name="batchRequiredTime"
                            id="batchRequiredTime"
                            formControlName="batchRequiredTime"
-                           class="form-control without" />
+                           class="form-control" 
+                           [ngClass]="{ 'is-invalid': submitted && f.batchRequiredTime.errors }" />
+                        <div *ngIf="f.batchRequiredTime.errors">Ο αριθμός πρέπει να είναι ακέραιος</div>
                 </div>
             </div>
             <hr />

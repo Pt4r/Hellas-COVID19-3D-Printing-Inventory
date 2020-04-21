@@ -1,10 +1,10 @@
-import { ShipmentModel } from './../../_helpers/backend';
+import { ShipmentModel, TotalsModel } from './../../_helpers/backend';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { AdminShipmentsModel } from '@app/_helpers';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { SearchEvent } from '@app/_helpers/list-view/models/search-event';
-import { UserService, ShipmentService, AuthenticationService } from '@app/_services';
-import { first } from 'rxjs/operators';
+import { ShipmentService } from '@app/_services';
+import { first, map } from 'rxjs/operators';
+import { TotalsService } from '@app/_services/totals.service';
 
 @Component({
   selector: 'app-shipments',
@@ -18,19 +18,19 @@ export class ShipmentsComponent implements OnInit {
   deliveryLoading = false;
   pendingShipments: ShipmentModel[] = new Array<ShipmentModel>();
   columns: TableColumn[] = [];
+  totals: TotalsModel = new TotalsModel();
   private event: SearchEvent;
 
   constructor(
-    private userService: UserService,
     private shipmentService: ShipmentService,
-    private authenticationService: AuthenticationService
+    private totalsService: TotalsService
   ) {
   }
 
   ngOnInit() {
     this.loading = true;
     this.columns = [
-      { prop: 'quantity', name: 'Total Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      { prop: 'quantity', name: 'Quantity', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       {
         prop: 'shippingCompany', name: 'Shipping Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
       },
@@ -50,6 +50,7 @@ export class ShipmentsComponent implements OnInit {
     ];
 
     this.pendingShipments.map(x => x.dateShipped = new Date());
+    this.getTotals();
   }
 
   getUsersWithShipments(event: SearchEvent): void {
@@ -67,4 +68,10 @@ export class ShipmentsComponent implements OnInit {
       this.getUsersWithShipments(this.event);
     });
   }
+
+  getTotals() {
+    this.totalsService.getTotals().subscribe((totals: TotalsModel) => {
+        this.totals = totals;
+    })
+}
 }

@@ -22,7 +22,7 @@ export class ConfirmDialogComponent implements OnInit{
   ngOnInit(): void {
     this.filamentForm = this._form.group({
       sentFilamentDate: ['', Validators.required],
-      filamentTrackingNumber:  ['', Validators.required]
+      filamentTrackingNumber:  ['']
     });
   }
 

@@ -16,10 +16,15 @@
             </div>
         </div>
         <hr />
-        <div class="row text-center">
-            <div class="col-4">
-                Αποστολές
+        <div class="row text-center col-12 text-nowrap font-weight-bold">
+            <div class="col-4"></div>
+            <div class="col-4 alert alert-primary p-0"
+                 role="alert">
+                <p class="m-1">Απεσταλμένα</p>
+                <hr class="m-1" />
+                <p class="m-1">{{totals.totalQuantityRecieved || '-'}}</p>
             </div>
+            <div class="col-4"></div>
         </div>
         <hr />
         <div class="col-12 mt-3 p-0">

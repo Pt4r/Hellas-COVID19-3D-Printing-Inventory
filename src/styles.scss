@@ -5,21 +5,26 @@
 @import '../node_modules/@swimlane/ngx-datatable/assets/icons.css';
 @import '../node_modules/material-design-icons/iconfont/material-icons.css';
 @import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~bootstrap/scss/bootstrap";
 
 a {
   cursor: pointer
 }
+
 html {
   position: relative;
   min-height: 100%;
 }
+
 body {
+  padding-top: 3.5rem;
   margin-bottom: 170px;
 }
+
 footer {
-  
   position: absolute;
-  bottom: 0px; left: 0;
+  bottom: 0px;
+  left: 0;
   width: 100%;
   height: 60px;
   line-height: 60px;
@@ -46,6 +51,78 @@ input[type=time]::-webkit-clear-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  margin: 0; 
+  margin: 0;
 }
 
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+
+.facts-area {
+  position: relative;
+  background: #ccc url('../src/assets/img/background2.png');
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  width: 99.5vw;
+  left: calc(-1 * (100vw - 100%) / 2);
+}
+
+.facts-area:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 17, 17, 0.65);
+}
+
+.single-fact {
+  display: block;
+  text-align: center;
+  visibility: visible;
+  animation-duration: 1s;
+  animation-delay: 0.3s;
+  animation-name: fadeIn;
+  color: #ececec;
+
+  @media(max-width:800px) {
+    margin-bottom: 30px;
+  }
+}
+
+.section-gap {
+  padding: 80px 0;
+}
+
+.single-services {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.single-services .material-icons {
+  font-size: 40px;
+}
+
+.single-services h4 {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.discord {
+  width: 108px;
+  height: 38px;
+  background-image: url('../src/assets/img/DiscordWhite.png');
+  background-size: cover;
+}

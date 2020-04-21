@@ -1,4 +1,5 @@
-﻿import { ProfileComponent } from './home/profile/profile.component';
+﻿import { GuideComponent } from './guide/guide.component';
+import { ProfileComponent } from './home/profile/profile.component';
 import { FilamentComponent } from './admin/filament/filament.component';
 import { ShipmentsComponent } from './admin/shipments/shipments.component';
 import { ViewComponent } from './admin/users/view/view.component';
@@ -17,7 +18,12 @@ const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { roles: [Role.User] }
+    },
+    {
+        path: 'guide',
+        component: GuideComponent
     },
     {
         path: 'profile',

@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
-
+    
     // get user details
     this._userService.getById(this._authenticationService.currentUserValue.id).subscribe((user: User) => {
       this.user = user;
@@ -107,9 +107,9 @@ export class ProfileComponent implements OnInit {
         },
         (error) => {
           if (error === 'Bad Request') {
-            this.error = 'Incorrect password';
+            this.error = 'Incorrect password or username';
           } else {
-            this.error = error;
+            this.error = error.message;
           }
           this.loading = false;
         });

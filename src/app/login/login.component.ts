@@ -1,5 +1,5 @@
 ﻿import { RegisterComponent } from './../register/register.component';
-import { AuthenticateModel } from './../_helpers/backend';
+import { AuthenticateModel, TotalsModel } from './../_helpers/backend';
 import { User, Role } from '@app/_models';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '@app/_services';
+import { TotalsService } from '@app/_services/totals.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
     error = '';
+    totals: TotalsModel = new TotalsModel();
     private _user: AuthenticateModel = new AuthenticateModel();
 
     constructor(
@@ -37,10 +39,12 @@ export class LoginComponent implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
     }
 
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
+
 
     onSubmit() {
         this.submitted = true;

@@ -1,0 +1,564 @@
+<nav class="navbar navbar-expand navbar-light text-primary d-flex justify-content-between border-bottom col-12"
+     *ngIf="!currentUser">
+    <div class="navbar-nav col-6">
+        <a class="nav-item nav-link text-primary mr-3"
+           routerLink="/">Πίσω</a>
+        <a class="nav-item nav-link text-primary"
+           routerLink="/login">Login</a>
+    </div>
+    <div class="button-group row">
+        <a class="mr-md-3"
+           href="https://discord.gg/GQPF4N"
+           target="_blank">
+            <button type="button"
+                    class="btn btn-light px-3 text-nowrap discord"
+                    style="background-color: #7289DA;">
+            </button>
+        </a>
+        <a class="mr-md-3"
+           href="https://www.3dhub.gr/shop/consumables/covid19-1kg-pla/"
+           target="_blank">
+            <button type="button"
+                    class="btn btn-warning px-4 text-nowrap">
+                Δώρησε
+            </button>
+        </a>
+    </div>
+</nav>
+
+<div class="col-12">
+    <div class="text-center pb-4 pt-5">
+        <h1>ΟΔΗΓΙΕΣ ΚΑΙ GCODES ΓΙΑ ΕΚΤΥΠΩΣΗ FACESHIELDS</h1>
+    </div>
+    <div class="alert alert-success pt-3">Από 8/4/2020 οχήματα της Εθελοντική Ομάδας του Δήμου Βύρωνα συλλέγει τις εκτυπώσεις και σας παραδίδει τα υλικά. Να καλείτε το κέντρο επιχειρήσεων του Βύρωνα στο 210 7644486 κυρία Συμεωνίδου Σοφία από 10:00 έως 18:00. Να περιμένετε να χτυπήσει 5 φορές, λόγω
+        εκτροπής.<br></div>
+    <p><strong>Οι βασικές οδηγίες που χρειάζεται να ακολουθήσουμε ευλαβικά είναι:</strong></p>
+
+    <ngb-accordion [closeOthers]="true"
+                   activeIds="static-1">
+        <ngb-panel id="static-1"
+                   title="Πριν την εκτύπωση">
+            <ng-template ngbPanelContent>
+                <ul>
+                    <li>Κάνουμε εγγραφή νέου μέλους στο site: <strong><a href="/register">(Register)</a></strong></li>
+                    <li>Καθαριότητα χώρου που βρίσκεται ο εκτυπωτής με κάποιο απολυμαντικό.</li>
+                    <li>Χρήση καινούριων filament ή ανοιχτών, επιμελώς αποθηκευμένων, σε καθαρό χώρο.</li>
+                    <li>Όχι κατοικίδια σε επαφή με τα υλικά.</li>
+                    <li>Ιδανικά καινούριο nozzle.</li>
+                    <li>Καλό καθάρισμα και απολύμανση πλατφόρμας εκτύπωσης.</li>
+                </ul>
+            </ng-template>
+        </ngb-panel>
+        <ngb-panel id="static-2"
+                   title="Κατά την Εκτύπωση">
+            <ng-template ngbPanelContent>
+                <p>Υλικό: <strong>PLA / PETG</strong> ανάλογα τη διαθεσιμότητα και εξοικείωση του χρήστη. Αν δεν έχετε διαθέσιμο υλικό επικοινωνείτε με δήμο Βύρωνα για προμήθειες.</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Αρχείο</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p><strong>Επάνω Κομμάτι faceshield <a href="https://bit.ly/2xezXQb">(link)</a></strong></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Layer Height</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p>250 microns (<strong>0.25mm</strong>)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Wall</strong> <strong>Line Count</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p><strong>3</strong> αν έχετε 0.4mm nozzle (ή Thickness <strong>1.2</strong> <strong>mm</strong>)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132"></td>
+                                <td width="421">
+                                    <p><strong>2</strong> αν έχετε 0.6mm nozzle (ή Thickness <strong>1.2</strong> <strong>mm</strong>)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Top/Bottom layers</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p><strong>5</strong> ή περισσότερα</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Infill</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p><strong>30%</strong> (όχι concentric)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Speed</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p>ανάλογα τον εκτυπωτή σας, το μέγιστο που κρίνετε ότι θα έχει καλό αποτέλεσμα (μέση ταχύτητα 50mm – 70mm)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Χρώμα</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p>ιδανικά κάτι ουδέτερο αλλά δεν είναι δεσμευτικό</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Bed Adhesion</strong></p>
+                                </td>
+                                <td width="421">
+                                    <ul>
+                                        <li>Αν σηκώνονται καποιες γωνίες ίσως βοηθήσει ένα μικρό Brim 2mm. Μπορείτε και raft (αλλά χαλάτε υλικό και χρόνο)</li>
+                                        <li>Αν χρησιμοποιείται κόλλες και συναφή για το 1<sup>ο</sup> layer να βάζετε υποχρεωτικά raft, ώστε η μάσκα να μην ακουμπάει στην κόλλα.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center col-12 d-flex flex-justify-between mt-3">
+                    <div class="col-3"></div>
+                    <div class="alert alert-warning col-6">
+                        <h6>ΓΙΑ ΕΚΤΥΠΩΤΕΣ ΜΕ ΜΙΚΡΟ BED ΕΚΤΥΠΩΝΟΥΜΕ ΑΥΤΟ</h6>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+                <div class="table-responsive pt-3">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Αρχείο</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p><strong>Σφιγκτήρας Χειρουργικής Μάσκας <a href="https://bit.ly/3a24gqY">(link)</a></strong></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Layer Height</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p>350 microns (<strong>0.</strong><strong>3</strong> <strong>5mm</strong>)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Wall</strong> <strong>Line Count</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p><strong>3 </strong>αν έχετε 0.4mm nozzle (ή Thickness <strong>1.2mm</strong>)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132"></td>
+                                <td width="421">
+                                    <p><strong>2 </strong>αν έχετε 0.6mm nozzle (ή Thickness<strong>1.2mm</strong>)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Top/Bottom layers</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p><strong>5</strong> ή περισσότερα</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Infill</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p><strong>30%</strong> αν και δεν έχει σημασία</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Speed</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p>ανάλογα τον εκτυπωτή σας, το μέγιστο που κρίνετε ότι θα έχει καλό αποτέλεσμα (μέση ταχύτητα 50mm – 70mm)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="132">
+                                    <p><strong>Χρώμα</strong></p>
+                                </td>
+                                <td width="421">
+                                    <p>ιδανικά κάτι ουδέτερο αλλά δεν είναι δεσμευτικό</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-template>
+        </ngb-panel>
+        <ngb-panel id="static-3"
+                   title="Μετά την εκτύπωση">
+            <ng-template ngbPanelContent>
+                <ul>
+                    <li>Τοποθετούμε τα εκτυπωμένα κομμάτια σε καθαρή σακούλα/κούτα και αποθηκεύουμε σε ασφαλές σημείο</li>
+                    <li>Χρησιμοποιούμε μέσα ατομικής προστασίας, γάντια και απλή μάσκα όταν χειριζόμαστε τις εκτυπώσεις και τον εκτυπωτή</li>
+                    <li>Όταν μαζευτούν τουλάχιστον 30 κομμάτια:</li>
+                    <ul>
+                        <li><strong>από Αθήνα</strong>, καλείτε το κέντρο επιχειρήσεων του Βύρωνα στο 210 7644486, κυρία Συμεωνίδου Σοφία από 10:00 έως 18:00. Να περιμένετε να χτυπήσει 5 φορές, λόγω εκτροπής. Αν δεν έχουμε νήμα για εκτύπωση ή τελειώσει πριν τα 30, επικοινωνούμε με το 3DHub.</li>
+                        <li><strong>εκτός Αθηνών</strong> παραδίδετε την κούτα <strong>σε Κατάστημα Γενικής ταχυδρομικής</strong> (ή την καλείτε για παραλαβή), έχοντας μέσα ένα χαρτί με τα στοιχεία σας και αριθμό κομματιών.<br>
+                            <div class="alert alert-warning text-center">
+                                <h5 class="pb-3"><u>Αποστολή με Γενική Ταχυδρομική</u></h5>
+                                Στοιχεία αποστολής: <strong>3DHUB KΟΥΤΡΕΤΣΟΣ ΚΩΣΤΗΣ – ΨΑΡΩΝ 20 ΠΕΙΡΑΙΑΣ 18546 – 6944325286 – Χρέωση παραλήπτη.</strong> Email: <a href="mailto:covid19@3dhub.gr">covid19@3dhub.gr</a>
+                            </div>
+                            Αν θέλετε και μπορείτε να τα πάτε εσείς, υπάρχει αντίστοιχη υπεύθυνη δήλωση αντί του μηνύματος στο 13330: <a href="https://bit.ly/34cFwLg">bit.ly/34cFwLg</a> , ίσως καλό είναι να πάρετε στο τμήμα της περιοχής σας για να τους ενημερώσετε.
+                        </li>
+                    </ul>
+                    <li>
+                        <strong>Τέλος, κρατείστε το tracking code και στείλε τε το μέσω της φόρμας "Καταγραφή Μετακίνησης Υλικών" </strong> αφού συνδεθείτε με τα στοιχεία σας: <a href="/login"><strong>(Login)</strong></a><br>
+                    </li>
+                </ul>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+
+    <div class="alert alert-primary mt-5">
+        Όλα τα κομμάτια συλλέγονται, ελέγχονται, καθαρίζονται, συμπληρώνονται και στέλνονται στο υπουργείο υγείας από το 3dHub. Δε χρειάζεται να κάνετε κάτι άλλο. Μην ανησυχείτε για το διάφανο μέρος μπροστά, μπαίνει ειδικά σχεδιασμένο και κομμένο από laser υλικό.
+    </div>
+
+    <h2 class="my-4">Αρχεία Εκτύπωσης</h2>
+
+    <p><strong>Τα επίσημα αρχεία προς εκτύπωση θα τα βρείτε εδώ: </strong> <a href="https://bit.ly/2JH6Do2"><strong>bit.ly/2JH6Do2</strong></a></p>
+    <p>Εμπεριέχονται:</p>
+    <ul>
+        <li>1 επάνω μέρος «covid19_headband_rc3_1pcs_0»</li>
+        <li>Βελτιωμένη έκδοση για «Simplify3D S3D_covid19_TOP_rc3_4pcs_rprd»</li>
+        <li>Για μικρότερους εκτυπωτές το «Surgical_Mask_Strap_Remix»<br></li>
+    </ul>
+    <p><strong>Έτοιμα προς χρήση gcode:</strong> Τα αποθηκεύετε στην κάρτα του εκτυπωτή ή τα εκτυπώνετε μέσω usb / octoprint…</p>
+    <p>*Αν ο εκτυπωτής δε διαβάζει τα αρχεία είναι λόγω μεγάλης ονομασίας. Αντί του «Cr10spro_PLA_04n_covid19_FullSet_4pcs» το κάνετε «Cr10spro_PLA».</p>
+    <p><strong>**Όσοι εκτυπώνετε τις stacked versions να προτιμήσετε να ΜΗΝ το κάνετε αν βλέπετε οποιαδήποτε αστοχία</strong> στις μάσκες, μιας και ότι δεν είναι σωστά εκτυπωμένο δε στέλνεται στο
+        Υπουργείο.</p>
+    <p><em>***Για εκτυπωτές Prusa τα προτεινόμενα gcode είναι για καλά ρυθμισμένους και σεταρισμένους εκτυπωτές, μιας και οι ταχύτητες που πιάνουν τα γρήγορα αρχεία είναι ακραίες.</em></p>
+
+
+    <h2 class="my-4">Έτοιμες Ρυθμίσεις (.gcode)</h2>
+    <div class="col-12 pb-3">
+        <ngb-accordion [closeOthers]="true">
+            <ngb-panel id="static-1"
+                       title="Για υλικό PLA">
+                <ng-template ngbPanelContent>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td width="141">
+                                        <p><a name="_Hlk37080817"
+                                               id="_Hlk37080817"><strong>Εκτυπωτής</strong></a></p>
+                                    </td>
+                                    <td width="116">
+                                        <p><strong>0.4 nozzle</strong></p>
+                                    </td>
+                                    <td width="72">
+                                        <p><strong>Χρόνος</strong></p>
+                                    </td>
+                                    <td width="153">
+                                        <p><strong>0.6 nozzle</strong></p>
+                                    </td>
+                                    <td width="74">
+                                        <p><strong>Χρόνος</strong></p>
+                                    </td>
+                                    <td width="65">
+                                        <p><strong>Τεμάχια</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Anet A8</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/34y82XI">bit.ly/34y82XI</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>3h</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>1 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Anycubic chiron</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/2Rcfa6M">bit.ly/2Rcfa6M</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>15h</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>5 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>AnyCubic i3 Mega</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/2UO0uwE">bit.ly/2UO0uwE</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>13h</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>4</strong> <strong>TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Ender 3 & pro</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/39Zm1qL">bit.ly/39Zm1qL</a></p>
+                                        <p><a href="https://bit.ly/2yd8COI">bit.ly/2yd8COI</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>3h40m</p>
+                                        <p>3h31m</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>1 TOP</strong></p>
+                                        <p class="text-right"><strong>1 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Ender 5</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/2yFakbD">bit.ly/2yFakbD</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>3h</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>1 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Cr10s Pro</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/2V71Lz3">bit.ly/2V71Lz3</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>12h</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>4</strong> <strong>TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Prusa MK2/s</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/2UTwujf">bit.ly/2UTwujf</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>5h40m</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>2 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Prusa MK3/s</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/3e0K8bG">bit.ly/3e0K8bG</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>2h55m</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>1 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Cr10</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/3e0DXo0">bit.ly/3e0DXo0</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>3h30m</p>
+                                    </td>
+                                    <td width="153">
+                                        <p><a href="https://bit.ly/3aNkJA9">bit.ly/3aNkJA9</a></p>
+                                    </td>
+                                    <td width="74">
+                                        <p>11h</p>
+                                    </td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>4 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Cr10 Max</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/2xSnG42">bit.ly/2xSnG42</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>76h</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>20 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Tevo Tarantula pro</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/2Ve0xkp">bit.ly/2Ve0xkp</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>6h</p>
+                                    </td>
+                                    <td width="153">
+                                        <p><a href="https://bit.ly/2RiCtvG">bit.ly/2RiCtvG</a></p>
+                                    </td>
+                                    <td width="74">
+                                        <p>4h</p>
+                                    </td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>2 TOP</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Witbox2</p>
+                                    </td>
+                                    <td width="116">
+                                        <p><a href="https://bit.ly/2V6bNkb">bit.ly/2V6bNkb</a></p>
+                                    </td>
+                                    <td width="72">
+                                        <p>3h30m</p>
+                                    </td>
+                                    <td width="153"></td>
+                                    <td width="74"></td>
+                                    <td width="65">
+                                        <p class="text-right"><strong>1</strong> <strong>TOP</strong></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-2"
+                       title="Για υλικό PETG">
+                <ng-template ngbPanelContent>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td width="141">
+                                        <p><strong>Εκτυπωτής</strong></p>
+                                    </td>
+                                    <td width="123">
+                                        <p><strong>0.4 nozzle</strong></p>
+                                    </td>
+                                    <td width="66">
+                                        <p><strong>Χρόνος</strong></p>
+                                    </td>
+                                    <td width="161">
+                                        <p><strong>0.6 nozzle</strong></p>
+                                    </td>
+                                    <td width="66">
+                                        <p><strong>Χρόνος</strong></p>
+                                    </td>
+                                    <td width="66">
+                                        <p><strong>Τεμάχια</strong></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="141">
+                                        <p>Prusa MK3/s</p>
+                                    </td>
+                                    <td width="123">
+                                        <p><a href="https://bit.ly/3aO8L9E">bit.ly/3aO8L9E</a></p>
+                                        <p><a href="https://bit.ly/2K6U0mF">bit.ly/2K6U0mF</a></p>
+                                    </td>
+                                    <td width="66">
+                                        <p>2h55m</p>
+                                        <p>3h</p>
+                                    </td>
+                                    <td width="161"></td>
+                                    <td width="66"></td>
+                                    <td width="66">
+                                        <p class="text-right"><strong>1 TOP</strong></p>
+                                        <p class="text-right"><strong>2 TOP</strong></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+
+    <div class="col-12 pt-3">
+        <p><em>Όποιος έχει να συμπληρώσει κάποιο αρχείο που δεν υπάρχει, να διορθώσει χρόνους ή οτιδήποτε άλλο να στείλει μήνυμα: <a href="https://www.facebook.com/wxraSp">Ρέββας Σωτήρης FB</a></em></p>
+        <p><em>Για όλα τα τεχνικά θέματα που αφορούν Creality με αλουμινένιο πλαίσιο και παρόμοιους εκτυπωτές υπάρχει εδώ οδηγός 120 σελίδων: <a href="file:///N:/Dropbox/%23Covid19/%CE%B1%CF%81%CF%87%CE%B5%CE%AF%CE%B1/bit.ly/2RkAV4x">bit.ly/2RkAV4x</a> , όπως επίσης και αναλυτικά βίντεο στα αγγλικά:
+                <a href="https://bit.ly/2UOdKl0">bit.ly/2UOdKl0</a>.</em></p>
+        <p><strong>Για τεχνικά ζητήματα και προβλήματα εκτυπώσεων μπορείτε να μας βρείτε καθημερινά στο Discord πατώνας εδώ:</strong>
+            <a class="ml-3"
+               href="https://discord.gg/GQPF4N"
+               target="_blank">
+                <button type="button"
+                        class="btn px-3 text-nowrap discord"
+                        style="background-color: #7289DA;">
+                </button>
+            </a>
+        </p>
+    </div>
+
+</div>

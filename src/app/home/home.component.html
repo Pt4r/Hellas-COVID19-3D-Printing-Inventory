@@ -14,23 +14,46 @@
         </div>
     </div>
     <div class="card-body">
-        <div *ngIf="loading"
+        <div *ngIf="loading else shipmentStatus"
              class="spinner-border spinner-border-sm"></div>
-        <p *ngIf="currentUser">
-            Γεία σου {{currentUser.firstName}}!
-        </p>
-        <p *ngIf="currentUser.needsFilament else filament"
-           class="text-success">
-            Έχουμε ενημερωθεί για την έλλειψη σου σε filament και θα σου στείλουμε σύντομα!
-        </p>
-        <ng-template #filament>
-            <p *ngIf="currentUser.sentFilamentDate !== null"
-               class="text-success">
-                Το filament σου έχει σταλεί στις <strong>{{ currentUser.sentFilamentDate | date }}</strong> με αριθμό αποστολής: <strong><a target="_blank"
-                       href="https://www.taxydromiki.com/track/{{currentUser.filamentTrackingNumber}}">{{currentUser.filamentTrackingNumber}}</a></strong>.
+        <ng-template #shipmentStatus>
+            <p *ngIf="currentUser">
+                Γεία σου {{currentUser.firstName}}!
             </p>
+            <p *ngIf="currentUser.needsFilament else filament"
+               class="text-success">
+                Έχουμε ενημερωθεί για την έλλειψη σου σε filament και θα σου στείλουμε σύντομα!
+            </p>
+            <ng-template #filament>
+                <p *ngIf="currentUser.sentFilamentDate !== null"
+                   class="text-success">
+                    Το filament σου έχει σταλεί στις <strong>{{ currentUser.sentFilamentDate | date }}</strong> με αριθμό αποστολής: <strong><a target="_blank"
+                           href="https://www.taxydromiki.com/track/{{currentUser.filamentTrackingNumber}}">{{currentUser.filamentTrackingNumber}}</a></strong>.
+                </p>
+            </ng-template>
         </ng-template>
         <div class="col-12 mt-3">
+            <hr />
+            <div class="row text-center text-nowrap font-weight-bold">
+                <div class="col-3"></div>
+                <div class="col-3">
+                    <div class="alert alert-warning p-0"
+                         role="alert">
+                        <p class="m-1">Ανάγκες σε μάσκες</p>
+                        <hr class="m-1" />
+                        <p class="m-1">15000</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="alert alert-primary p-0"
+                         role="alert">
+                        <p class="m-1">Συνολικά Απεσταλμένα</p>
+                        <hr class="m-1" />
+                        <p class="m-1">{{totals.totalQuantityRecieved|| '-'}}</p>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
             <hr />
             <div>
                 <form>

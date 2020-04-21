@@ -6,7 +6,7 @@ import { publishReplay, refCount, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    private _users: AsyncSubject<User>;
+    public users: AsyncSubject<User>;
 
     constructor(private backoffice: BackofficeApiService) { }
 
@@ -19,25 +19,34 @@ export class UserService {
     }
 
     getById(id: string): Observable<UserModel> {
-        if (!this._users) {
-            this._users = new AsyncSubject<User>();
+        if (!this.users) {
+            this.users = new AsyncSubject<User>();
             this.backoffice.users_GetById(id).subscribe((user: User) => {
-                this._users.next(user);
-                this._users.complete();
+                this.users.next(user);
+                this.users.complete();
             });
         }
-        return this._users;
+        return this.users;
+    }
+
+    viewUser(id: string): Observable<UserModel> {
+        const _user = new AsyncSubject<User>();
+        this.backoffice.users_GetById(id).subscribe((user: User) => {
+            _user.next(user);
+            _user.complete();
+        });
+        return _user;
     }
 
     update(userId: string, model: UpdateModel) {
         return this.backoffice.users_Update(userId, model).pipe(map(_ => {
-            this._users = null;
+            this.users = null;
         }));
     }
 
     deliverFilament(user: UserFilamentModel) {
         return this.backoffice.users_deliverFilament(user).pipe(map(_ => {
-            this._users = null;
+            this.users = null;
         }));
     }
 }

@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap/accordion/accordion';
 
 import { HomeComponent } from './home';
 import { AdminComponent } from './admin';
@@ -29,6 +31,7 @@ import { ProfileComponent } from './home/profile/profile.component';
 import { environment } from 'src/environments/environment';
 import { ConfirmDialogComponent } from './admin/filament/confirm-dialog/confirm-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { GuideComponent } from './guide/guide.component';
 
 
 
@@ -47,7 +50,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatInputModule,
         MatFormFieldModule,
         MatDatepickerModule,
-        MatNativeDateModule 
+        MatNativeDateModule,
+        NgbModule
     ],
     declarations: [
         AppComponent,
@@ -62,7 +66,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         ShipmentsComponent,
         FilamentComponent,
         ProfileComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        GuideComponent
     ],
     entryComponents: [
         ConfirmDialogComponent

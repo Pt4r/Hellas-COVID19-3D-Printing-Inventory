@@ -1,5 +1,5 @@
 ﻿<div class="card mt-4">
-    <h4 class="card-header">Admin</h4>
+    <h4 class="card-header">{{currentUser.firstName}} {{currentUser.lastName}}</h4>
     <div class="card-body">
         <div *ngIf="loading"
              class="spinner-border spinner-border-sm"></div>
@@ -22,16 +22,25 @@
             </div>
         </div>
         <hr />
-        <div class="row text-center text-nowrap">
-            <div class="col-4">
-                Χρήστες
+        <div class="row text-center text-nowrap font-weight-bold">
+            <div class="col-3"></div>
+            <div class="col-3">
+                <div class="alert alert-primary p-0"
+                     role="alert">
+                    <p class="m-1">Χρήστες</p>
+                    <hr class="m-1"/>
+                    <p class="m-1">{{totals.totalUsers|| '-'}}</p>
+                </div>
             </div>
-            <div class="col-4 text-center text-nowrap">
-                Εκτυπώσεις
+            <div class="col-3">
+                <div class="alert alert-primary p-0"
+                     role="alert">
+                    <p class="m-1">Απεσταλμένα</p>
+                    <hr class="m-1"/>
+                    <p class="m-1">{{totals.totalQuantityRecieved|| '-'}}</p>
+                </div>
             </div>
-            <div class="col-4 text-center text-nowrap">
-                Απεσταλμένα
-            </div>
+            <div class="col-3"></div>
         </div>
         <hr />
         <div class="col-12 mt-3 p-0">
@@ -39,7 +48,7 @@
                            [columns]="columns"
                            [rows]="pendingUsers"
                            [rowsPerPage]="2147483647"
-                           [defaultSortField]="'latestShippedDate'"
+                           [defaultSortField]="'dateShipped'"
                            [defaultSortDirection]="'Desc'"
                            [showFooter]="'false'"
                            (search)="getUsersWithShipments($event)"

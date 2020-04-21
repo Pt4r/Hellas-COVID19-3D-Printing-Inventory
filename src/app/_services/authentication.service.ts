@@ -40,4 +40,15 @@ export class AuthenticationService {
         return this.backoffice.users_Register(model).pipe(error => error);
     }
 
+    isAuthorized(roles: string[]): boolean {
+        if (roles == null || roles.length === 0) {
+            return true;
+        }
+
+        if (this.currentUserSubject.value === null) {
+            return false;
+        }
+
+        return roles.includes(this.currentUserSubject.value.role)
+    }
 }

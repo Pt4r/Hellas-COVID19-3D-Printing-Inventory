@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="col-md-7 offset-md-2 py-5">
+    <div class="col-md-7 offset-md-2 pt-5">
         <div class="card">
             <h4 class="card-header text-center"> Καταγραφή Μετακίνησης Υλικών </h4>
             <div class="card-body">
@@ -22,22 +22,26 @@
                             <label for="quantity">Ποσότητα (ελάχιστο 30)*</label>
                             <input type="number"
                                    value="30"
-                                   min="30"
+                                   min="20"
                                    formControlName="quantity"
                                    class="form-control"
                                    [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" />
                             <div *ngIf="submitted && f.quantity.errors"
                                  class="invalid-feedback">
-                                <div *ngIf="f.quantity.errors.required">Η ποσότητα είναι απαραίτητη</div>
+                                <div *ngIf="f.quantity.errors">Η ποσότητα είναι απαραίτητη</div>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="fileName">Όνομα αρχείου*</label>
-                            <input type="text"
-                                   formControlName="fileName"
-                                   class="form-control"
-                                   required
-                                   [ngClass]="{ 'is-invalid': submitted && f.fileName.errors }" />
+                            <label for="fileName">Είδος*</label>
+                            <select class="custom-select"
+                                    id="fileName"
+                                    formControlName="fileName"
+                                    [ngClass]="{ 'is-invalid': submitted && f.fileName.errors }">
+                                <option selected
+                                        value="Face Shield">Face Shield</option>
+                                <option value="Surgical mask">Surgical mask</option>
+                                <option value="Συνδιασμός">Συνδιασμός των 2</option>
+                            </select>
                             <div *ngIf="submitted && f.fileName.errors"
                                  class="invalid-feedback">
                                 <div *ngIf="f.fileName.errors.required">Το όνομα αρχείου εκτύπωσης είναι απαραίτητο</div>
@@ -51,8 +55,10 @@
                                     id="shippingCompany"
                                     formControlName="shippingCompany"
                                     [ngClass]="{ 'is-invalid': submitted && f.shippingCompany.errors }">
-                                <option value="Γενική Ταχυδρομική" selected>Γενική Ταχυδρομική</option>
-                                <option value="Άλλο">'Αλλο</option>
+                                <option value="Γενική Ταχυδρομική"
+                                        selected>Γενική Ταχυδρομική</option>
+                                <option value="Πολιτικής Προστασίας">Πολιτικής Προστασίας (μόνο Αθήνα)</option>
+                                <option value="Αυτοπαράδωση">Παράδoση στο κατάστημα (Αυτοπαράδoση)</option>
                             </select>
                             <div *ngIf="submitted && f.shippingCompany.errors"
                                  class="invalid-feedback">
@@ -72,10 +78,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row col-12 my-4">
+                    <div class="form-row col-12 my-4" *ngIf="f.shippingCompany.value === 'Γενική Ταχυδρομική'">
                         <div class="form-group col-md-12">
                             <label for="trackingNumber">
-                                Αριθμός φορτωτικής αποστολής εκτυπώσεων. Σε περίπτωση παράδοσης με άλλο τρόπο παρακαλώ κάντε περιγραφή*
+                                Αριθμός φορτωτικής αποστολής εκτυπώσεων*
                             </label>
                             <textarea formControlName="trackingNumber"
                                       rows="1"

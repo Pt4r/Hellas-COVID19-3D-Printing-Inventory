@@ -18,6 +18,7 @@ export class ShipmentComponent implements OnInit {
   returnUrl: string;
   error = '';
   formError = '';
+  private _minQuantity = 20;
   private _shipment: CreateShipmentModel = new CreateShipmentModel();
   private _currentDate;
 
@@ -32,9 +33,9 @@ export class ShipmentComponent implements OnInit {
     this._currentDate = new Date().toISOString().substring(0, 10);
 
     this.shipmentForm = this._formBuilder.group({
-      quantity: [30, [Validators.required, Validators.min(this._shipment.minQuantity)]],
+      quantity: [30, [Validators.required, Validators.min(this._minQuantity)]],
       dateShipped: [this._currentDate, Validators.required],
-      trackingNumber: ['', Validators.required],
+      trackingNumber: [''],
       shippingCompany: ['', Validators.required],
       needsFilament: [false, Validators.required],
       fileName: ['', Validators.required]

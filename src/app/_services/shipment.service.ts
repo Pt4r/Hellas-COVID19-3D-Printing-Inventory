@@ -13,7 +13,8 @@ export class ShipmentService {
     private _shipmentsByUser: AsyncSubject<Shipment[]>;
 
     constructor(
-        private backoffice: BackofficeApiService
+        private backoffice: BackofficeApiService,
+        private userService: UserService
     ) { }
 
     getAll(event: SearchEvent): Observable<ShipmentModel[]> {
@@ -45,6 +46,8 @@ export class ShipmentService {
     createShipment(shipment: CreateShipmentModel) {
         return this.backoffice.shipments_Create(shipment).pipe(map(_ => {
             this._shipment = null;
+            this._shipmentsByUser = null;
+            this.userService.users = null;
         }));
     }
 
@@ -52,7 +55,7 @@ export class ShipmentService {
         return this.backoffice.shipments_GetShipmentsWithUsers(event.page, event.pageSize, event.sortField, event.searchTerm);
     }
 
-    packageRecieved(packageId: string, recieved: boolean ): Observable<void> {
+    packageRecieved(packageId: string, recieved: boolean): Observable<void> {
         return this.backoffice.shipments_packageRecieved(packageId, recieved);
     }
 }

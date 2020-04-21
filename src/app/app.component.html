@@ -1,5 +1,5 @@
 ﻿<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-between"
+<nav class="navbar navbar-expand navbar-dark bg-dark d-flex justify-content-between fixed-top"
      *ngIf="currentUser">
    <div class="navbar-nav col-6">
       <a class="nav-item nav-link"
@@ -11,7 +11,8 @@
       <a class="nav-item nav-link"
          (click)="logout()">Logout</a>
    </div>
-   <div class="button-group text-right">
+   <div class="button-group text-right row"
+        *ngIf="!mobile else mobileBtns">
       <button class="btn btn-primary mr-sm-3 text-nowrap mb-2 mb-md-0"
               [routerLink]="['/guide']">
          Οδηγός Εκτύπωσης
@@ -26,6 +27,26 @@
       </a>
    </div>
 
+   <ng-template #mobileBtns>
+      <div class="button-group text-right">
+         <button class="btn btn-primary mr-3 text-nowrap"
+                 [routerLink]="['/guide']">
+            <span class="material-icons">
+               school
+            </span>
+         </button>
+         <a class="mr-3"
+            href="https://www.3dhub.gr/shop/consumables/covid19-1kg-pla/"
+            target="_blank">
+            <button type="button"
+                    class="btn btn-warning text-nowrap">
+               <span class="material-icons">
+                  credit_card
+               </span>
+            </button>
+         </a>
+      </div>
+   </ng-template>
 </nav>
 
 <!-- main app container -->

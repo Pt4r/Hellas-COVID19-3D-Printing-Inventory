@@ -1,10 +1,10 @@
-﻿import { UserModel, Shipment } from './../_helpers/backend';
+﻿import { UserModel, Shipment, TotalsModel } from './../_helpers/backend';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from '@app/_models';
 import { UserService, AuthenticationService, ShipmentService } from '@app/_services';
 import { TableColumn } from '@swimlane/ngx-datatable';
+import { TotalsService } from '@app/_services/totals.service';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent implements OnInit {
@@ -15,11 +15,13 @@ export class HomeComponent implements OnInit {
     currentUser: UserModel = new UserModel();
     shipments: Shipment[] = new Array<Shipment>();
     columns: TableColumn[] = [];
+    totals: TotalsModel = new TotalsModel();
 
     constructor(
         private userService: UserService,
         private shipmentService: ShipmentService,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private totalsService: TotalsService
     ) {
         this.currentUser = this.authenticationService.currentUserValue;
     }
@@ -27,8 +29,9 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.loading = true;
         this.columns = [
-            { prop: 'quantity', name: '#', draggable: false, canAutoResize: false, sortable: true, resizeable: false },
-            { prop: 'shippingCompany', name: 'Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+            { prop: 'quantity', name: '#', draggable: false, canAutoResize: false, sortable: true, resizeable: false, width: 70 },
+            { prop: 'fileName', name: 'File Name', draggable: false, canAutoResize: false, sortable: true, resizeable: false },
+            { prop: 'shippingCompany', name: 'Shipped By', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
             {
                 prop: 'trackingNumber', name: 'Trancking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
                 cellTemplate: this._trackingNumberTemplate
@@ -45,6 +48,13 @@ export class HomeComponent implements OnInit {
 
         this.shipments.map(x => x.dateShipped = new Date());
         this.currentUser.latestShippedDate = new Date();
+        this.getTotals();
+    }
+
+    getTotals() {
+        this.totalsService.getTotals().subscribe((totals: TotalsModel) => {
+            this.totals = totals;
+        })
     }
 
     getShipments(): void {
@@ -56,7 +66,9 @@ export class HomeComponent implements OnInit {
             }
 
             if (user.sentFilamentDate) {
-                var nextweek = new Date(user.sentFilamentDate.getFullYear(), user.sentFilamentDate.getMonth(), user.sentFilamentDate.getDate() + 7);
+                const nextweek = new Date(user.sentFilamentDate.getFullYear(), user.sentFilamentDate.getMonth(),
+                    user.sentFilamentDate.getDate() + 7);
+
                 if (user.sentFilamentDate > nextweek) {
                     this.currentUser.sentFilamentDate = null;
                 } else {

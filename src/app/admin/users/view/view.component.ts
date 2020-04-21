@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
     this.user.printerActive = true;
     this.user.needsFilament = true;
 
-    this._userService.getById(userId).subscribe((user: User) => {
+    this._userService.viewUser(userId).subscribe((user: User) => {
       this.user = user;
     });
   }

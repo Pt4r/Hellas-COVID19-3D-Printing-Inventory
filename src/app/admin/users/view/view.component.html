@@ -13,14 +13,14 @@
         <form>
             <div class="form-row col-12">
                 <div class="form-group col-md-6">
-                    <label for="firstName">Όνομα*</label>
+                    <label for="firstName">Όνομα</label>
                     <input type="text"
                            disabled
                            value='{{user.firstName}}'
                            class="form-control" />
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="lastName">Επίθετο*</label>
+                    <label for="lastName">Επίθετο</label>
                     <input type="text"
                            disabled
                            value='{{user.lastName}}'
@@ -29,14 +29,14 @@
             </div>
             <div class="form-row col-12">
                 <div class="form-group col-md-2">
-                    <label for="lastName">Ρόλος*</label>
+                    <label for="lastName">Ρόλος</label>
                     <input type="text"
                            disabled
                            value='{{user.role}}'
                            class="form-control">
                 </div>
                 <div class="form-group col-md-5">
-                    <label for="email">Email*</label>
+                    <label for="email">Email</label>
                     <input type="email"
                            disabled
                            value='{{user.email}}'
@@ -44,7 +44,7 @@
                            required />
                 </div>
                 <div class="form-group col-md-5">
-                    <label for="phoneNumber">Τηλέφωνο*</label>
+                    <label for="phoneNumber">Τηλέφωνο</label>
                     <input type="tel"
                            disabled
                            value='{{user.phoneNumber}}'
@@ -54,7 +54,7 @@
             </div>
             <div class="form-row col-12">
                 <div class="form-group col-md-12">
-                    <label for="address">Διεύθυνση Αποστολής*</label>
+                    <label for="address">Διεύθυνση Αποστολής</label>
                     <textarea disabled
                               rows="4"
                               value='{{user.address}}'
@@ -66,7 +66,7 @@
             <div class="form-row col-12 align-items-center pt-4">
                 <div class="form-check col-md-6">
                     <label for="printerActive"
-                           class="form-check-label pr-5">Λειτουργικός εκτυπωτής*</label>
+                           class="form-check-label pr-5">Λειτουργικός εκτυπωτής</label>
                     <bSwitch name="printerActive"
                              [switch-animate]="'animate'"
                              [switch-size]="'small'"
@@ -79,7 +79,7 @@
                 </div>
                 <div class="form-check col-md-6 mt-sm-3 mt-md-0">
                     <label for="needsFilament"
-                           class="form-check-label pr-5">Χρειάζεται Filament*</label>
+                           class="form-check-label pr-5">Χρειάζεται Filament</label>
                     <bSwitch name="needsFilament"
                              [switch-animate]="'animate'"
                              [switch-size]="'small'"
@@ -94,7 +94,7 @@
             <div class="form-row col-12 align-items-center pt-4">
                 <div class="col"></div>
                 <div class="form-group col-md-6">
-                    <label for="printerModel">Μάρκα 3D Printer*</label>
+                    <label for="printerModel">Μοντέλο 3D Printer</label>
                     <input type="text"
                            disabled
                            value='{{user.printerModel}}'
@@ -104,38 +104,38 @@
             <hr />
             <div class="form-row col-12 align-items-center pt-4">
                 <div class="form-group col-md-4">
-                    <label for="batchRequiredTime">Εκτεινόμενος Χρόνος Εκτύπωσης*</label>
+                    <label for="batchRequiredTime">Απαιτούμενος Χρόνος Εκτύπωσης</label>
                     <input type="text"
                            disabled
                            value='{{user.batchRequiredTime}}'
                            class="form-control" />
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="printerModel">Συνολικά Απεσταλμένα*</label>
+                    <label for="printerModel">Συνολικά Απεσταλμένα</label>
                     <input type="text"
                            disabled
                            value='{{user.shippedQuantity}}'
                            class="form-control" />
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="printerModel">Τελευταία Αποστολή*</label>
+                    <label for="printerModel">Τελευταία Αποστολή</label>
                     <input type="text"
                            disabled
-                           value='{{user.latestShippedDate.toDateString()}}'
+                           value='{{user.latestShippedDate?.toDateString()}}'
                            class="form-control" />
                 </div>
             </div>
             <hr />
             <div class="form-row col-12">
                 <div class="form-group col-md-6">
-                    <label for="username">Username*</label>
+                    <label for="username">Username</label>
                     <input type="text"
                            disabled
                            value='{{user.username}}'
                            class="form-control" />
                 </div>
                 <div class="form-group col-md-6 mb-0">
-                    <label for="password">Password*</label>
+                    <label for="password">Password</label>
                     <input type="password"
                            disabled
                            value='{{user.firstName}}'

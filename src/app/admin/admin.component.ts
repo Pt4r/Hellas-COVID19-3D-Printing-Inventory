@@ -1,9 +1,10 @@
-﻿import { UserModel, Shipment, AdminShipmentsModel } from './../_helpers/backend';
+﻿import { Role } from '@app/_models';
+import { TotalsService } from './../_services/totals.service';
+import { AdminShipmentsModel, TotalsModel, UserModel } from './../_helpers/backend';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from '@app/_models';
-import { UserService, ShipmentService, AuthenticationService } from '@app/_services';
+import { ShipmentService, AuthenticationService } from '@app/_services';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { SearchEvent } from '@app/_helpers/list-view/models/search-event';
 
@@ -16,28 +17,35 @@ export class AdminComponent implements OnInit {
     deliveryLoading = false;
     pendingUsers: AdminShipmentsModel[] = new Array<AdminShipmentsModel>();
     columns: TableColumn[] = [];
+    totals: TotalsModel = new TotalsModel();
+    currentUser: UserModel;
     private event: SearchEvent;
 
     constructor(
-        private userService: UserService,
         private shipmentService: ShipmentService,
+        private totalsService: TotalsService,
         private authenticationService: AuthenticationService
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.loading = true;
         this.columns = [
             { prop: 'firstName', name: 'First Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
             { prop: 'lastName', name: 'Last Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
-            { prop: 'shippedQuantity', name: 'Total Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
-            { prop: 'shippingCompany', name: 'Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+            {
+                prop: 'shippedQuantity', name: 'Quantity', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
+                width: 70
+            },
+            {
+                prop: 'shippingCompany', name: 'Shipped By', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+                width: 170
+            },
             {
                 prop: 'trackingNumber', name: 'Trancking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
                 cellTemplate: this._trackingNumberTemplate
             },
             {
-                prop: 'latestShippedDate', name: 'Last Date Shipped', draggable: false, canAutoResize: true, sortable: true,
+                prop: 'dateShipped', name: 'Date Shipped', draggable: false, canAutoResize: true, sortable: true,
                 resizeable: false, cellTemplate: this._dateTemplate
             },
             {
@@ -46,11 +54,23 @@ export class AdminComponent implements OnInit {
             }
         ];
 
-        this.pendingUsers.map(x => x.latestShippedDate = new Date());
+        this.currentUser = this.authenticationService.currentUserValue;
+        this.pendingUsers.map(x => x.dateShipped = new Date());
+        this.getTotals();
+    }
+
+    getTotals() {
+        this.totalsService.getTotals().subscribe((totals: TotalsModel) => {
+            this.totals = totals;
+        })
     }
 
     getUsersWithShipments(event: SearchEvent): void {
         this.event = event;
+        if (this.currentUser.username === 'civilprotection') {
+            event.searchTerm = 'Πολιτικής Προστασίας'
+        };
+
         this.shipmentService.getUsersWithShipments(event).pipe(first()).subscribe((users: AdminShipmentsModel[]) => {
             this.loading = false;
             this.pendingUsers = users;
