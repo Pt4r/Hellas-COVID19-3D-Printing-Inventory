@@ -27,11 +27,11 @@ export interface IBackofficeApiService {
     users_Authenticate(model: AuthenticateModel): Observable<UserModel>;
     users_Register(model: RegisterModel): Observable<void>;
     users_GetAll(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<UserModel[]>;
-    users_GetUsersWithoutFilament(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<UserModel[]>;
-    users_deliverFilament(model: UserFilamentModel): Observable<void>;
     users_GetById(id: string): Observable<UserModel>;
     users_Update(id: string, model: UpdateModel): Observable<void>;
     users_Delete(id: string): Observable<void>;
+    users_GetUsersWithoutFilament(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<UserModel[]>;
+    users_deliverFilament(model: UserFilamentModel): Observable<void>;
 }
 
 @Injectable({
@@ -919,153 +919,6 @@ export class BackofficeApiService implements IBackofficeApiService {
         return _observableOf<UserModel[]>(<any>null);
     }
 
-    users_GetUsersWithoutFilament(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<UserModel[]> {
-        let url_ = this.baseUrl + "/Users/filament?";
-        if (page === null)
-            throw new Error("The parameter 'page' cannot be null.");
-        else if (page !== undefined)
-            url_ += "Page=" + encodeURIComponent("" + page) + "&";
-        if (size === null)
-            throw new Error("The parameter 'size' cannot be null.");
-        else if (size !== undefined)
-            url_ += "Size=" + encodeURIComponent("" + size) + "&";
-        if (sort !== undefined)
-            url_ += "Sort=" + encodeURIComponent("" + sort) + "&";
-        if (search !== undefined)
-            url_ += "Search=" + encodeURIComponent("" + search) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUsers_GetUsersWithoutFilament(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUsers_GetUsersWithoutFilament(<any>response_);
-                } catch (e) {
-                    return <Observable<UserModel[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<UserModel[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUsers_GetUsersWithoutFilament(response: HttpResponseBase): Observable<UserModel[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = AppException.fromJS(resultData401);
-            return throwException("A server side error occurred.", status, _responseText, _headers, result401);
-            }));
-        } else if (status === 403) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = AppException.fromJS(resultData403);
-            return throwException("A server side error occurred.", status, _responseText, _headers, result403);
-            }));
-        } else if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(UserModel.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<UserModel[]>(<any>null);
-    }
-
-    users_deliverFilament(model: UserFilamentModel): Observable<void> {
-        let url_ = this.baseUrl + "/Users/filament";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(model);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json",
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUsers_deliverFilament(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUsers_deliverFilament(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUsers_deliverFilament(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 401) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = AppException.fromJS(resultData401);
-            return throwException("A server side error occurred.", status, _responseText, _headers, result401);
-            }));
-        } else if (status === 403) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = ProblemDetails.fromJS(resultData403);
-            return throwException("A server side error occurred.", status, _responseText, _headers, result403);
-            }));
-        } else if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 400) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = ProblemDetails.fromJS(resultData400);
-            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
-
     users_GetById(id: string): Observable<UserModel> {
         let url_ = this.baseUrl + "/Users/{id}";
         if (id === undefined || id === null)
@@ -1255,6 +1108,153 @@ export class BackofficeApiService implements IBackofficeApiService {
         } else if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    users_GetUsersWithoutFilament(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<UserModel[]> {
+        let url_ = this.baseUrl + "/Users/filament?";
+        if (page === null)
+            throw new Error("The parameter 'page' cannot be null.");
+        else if (page !== undefined)
+            url_ += "Page=" + encodeURIComponent("" + page) + "&";
+        if (size === null)
+            throw new Error("The parameter 'size' cannot be null.");
+        else if (size !== undefined)
+            url_ += "Size=" + encodeURIComponent("" + size) + "&";
+        if (sort !== undefined)
+            url_ += "Sort=" + encodeURIComponent("" + sort) + "&";
+        if (search !== undefined)
+            url_ += "Search=" + encodeURIComponent("" + search) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUsers_GetUsersWithoutFilament(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUsers_GetUsersWithoutFilament(<any>response_);
+                } catch (e) {
+                    return <Observable<UserModel[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<UserModel[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUsers_GetUsersWithoutFilament(response: HttpResponseBase): Observable<UserModel[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result401: any = null;
+            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result401 = AppException.fromJS(resultData401);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result401);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result403: any = null;
+            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result403 = AppException.fromJS(resultData403);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result403);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(UserModel.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UserModel[]>(<any>null);
+    }
+
+    users_deliverFilament(model: UserFilamentModel): Observable<void> {
+        let url_ = this.baseUrl + "/Users/filament";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(model);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUsers_deliverFilament(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUsers_deliverFilament(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUsers_deliverFilament(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result401: any = null;
+            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result401 = AppException.fromJS(resultData401);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result401);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result403: any = null;
+            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result403 = ProblemDetails.fromJS(resultData403);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result403);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -1562,6 +1562,7 @@ export class User implements IUser {
     batchRequiredTime!: number;
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
+    latestShippedQuantity?: number | undefined;
     needsFilament!: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
@@ -1595,6 +1596,7 @@ export class User implements IUser {
             this.batchRequiredTime = _data["batchRequiredTime"];
             this.shippedQuantity = _data["shippedQuantity"];
             this.latestShippedDate = _data["latestShippedDate"] ? new Date(_data["latestShippedDate"].toString()) : <any>undefined;
+            this.latestShippedQuantity = _data["latestShippedQuantity"];
             this.needsFilament = _data["needsFilament"];
             this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
             this.filamentTrackingNumber = _data["filamentTrackingNumber"];
@@ -1632,6 +1634,7 @@ export class User implements IUser {
         data["batchRequiredTime"] = this.batchRequiredTime;
         data["shippedQuantity"] = this.shippedQuantity;
         data["latestShippedDate"] = this.latestShippedDate ? this.latestShippedDate.toISOString() : <any>undefined;
+        data["latestShippedQuantity"] = this.latestShippedQuantity;
         data["needsFilament"] = this.needsFilament;
         data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
         data["filamentTrackingNumber"] = this.filamentTrackingNumber;
@@ -1662,6 +1665,7 @@ export interface IUser {
     batchRequiredTime: number;
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
+    latestShippedQuantity?: number | undefined;
     needsFilament: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
@@ -1871,6 +1875,7 @@ export class UserModel implements IUserModel {
     printerModel?: string | undefined;
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
+    latestShippedQuantity?: number | undefined;
     needsFilament!: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
@@ -1902,6 +1907,7 @@ export class UserModel implements IUserModel {
             this.printerModel = _data["printerModel"];
             this.shippedQuantity = _data["shippedQuantity"];
             this.latestShippedDate = _data["latestShippedDate"] ? new Date(_data["latestShippedDate"].toString()) : <any>undefined;
+            this.latestShippedQuantity = _data["latestShippedQuantity"];
             this.needsFilament = _data["needsFilament"];
             this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
             this.filamentTrackingNumber = _data["filamentTrackingNumber"];
@@ -1937,6 +1943,7 @@ export class UserModel implements IUserModel {
         data["printerModel"] = this.printerModel;
         data["shippedQuantity"] = this.shippedQuantity;
         data["latestShippedDate"] = this.latestShippedDate ? this.latestShippedDate.toISOString() : <any>undefined;
+        data["latestShippedQuantity"] = this.latestShippedQuantity;
         data["needsFilament"] = this.needsFilament;
         data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
         data["filamentTrackingNumber"] = this.filamentTrackingNumber;
@@ -1965,6 +1972,7 @@ export interface IUserModel {
     printerModel?: string | undefined;
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
+    latestShippedQuantity?: number | undefined;
     needsFilament: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;

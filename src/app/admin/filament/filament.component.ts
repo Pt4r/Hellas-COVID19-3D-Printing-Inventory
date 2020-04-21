@@ -34,12 +34,18 @@ export class FilamentComponent implements OnInit {
     this.columns = [
       { prop: 'firstName', name: 'First Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       { prop: 'lastName', name: 'Last Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
-      { prop: 'printerModel', name: 'Printer Model', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      {
+        prop: 'shippedQuantity', name: 'Total Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+        width: 50
+      },
       {
         prop: 'latestShippedDate', name: 'Latest Shipped Date', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
         cellTemplate: this._dateTemplate
       },
-      { prop: 'shippedQuantity', name: 'Shipped Quantity', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      {
+        prop: 'latestShippedQuantity', name: 'Latest Shippment', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+        width: 70
+      },
       {
         prop: 'id', name: 'Actions', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
         cellTemplate: this._actionsTemplate, cellClass: 'd-flex align-items-center'
@@ -60,8 +66,8 @@ export class FilamentComponent implements OnInit {
       data: row
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result){
-        row.sentFilamentDate =  result.sentFilamentDate;
+      if (result) {
+        row.sentFilamentDate = result.sentFilamentDate;
         row.filamentTrackingNumber = result.filamentTrackingNumber;
         this.sendFilament(row);
       }
