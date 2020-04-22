@@ -35,8 +35,8 @@
         <div class="col-12 mt-3">
             <hr />
             <div class="row text-center text-nowrap font-weight-bold">
-                <div class="col-3"></div>
-                <div class="col-3">
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
                     <div class="alert alert-warning p-0"
                          role="alert">
                         <p class="m-1">Ανάγκες σε μάσκες</p>
@@ -44,7 +44,7 @@
                         <p class="m-1">15000</p>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-4">
                     <div class="alert alert-primary p-0"
                          role="alert">
                         <p class="m-1">Συνολικά Απεσταλμένα</p>
@@ -52,12 +52,12 @@
                         <p class="m-1">{{totals.totalQuantityRecieved|| '-'}}</p>
                     </div>
                 </div>
-                <div class="col-3"></div>
+                <div class="col-md-2"></div>
             </div>
             <hr />
             <div>
                 <form>
-                    <div class="form-row col-6">
+                    <div class="form-row col-12">
                         <div class="form-group col-md-6">
                             <label for="activePrinter">Σε λειτουργία: </label>
                             <bSwitch name="activePrinter"
@@ -100,44 +100,44 @@
                     routerLink="/shipments">
                 Καταγραφή Μετακίνησης Υλικών
             </button>
-            <div class="col-md-12">
-                <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Πρόσφατη Δραστηριότητα</h5>
-                <app-list-view [clientSide]="true"
-                               [columns]="columns"
-                               [rows]="shipments"
-                               [rowsPerPage]="10"
-                               [defaultSortField]="'dateShipped'"
-                               [defaultSortDirection]="'Desc'"
-                               [emptyMessage]="'Στείλε μας την κούτα σου με (30) μάσκες για 2kg PLA filament!'"
-                               (search)="getShipments()"
-                               #shipmentsList>
-                </app-list-view>
-                <ng-template let-row="row"
-                             let-value="value"
-                             #dateTemplate>
-                    {{ value | date }}
-                </ng-template>
-                <ng-template let-row="row"
-                             let-value="value"
-                             #trackingNumberTemplate>
-                    <a target="_blank"
-                       href="https://www.taxydromiki.com/track/{{value}}"
-                       class="text-dark">{{value}}</a>
-                </ng-template>
-                <ng-template let-row="row"
-                             let-value="value"
-                             #deliveryTemplate>
-                    <span class="material-icons text-success"
-                          *ngIf="row.recieved else notRecieved">
-                        done
+        </div>
+        <div class="col-md-12">
+            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Πρόσφατη Δραστηριότητα</h5>
+            <app-list-view [clientSide]="true"
+                           [columns]="columns"
+                           [rows]="shipments"
+                           [rowsPerPage]="10"
+                           [defaultSortField]="'dateShipped'"
+                           [defaultSortDirection]="'Desc'"
+                           [emptyMessage]="'Στείλε μας την κούτα σου με (30) μάσκες για 2kg PLA filament!'"
+                           (search)="getShipments()"
+                           #shipmentsList>
+            </app-list-view>
+            <ng-template let-row="row"
+                         let-value="value"
+                         #dateTemplate>
+                {{ value | date }}
+            </ng-template>
+            <ng-template let-row="row"
+                         let-value="value"
+                         #trackingNumberTemplate>
+                <a target="_blank"
+                   href="https://www.taxydromiki.com/track/{{value}}"
+                   class="text-dark">{{value}}</a>
+            </ng-template>
+            <ng-template let-row="row"
+                         let-value="value"
+                         #deliveryTemplate>
+                <span class="material-icons text-success"
+                      *ngIf="row.recieved else notRecieved">
+                    done
+                </span>
+                <ng-template #notRecieved>
+                    <span class="material-icons text-muted">
+                        local_shipping
                     </span>
-                    <ng-template #notRecieved>
-                        <span class="material-icons text-muted">
-                            local_shipping
-                        </span>
-                    </ng-template>
                 </ng-template>
-            </div>
+            </ng-template>
         </div>
     </div>
 </div>

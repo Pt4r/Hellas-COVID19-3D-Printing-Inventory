@@ -31,6 +31,4 @@ export class ConfirmDialogComponent implements OnInit{
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  
 }

@@ -127,3 +127,7 @@ input[type=time]::-webkit-clear-button {
   background-image: url('../src/assets/img/DiscordWhite.png');
   background-size: cover;
 }
+
+.cdk-overlay-pane {
+  overflow-y: auto;
+}

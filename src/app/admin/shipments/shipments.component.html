@@ -16,15 +16,15 @@
         <hr />
         <div *ngIf="loading"
              class="spinner-border spinner-border-sm"></div>
-        <div class="row text-center col-12 text-nowrap font-weight-bold">
-            <div class="col-4"></div>
-            <div class="col-4 alert alert-primary p-0"
+        <div class="row text-center col-12 text-nowrap font-weight-bold m-0 p-0">
+            <div class="col-3 col-md-4"></div>
+            <div class="col-6 col-md-4 alert alert-primary p-0"
                  role="alert">
                 <p class="m-1">Απεσταλμένα</p>
                 <hr class="m-1" />
                 <p class="m-1">{{totals.totalQuantityRecieved || '-'}}</p>
             </div>
-            <div class="col-4"></div>
+            <div class="col-3 col-md-4"></div>
         </div>
         <hr />
         <div class="col-12 mt-3 p-0">

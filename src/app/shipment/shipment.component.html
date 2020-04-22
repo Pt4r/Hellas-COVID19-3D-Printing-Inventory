@@ -1,5 +1,6 @@
-<div class="container">
-    <div class="col-md-7 offset-md-2 pt-5">
+<div class="container col-12 row p-0 m-0">
+    <div class="col-md-2"></div>
+    <div class="col-12 col-md-8 pt-5">
         <div class="card">
             <h4 class="card-header text-center"> Καταγραφή Μετακίνησης Υλικών </h4>
             <div class="card-body">
@@ -78,7 +79,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row col-12 my-4" *ngIf="f.shippingCompany.value === 'Γενική Ταχυδρομική'">
+                    <div class="form-row col-12 my-4"
+                         *ngIf="f.shippingCompany.value === 'Γενική Ταχυδρομική'">
                         <div class="form-group col-md-12">
                             <label for="trackingNumber">
                                 Αριθμός φορτωτικής αποστολής εκτυπώσεων*
@@ -94,16 +96,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row col-12 mb-5">
-                        <div class="form-check-inline col-md-12">
+                    <div class="form-row col-12 mb-5 mt-4 text-center text-md-left">
+                        <div class="form-group">
                             <label for="needsFilament"
-                                   class="form-check-label pr-5">Θέλεις να σου στείλουμε filament?</label>
+                                   class="pr-md-5">Θέλεις να σου στείλουμε filament?</label>
                             <bSwitch name="needsFilament"
                                      [switch-animate]="'animate'"
                                      [switch-size]="'small'"
                                      [switch-on-text]="'ΝΑΙ'"
                                      [switch-off-text]="'ΟΧΙ'"
-                                     class="form-check-input"
+                                     class=""
                                      id="needsFilament"
                                      formControlName="needsFilament"></bSwitch>
                         </div>
@@ -128,4 +130,5 @@
             </div>
         </div>
     </div>
+    <div class="col-md-2"></div>
 </div>

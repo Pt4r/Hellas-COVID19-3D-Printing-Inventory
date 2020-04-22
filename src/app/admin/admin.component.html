@@ -4,16 +4,16 @@
         <div class="row">
             <div class="col-12 d-flex">
                 <div class="flex-grow-1">
-                    <button class="btn btn-success ml-3"
+                    <button class="btn btn-success"
                             [routerLink]="['/admin/users']">
                         Όλοι οι Χρήστες
                     </button>
-                    <button class="btn btn-success ml-3 mt-3 mt-md-0"
+                    <button class="btn btn-success ml-sm-3 mt-3 mt-md-0"
                             [routerLink]="['/admin/shipments']">
                         Όλες οι Αποστολές
                     </button>
                 </div>
-                <button class="btn btn-danger"
+                <button class="btn btn-danger ml-3"
                         [routerLink]="['/admin/filament']">
                     Αποστολή Υλικού
                 </button>
@@ -23,8 +23,8 @@
         <div *ngIf="loading"
              class="spinner-border spinner-border-sm"></div>
         <div class="row text-center text-nowrap font-weight-bold">
-            <div class="col-3"></div>
-            <div class="col-3">
+            <div class="col-0 col-md-3"></div>
+            <div class="col-6 col-md-3">
                 <div class="alert alert-primary p-0"
                      role="alert">
                     <p class="m-1">Χρήστες</p>
@@ -32,7 +32,7 @@
                     <p class="m-1">{{totals.totalUsers|| '-'}}</p>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-6 col-md-3">
                 <div class="alert alert-primary p-0"
                      role="alert">
                     <p class="m-1">Απεσταλμένα</p>
@@ -40,7 +40,7 @@
                     <p class="m-1">{{totals.totalQuantityRecieved|| '-'}}</p>
                 </div>
             </div>
-            <div class="col-3"></div>
+            <div class="col-0 col-md-3"></div>
         </div>
         <hr />
         <div class="col-12 mt-3 p-0">
