@@ -1,10 +1,11 @@
-﻿import { UserModel, Shipment, TotalsModel } from './../_helpers/backend';
+﻿import { UserModel, Shipment, TotalsModel, TopTen } from './../_helpers/backend';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 import { UserService, AuthenticationService, ShipmentService } from '@app/_services';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { TotalsService } from '@app/_services/totals.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent implements OnInit {
@@ -16,12 +17,14 @@ export class HomeComponent implements OnInit {
     shipments: Shipment[] = new Array<Shipment>();
     columns: TableColumn[] = [];
     totals: TotalsModel = new TotalsModel();
+    topTen: TopTen[] = [];
 
     constructor(
         private userService: UserService,
         private shipmentService: ShipmentService,
         private authenticationService: AuthenticationService,
-        private totalsService: TotalsService
+        private totalsService: TotalsService,
+        private toastr: ToastrService
     ) {
         this.currentUser = this.authenticationService.currentUserValue;
     }
@@ -49,6 +52,7 @@ export class HomeComponent implements OnInit {
         this.shipments.map(x => x.dateShipped = new Date());
         this.currentUser.latestShippedDate = new Date();
         this.getTotals();
+        this.showHighScore();
     }
 
     getTotals() {
@@ -80,6 +84,34 @@ export class HomeComponent implements OnInit {
         });
         this.shipmentService.getShipmentsByUser(this.currentUser.id).subscribe((shipments: Shipment[]) => {
             this.shipments = shipments;
+        });
+    }
+
+    showHighScore() {
+        this.totalsService.getTopTen().subscribe((topTen: TopTen[]) => {
+            this.topTen = topTen;
+
+            if (window.screen.width > 760 ) {
+                this.toastr.success(`
+                <table class="table text-light text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Shipped</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        ${this.topTen.map((x, index) => '<tr><th scope="row">' + (index + 1) + '</th>' + '<td>' + x.username + '</td>' + '<td>' + x.totalQuantity + '</td></tr>').join('')}
+                    </tbody>
+                </table>
+                `, 'Top 10', {
+                    enableHtml: true,
+                    closeButton: true,
+                    timeOut: 8000,
+                    progressBar: true
+                });
+            };
         });
     }
 }

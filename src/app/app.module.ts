@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap/accordion/accordion';
+import { ToastrModule } from 'ngx-toastr';
 
 import { HomeComponent } from './home';
 import { AdminComponent } from './admin';
@@ -51,7 +51,10 @@ import { GuideComponent } from './guide/guide.component';
         MatFormFieldModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        NgbModule
+        NgbModule,
+        ToastrModule.forRoot({
+            preventDuplicates: true,
+        })
     ],
     declarations: [
         AppComponent,
