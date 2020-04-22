@@ -1,8 +1,6 @@
 <div class="card mt-4">
     <h4 class="card-header">Αποστολή Υλικού</h4>
     <div class="card-body">
-        <div *ngIf="loading"
-             class="spinner-border spinner-border-sm"></div>
         <div class="row">
             <div class="col-12">
                 <button class="btn btn-primary"
@@ -16,15 +14,16 @@
             </div>
         </div>
         <hr />
+        <div *ngIf="loading"
+             class="spinner-border spinner-border-sm"></div>
         <div class="col-12 mt-3">
             <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Χρήστες με ανάγκη για υλικό</h5>
             <app-list-view [clientSide]="true"
                            [columns]="columns"
                            [rows]="users"
-                           [rowsPerPage]="2147483647"
+                           [rowsPerPage]="10"
                            [defaultSortField]="'latestShippedDate'"
                            [defaultSortDirection]="'Desc'"
-                           [showFooter]="'false'"
                            [emptyMessage]="'Δεν υπάρχει κάποιος χρήστης που να έχει ζητήσει filament!'"
                            (search)="getUsers($event)"
                            [canFilter]="true"

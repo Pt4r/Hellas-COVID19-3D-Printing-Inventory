@@ -67,7 +67,7 @@ export class AdminComponent implements OnInit {
 
     getUsersWithShipments(event: SearchEvent): void {
         this.event = event;
-        if (this.currentUser.username === 'civilprotection') {
+        if (this.currentUser.username === 'sofoub30') {
             event.searchTerm = 'Πολιτικής Προστασίας'
         };
 

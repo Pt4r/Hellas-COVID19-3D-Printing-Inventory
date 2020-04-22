@@ -1,8 +1,6 @@
 <div class="card mt-4">
     <h4 class="card-header">Αποστολές</h4>
     <div class="card-body">
-        <div *ngIf="loading"
-             class="spinner-border spinner-border-sm"></div>
         <div class="row">
             <div class="col-12">
                 <button class="btn btn-primary"
@@ -16,6 +14,8 @@
             </div>
         </div>
         <hr />
+        <div *ngIf="loading"
+             class="spinner-border spinner-border-sm"></div>
         <div class="row text-center col-12 text-nowrap font-weight-bold">
             <div class="col-4"></div>
             <div class="col-4 alert alert-primary p-0"
@@ -31,10 +31,9 @@
             <app-list-view [clientSide]="true"
                            [columns]="columns"
                            [rows]="pendingShipments"
-                           [rowsPerPage]="2147483647"
+                           [rowsPerPage]="10"
                            [defaultSortField]="'dateShipped'"
                            [defaultSortDirection]="'Desc'"
-                           [showFooter]="'false'"
                            (search)="getUsersWithShipments($event)"
                            [canFilter]="true"
                            #shipmentsList>

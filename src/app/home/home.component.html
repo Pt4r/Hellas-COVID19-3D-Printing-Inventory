@@ -105,10 +105,9 @@
                 <app-list-view [clientSide]="true"
                                [columns]="columns"
                                [rows]="shipments"
-                               [rowsPerPage]="2147483647"
+                               [rowsPerPage]="10"
                                [defaultSortField]="'dateShipped'"
                                [defaultSortDirection]="'Desc'"
-                               [showFooter]="'false'"
                                [emptyMessage]="'Στείλε μας την κούτα σου με (30) μάσκες για 2kg PLA filament!'"
                                (search)="getShipments()"
                                #shipmentsList>

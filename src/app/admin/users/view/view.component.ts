@@ -24,5 +24,4 @@ export class ViewComponent implements OnInit {
       this.user = user;
     });
   }
-
 }
