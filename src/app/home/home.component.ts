@@ -27,10 +27,10 @@ export class HomeComponent implements OnInit {
         private toastr: ToastrService
     ) {
         this.currentUser = this.authenticationService.currentUserValue;
+        this.loading = true;
     }
 
     ngOnInit() {
-        this.loading = true;
         this.columns = [
             { prop: 'quantity', name: '#', draggable: false, canAutoResize: false, sortable: true, resizeable: false, width: 70 },
             { prop: 'fileName', name: 'File Name', draggable: false, canAutoResize: false, sortable: true, resizeable: false },

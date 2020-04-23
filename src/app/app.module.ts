@@ -53,7 +53,7 @@ import { GuideComponent } from './guide/guide.component';
         MatNativeDateModule,
         NgbModule,
         ToastrModule.forRoot({
-            preventDuplicates: true,
+            preventDuplicates: true
         })
     ],
     declarations: [

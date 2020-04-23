@@ -19,7 +19,6 @@
                     <label for="lastName">Επίθετο*</label>
                     <input type="text"
                            formControlName="lastName"
-                           [(ngModel)]="user.lastName"
                            class="form-control"
                            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
                     <div *ngIf="submitted && f.lastName.errors"
@@ -34,7 +33,6 @@
                     <input type="email"
                            formControlName="email"
                            class="form-control"
-                           [(ngModel)]="user.email"
                            required
                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                     <div *ngIf="submitted && f.email.errors"
@@ -47,7 +45,6 @@
                     <input type="tel"
                            placeholder="6934567891"
                            formControlName="phoneNumber"
-                           [(ngModel)]="user.phoneNumber"
                            class="form-control"
                            [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
                     <div *ngIf="submitted && f.phoneNumber.errors"
@@ -62,7 +59,6 @@
                     <textarea formControlName="address"
                               name="address"
                               rows="4"
-                              [(ngModel)]="user.address"
                               class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
                 </textarea>
@@ -82,7 +78,6 @@
                              [switch-size]="'small'"
                              [switch-on-text]="'ΝΑΙ'"
                              [switch-off-text]="'ΟΧΙ'"
-                             [(ngModel)]="user.printerActive"
                              class="form-check-input"
                              id="printerActive"
                              formControlName="printerActive"></bSwitch>
@@ -93,7 +88,6 @@
                     <label for="printerModel">Μοντέλο 3D Printer*</label>
                     <input type="text"
                            formControlName="printerModel"
-                           [(ngModel)]="user.printerModel"
                            class="form-control"
                            [ngClass]="{ 'is-invalid': submitted && f.printerModel.errors }" />
                     <div *ngIf="submitted && f.printerModel.errors"
@@ -106,7 +100,6 @@
                     <input type="number"
                            min=0
                            pattern="^[0-9]+$"
-                           [(ngModel)]="user.batchRequiredTime"
                            name="batchRequiredTime"
                            id="batchRequiredTime"
                            formControlName="batchRequiredTime"
@@ -121,7 +114,6 @@
                     <label for="newPassword">Νέος κωδικός</label>
                     <input type="password"
                            formControlName="newPassword"
-                           [(ngModel)]="updatedUser.newPassword"
                            class="form-control"
                            [ngClass]="{ 'is-invalid': submitted && f.newPassword.errors }"
                            aria-describedby="newPasswordHelpBlock" />
@@ -137,7 +129,6 @@
                     <label for="username">Username*</label>
                     <input type="text"
                            formControlName="username"
-                           [(ngModel)]="user.username"
                            class="form-control"
                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
                     <div *ngIf="submitted && f.username.errors"
@@ -149,7 +140,6 @@
                     <label for="password">Παλιός κωδικός*</label>
                     <input type="password"
                            formControlName="password"
-                           [(ngModel)]="updatedUser.password"
                            class="form-control"
                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                            aria-describedby="passwordHelpBlock" />

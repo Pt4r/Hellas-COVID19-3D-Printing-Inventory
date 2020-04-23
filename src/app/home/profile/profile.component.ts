@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
-    
+
     // get user details
     this._userService.getById(this._authenticationService.currentUserValue.id).subscribe((user: User) => {
       this.user = user;
