@@ -1891,6 +1891,7 @@ export class TotalsModel implements ITotalsModel {
     totalUsers?: number | undefined;
     totalQuantityRecieved?: number | undefined;
     totalQuantityPrinted?: number | undefined;
+    totalFilamentSent?: number | undefined;
 
     constructor(data?: ITotalsModel) {
         if (data) {
@@ -1906,6 +1907,7 @@ export class TotalsModel implements ITotalsModel {
             this.totalUsers = _data["totalUsers"];
             this.totalQuantityRecieved = _data["totalQuantityRecieved"];
             this.totalQuantityPrinted = _data["totalQuantityPrinted"];
+            this.totalFilamentSent = _data["totalFilamentSent"];
         }
     }
 
@@ -1921,6 +1923,7 @@ export class TotalsModel implements ITotalsModel {
         data["totalUsers"] = this.totalUsers;
         data["totalQuantityRecieved"] = this.totalQuantityRecieved;
         data["totalQuantityPrinted"] = this.totalQuantityPrinted;
+        data["totalFilamentSent"] = this.totalFilamentSent;
         return data; 
     }
 }
@@ -1929,6 +1932,7 @@ export interface ITotalsModel {
     totalUsers?: number | undefined;
     totalQuantityRecieved?: number | undefined;
     totalQuantityPrinted?: number | undefined;
+    totalFilamentSent?: number | undefined;
 }
 
 export class TopTen implements ITopTen {

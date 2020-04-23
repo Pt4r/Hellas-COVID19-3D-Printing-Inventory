@@ -23,8 +23,8 @@
         <div *ngIf="loading"
              class="spinner-border spinner-border-sm"></div>
         <div class="row text-center text-nowrap font-weight-bold">
-            <div class="col-0 col-md-3"></div>
-            <div class="col-6 col-md-3">
+            <div class="col-0 col-md-1"></div>
+            <div class="col-4 col-md-3">
                 <div class="alert alert-primary p-0"
                      role="alert">
                     <p class="m-1">Χρήστες</p>
@@ -32,15 +32,23 @@
                     <p class="m-1">{{totals.totalUsers|| '-'}}</p>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-4 col-md-3">
                 <div class="alert alert-primary p-0"
                      role="alert">
-                    <p class="m-1">Απεσταλμένα</p>
+                    <p class="m-1">Εκτυπώσεις</p>
                     <hr class="m-1"/>
                     <p class="m-1">{{totals.totalQuantityRecieved|| '-'}}</p>
                 </div>
             </div>
-            <div class="col-0 col-md-3"></div>
+            <div class="col-4 col-md-3">
+                <div class="alert alert-primary p-0"
+                     role="alert">
+                    <p class="m-1">Filament</p>
+                    <hr class="m-1"/>
+                    <p class="m-1">{{totals.totalFilamentSent|| '-'}} Kg</p>
+                </div>
+            </div>
+            <div class="col-0 col-md-1"></div>
         </div>
         <hr />
         <div class="col-12 mt-3 p-0">
