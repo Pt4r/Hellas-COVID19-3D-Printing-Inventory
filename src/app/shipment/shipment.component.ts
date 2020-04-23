@@ -42,8 +42,8 @@ export class ShipmentComponent implements OnInit {
       shippingCompany: ['', Validators.required],
       needsFilament: [false, Validators.required],
       fileName: ['', Validators.required],
-      selfCheckoutFirstName: ['', Validators.required],
-      selfCheckoutLastName: ['', Validators.required]
+      selfCheckoutFirstName: [' ', Validators.required],
+      selfCheckoutLastName: [' ', Validators.required]
     });
 
     // get return url from route parameters or default to '/'
@@ -61,7 +61,6 @@ export class ShipmentComponent implements OnInit {
     this._shipment.quantity = this.f.quantity.value;
     this._shipment.dateShipped = new Date(this.f.dateShipped.value);
     this._shipment.fileName = this.f.fileName.value;
-
     if (this.selfCheckout) {
       this._shipment.shippingCompany = 'Αυτοπαράδωση';
       this._shipment.trackingNumber = this.f.selfCheckoutFirstName.value + ' ' + this.f.selfCheckoutLastName.value;
