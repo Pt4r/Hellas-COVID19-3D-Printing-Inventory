@@ -1,5 +1,5 @@
 ﻿import { UserModel, Shipment, TotalsModel, TopTen } from './../_helpers/backend';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { first, map } from 'rxjs/operators';
 
 import { UserService, AuthenticationService, ShipmentService } from '@app/_services';
@@ -8,7 +8,7 @@ import { TotalsService } from '@app/_services/totals.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({ templateUrl: 'home.component.html' })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterContentChecked {
     @ViewChild('deliveryTemplate', { static: true }) private _deliveryTemplate: TemplateRef<HTMLElement>;
     @ViewChild('dateTemplate', { static: true }) private _dateTemplate: TemplateRef<HTMLElement>;
     @ViewChild('trackingNumberTemplate', { static: true }) private _trackingNumberTemplate: TemplateRef<HTMLElement>;
@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
         private shipmentService: ShipmentService,
         private authenticationService: AuthenticationService,
         private totalsService: TotalsService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private cdref: ChangeDetectorRef
     ) {
         this.currentUser = this.authenticationService.currentUserValue;
         this.loading = true;
@@ -91,7 +92,7 @@ export class HomeComponent implements OnInit {
         this.totalsService.getTopTen().subscribe((topTen: TopTen[]) => {
             this.topTen = topTen;
 
-            if (window.screen.width > 760 ) {
+            if (window.screen.width > 760) {
                 this.toastr.success(`
                 <table class="table text-light text-center">
                     <thead>
@@ -113,5 +114,11 @@ export class HomeComponent implements OnInit {
                 });
             };
         });
+    }
+
+    ngAfterContentChecked() {
+
+        this.cdref.detectChanges();
+
     }
 }
