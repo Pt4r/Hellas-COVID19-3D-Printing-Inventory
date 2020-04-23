@@ -22,8 +22,7 @@
         <hr />
         <div *ngIf="loading"
              class="spinner-border spinner-border-sm"></div>
-        <div class="row text-center text-nowrap font-weight-bold">
-            <div class="col-0 col-md-1"></div>
+        <div class="row text-center text-nowrap font-weight-bold d-flex justify-content-center">
             <div class="col-4 col-md-3">
                 <div class="alert alert-primary p-0"
                      role="alert">
@@ -48,7 +47,6 @@
                     <p class="m-1">{{totals.totalFilamentSent|| '-'}} Kg</p>
                 </div>
             </div>
-            <div class="col-0 col-md-1"></div>
         </div>
         <hr />
         <div class="col-12 mt-3 p-0">

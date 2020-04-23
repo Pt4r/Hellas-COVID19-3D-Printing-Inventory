@@ -55,6 +55,10 @@ export class ShipmentService {
         return this.backoffice.shipments_GetShipmentsWithUsers(event.page, event.pageSize, event.sortField, event.searchTerm);
     }
 
+    getUsersWithShipmentsCP(event: SearchEvent): Observable<AdminShipmentsModel[]> {
+        return this.backoffice.shipments_GetShipmentsWithUsersCP(event.page, event.pageSize, event.sortField, event.searchTerm);
+    }
+
     packageRecieved(packageId: string, recieved: boolean): Observable<void> {
         return this.backoffice.shipments_packageRecieved(packageId, recieved);
     }

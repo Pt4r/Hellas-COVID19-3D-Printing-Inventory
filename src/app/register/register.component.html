@@ -57,14 +57,36 @@
                     </div>
                     <div class="form-row col-12">
                         <div class="form-group col-md-12">
-                            <label for="address">Διεύθυνση αποστολής νέου χορηγούμενου υλικού*</label>
-                            <textarea formControlName="address"
-                                      class="form-control"
-                                      [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
-                        </textarea>
-                            <div *ngIf="submitted && f.address.errors"
+                            <label for="addressStreet">Διεύθυνση αποστολής νέου χορηγούμενου υλικού*</label>
+                            <input type="text"
+                                   formControlName="addressStreet"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.addressStreet.errors }" />
+                            <div *ngIf="submitted && f.addressStreet.errors"
                                  class="invalid-feedback">
-                                <div *ngIf="f.address.errors.required">Η Περιοχή είναι απαραίτητη</div>
+                                <div *ngIf="f.addressStreet.errors.required">Η Περιοχή είναι απαραίτητη</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="addressCity">Πόλη*</label>
+                            <input type="text"
+                                   formControlName="addressCity"
+                                   class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.addressCity.errors }" />
+                            <div *ngIf="submitted && f.addressCity.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.addressCity.errors.required">Η Περιοχή είναι απαραίτητη</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="addressTK">Ταχυδρομικός κώδικας*</label>
+                            <input type="text"
+                               formControlName="addressTK"
+                               class="form-control"
+                               [ngClass]="{ 'is-invalid': submitted && f.addressTK.errors }" />
+                            <div *ngIf="submitted && f.addressTK.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="f.addressTK.errors.required">Η Περιοχή είναι απαραίτητη</div>
                             </div>
                         </div>
                     </div>
@@ -82,7 +104,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-6 text-center">
-                            <label for="batchRequiredTime">Απαιτούμενος χρόνος εκτύπωσης 1 μάσκας <br/> (σε λεπτά)</label>
+                            <label for="batchRequiredTime">Απαιτούμενος χρόνος εκτύπωσης 1 μάσκας <br /> (σε λεπτά)</label>
                             <input type="number"
                                    pattern="^[0-9]+$"
                                    name="batchRequiredTime"

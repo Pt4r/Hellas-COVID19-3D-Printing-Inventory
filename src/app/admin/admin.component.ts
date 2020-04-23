@@ -68,13 +68,16 @@ export class AdminComponent implements OnInit {
     getUsersWithShipments(event: SearchEvent): void {
         this.event = event;
         if (this.currentUser.username === 'sofoub30') {
-            event.searchTerm = 'Πολιτικής Προστασίας'
-        };
-
-        this.shipmentService.getUsersWithShipments(event).pipe(first()).subscribe((users: AdminShipmentsModel[]) => {
-            this.loading = false;
-            this.pendingUsers = users;
-        });
+            this.shipmentService.getUsersWithShipmentsCP(event).pipe(first()).subscribe((users: AdminShipmentsModel[]) => {
+                this.loading = false;
+                this.pendingUsers = users;
+            });
+        } else {
+            this.shipmentService.getUsersWithShipments(event).pipe(first()).subscribe((users: AdminShipmentsModel[]) => {
+                this.loading = false;
+                this.pendingUsers = users;
+            });
+        }
     }
 
     onRecieved(row) {

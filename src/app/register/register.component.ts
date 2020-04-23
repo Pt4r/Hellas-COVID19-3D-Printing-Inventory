@@ -41,7 +41,9 @@ export class RegisterComponent implements OnInit {
         Validators.email
       ])],
       batchRequiredTime: [0],
-      address: ['', Validators.required],
+      addressStreet: ['', Validators.required],
+      addressCity: ['', Validators.required],
+      addressTK: ['', Validators.required],
       printerModel: ['', Validators.required],
       printerActive: [true],
       username: ['', Validators.required],
@@ -63,7 +65,7 @@ export class RegisterComponent implements OnInit {
     this._user.lastName = this.f.lastName.value;
     this._user.phoneNumber = this.f.phoneNumber.value;
     this._user.email = this.f.email.value;
-    this._user.address = this.f.address.value;
+    this._user.address = this.f.addressStreet.value + ', ' + this.f.addressCity.value + ', ' + this.f.addressTK.value;
     this._user.printerModel = this.f.printerModel.value;
     this._user.batchRequiredTime = this.f.batchRequiredTime.value;
     this._user.printerActive = this.f.printerActive.value;

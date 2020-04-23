@@ -49,67 +49,115 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row col-12">
+                    <div *ngIf="!this.selfCheckout else selfCheckoutForm">
+                        <div class="form-row col-12">
+                            <div class="form-group col-md-6">
+                                <label for="shippingCompany">Τρόπος Αποστολής*</label>
+                                <select class="custom-select"
+                                        id="shippingCompany"
+                                        formControlName="shippingCompany"
+                                        [ngClass]="{ 'is-invalid': submitted && f.shippingCompany.errors }">
+                                    <option value="Γενική Ταχυδρομική"
+                                            selected>Γενική Ταχυδρομική</option>
+                                    <option value="Πολιτικής Προστασίας">Πολιτικής Προστασίας (μόνο Αθήνα)</option>
+                                    <option value="Αυτοπαράδωση">Παράδoση στο κατάστημα (Αυτοπαράδoση)</option>
+                                </select>
+                                <div *ngIf="submitted && f.shippingCompany.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="f.shippingCompany.errors.required">Ο Τρόπος Αποστολής είναι απαραίτητη</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="dateShipped">Ημερομηνία Αποστολής*</label>
+                                <input type="date"
+                                       formControlName="dateShipped"
+                                       class="form-control"
+                                       required
+                                       [ngClass]="{ 'is-invalid': submitted && f.dateShipped.errors }" />
+                                <div *ngIf="submitted && f.dateShipped.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="f.dateShipped.errors.required">Η Ημερομηνία Αποστολής είναι απαραίτητη</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 my-4"
+                             *ngIf="f.shippingCompany.value === 'Γενική Ταχυδρομική'">
+                            <div class="form-group col-md-12">
+                                <label for="trackingNumber">
+                                    Αριθμός φορτωτικής αποστολής εκτυπώσεων*
+                                </label>
+                                <textarea formControlName="trackingNumber"
+                                          rows="1"
+                                          class="form-control"
+                                          [ngClass]="{ 'is-invalid': submitted && f.trackingNumber.errors }">
+                            </textarea>
+                                <div *ngIf="submitted && f.trackingNumber.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="f.trackingNumber.errors.required">Το Tracking Number είναι απαραίτητο</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mb-5 mt-4 text-center text-md-left">
+                            <div class="form-group">
+                                <label for="needsFilament"
+                                       class="pr-md-5">Θέλεις να σου στείλουμε filament?</label>
+                                <bSwitch name="needsFilament"
+                                         [switch-animate]="'animate'"
+                                         [switch-size]="'small'"
+                                         [switch-on-text]="'ΝΑΙ'"
+                                         [switch-off-text]="'ΟΧΙ'"
+                                         class=""
+                                         id="needsFilament"
+                                         formControlName="needsFilament"></bSwitch>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #selfCheckoutForm>
                         <div class="form-group col-md-6">
                             <label for="shippingCompany">Τρόπος Αποστολής*</label>
                             <select class="custom-select"
                                     id="shippingCompany"
                                     formControlName="shippingCompany"
                                     [ngClass]="{ 'is-invalid': submitted && f.shippingCompany.errors }">
-                                <option value="Γενική Ταχυδρομική"
-                                        selected>Γενική Ταχυδρομική</option>
-                                <option value="Πολιτικής Προστασίας">Πολιτικής Προστασίας (μόνο Αθήνα)</option>
-                                <option value="Αυτοπαράδωση">Παράδoση στο κατάστημα (Αυτοπαράδoση)</option>
+                                <option selected value="Αυτοπαράδωση">Παράδoση στο κατάστημα (Αυτοπαράδoση)</option>
                             </select>
                             <div *ngIf="submitted && f.shippingCompany.errors"
                                  class="invalid-feedback">
                                 <div *ngIf="f.shippingCompany.errors.required">Ο Τρόπος Αποστολής είναι απαραίτητη</div>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="dateShipped">Ημερομηνία Αποστολής*</label>
-                            <input type="date"
-                                   formControlName="dateShipped"
-                                   class="form-control"
-                                   required
-                                   [ngClass]="{ 'is-invalid': submitted && f.dateShipped.errors }" />
-                            <div *ngIf="submitted && f.dateShipped.errors"
-                                 class="invalid-feedback">
-                                <div *ngIf="f.dateShipped.errors.required">Η Ημερομηνία Αποστολής είναι απαραίτητη</div>
+                        <div class="form-row col-12 my-4">
+                            <div class="form-group col-md-6">
+                                <label for="selfCheckoutFirstName">
+                                    Όνομα*
+                                </label>
+                                <input type="text"
+                                       formControlName="selfCheckoutFirstName"
+                                       class="form-control"
+                                       required
+                                       [ngClass]="{ 'is-invalid': submitted && f.selfCheckoutFirstName.errors }" />
+                                <div *ngIf="submitted && f.selfCheckoutFirstName.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="f.selfCheckoutFirstName.errors.required">Το Όνομα είναι απαραίτητο</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="selfCheckoutLastName">
+                                    Επίθετο*
+                                </label>
+                                <input type="text"
+                                       formControlName="selfCheckoutLastName"
+                                       class="form-control"
+                                       required
+                                       [ngClass]="{ 'is-invalid': submitted && f.selfCheckoutLastName.errors }" />
+                                <div *ngIf="submitted && f.selfCheckoutLastName.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="f.selfCheckoutLastName.errors.required">Το Επίθετο είναι απαραίτητο</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-row col-12 my-4"
-                         *ngIf="f.shippingCompany.value === 'Γενική Ταχυδρομική'">
-                        <div class="form-group col-md-12">
-                            <label for="trackingNumber">
-                                Αριθμός φορτωτικής αποστολής εκτυπώσεων*
-                            </label>
-                            <textarea formControlName="trackingNumber"
-                                      rows="1"
-                                      class="form-control"
-                                      [ngClass]="{ 'is-invalid': submitted && f.trackingNumber.errors }">
-                        </textarea>
-                            <div *ngIf="submitted && f.trackingNumber.errors"
-                                 class="invalid-feedback">
-                                <div *ngIf="f.trackingNumber.errors.required">Το Tracking Number είναι απαραίτητο</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row col-12 mb-5 mt-4 text-center text-md-left">
-                        <div class="form-group">
-                            <label for="needsFilament"
-                                   class="pr-md-5">Θέλεις να σου στείλουμε filament?</label>
-                            <bSwitch name="needsFilament"
-                                     [switch-animate]="'animate'"
-                                     [switch-size]="'small'"
-                                     [switch-on-text]="'ΝΑΙ'"
-                                     [switch-off-text]="'ΟΧΙ'"
-                                     class=""
-                                     id="needsFilament"
-                                     formControlName="needsFilament"></bSwitch>
-                        </div>
-                    </div>
+                    </ng-template>
+
                     <button [disabled]="loading"
                             class="btn btn-info ml-3"
                             type="submit">

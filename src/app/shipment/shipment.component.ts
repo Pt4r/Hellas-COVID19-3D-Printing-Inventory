@@ -1,7 +1,7 @@
 import { HomeComponent } from './../home/home.component';
-import { CreateShipmentModel } from './../_helpers/backend';
+import { CreateShipmentModel, UserModel } from './../_helpers/backend';
 import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
-import { ShipmentService } from '@app/_services';
+import { ShipmentService, AuthenticationService } from '@app/_services';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -18,6 +18,8 @@ export class ShipmentComponent implements OnInit {
   returnUrl: string;
   error = '';
   formError = '';
+  currentUser: UserModel;
+  selfCheckout = false;
   private _minQuantity = 20;
   private _shipment: CreateShipmentModel = new CreateShipmentModel();
   private _currentDate;
@@ -26,7 +28,8 @@ export class ShipmentComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _shipmentService: ShipmentService
+    private _shipmentService: ShipmentService,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -38,11 +41,15 @@ export class ShipmentComponent implements OnInit {
       trackingNumber: [''],
       shippingCompany: ['', Validators.required],
       needsFilament: [false, Validators.required],
-      fileName: ['', Validators.required]
+      fileName: ['', Validators.required],
+      selfCheckoutFirstName: ['', Validators.required],
+      selfCheckoutLastName: ['', Validators.required]
     });
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.selfCheckout = this.currentUser.username === 'Markosgr';
   }
 
   get f() { return this.shipmentForm.controls; }
@@ -53,10 +60,17 @@ export class ShipmentComponent implements OnInit {
     this.formError = '';
     this._shipment.quantity = this.f.quantity.value;
     this._shipment.dateShipped = new Date(this.f.dateShipped.value);
-    this._shipment.trackingNumber = this.f.trackingNumber.value;
-    this._shipment.shippingCompany = this.f.shippingCompany.value;
-    this._shipment.needsFilament = this.f.needsFilament.value;
     this._shipment.fileName = this.f.fileName.value;
+
+    if (this.selfCheckout) {
+      this._shipment.shippingCompany = 'Αυτοπαράδωση';
+      this._shipment.trackingNumber = this.f.selfCheckoutFirstName.value + ' ' + this.f.selfCheckoutLastName.value;
+      this._shipment.needsFilament = true;
+    } else {
+      this._shipment.trackingNumber = this.f.trackingNumber.value;
+      this._shipment.shippingCompany = this.f.shippingCompany.value;
+      this._shipment.needsFilament = this.f.needsFilament.value;
+    }
 
     // stop here if form is invalid
     if (this.shipmentForm.invalid) {
