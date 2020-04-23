@@ -69,6 +69,7 @@ export class FilamentComponent implements OnInit {
       if (result) {
         row.sentFilamentDate = result.sentFilamentDate;
         row.filamentTrackingNumber = result.filamentTrackingNumber;
+        row.filamentAmountRecieved = result.filamentAmountRecieved;
         this.sendFilament(row);
       }
     });

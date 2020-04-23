@@ -1633,6 +1633,7 @@ export class User implements IUser {
     needsFilament!: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
+    filamentAmountRecieved?: number | undefined;
     shipments?: Shipment[] | undefined;
 
     constructor(data?: IUser) {
@@ -1667,6 +1668,7 @@ export class User implements IUser {
             this.needsFilament = _data["needsFilament"];
             this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
             this.filamentTrackingNumber = _data["filamentTrackingNumber"];
+            this.filamentAmountRecieved = _data["filamentAmountRecieved"];
             if (Array.isArray(_data["shipments"])) {
                 this.shipments = [] as any;
                 for (let item of _data["shipments"])
@@ -1705,6 +1707,7 @@ export class User implements IUser {
         data["needsFilament"] = this.needsFilament;
         data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
         data["filamentTrackingNumber"] = this.filamentTrackingNumber;
+        data["filamentAmountRecieved"] = this.filamentAmountRecieved;
         if (Array.isArray(this.shipments)) {
             data["shipments"] = [];
             for (let item of this.shipments)
@@ -1736,6 +1739,7 @@ export interface IUser {
     needsFilament: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
+    filamentAmountRecieved?: number | undefined;
     shipments?: Shipment[] | undefined;
 }
 
@@ -1987,6 +1991,7 @@ export class UserModel implements IUserModel {
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
     batchRequiredTime!: number;
+    filamentAmountRecieved?: number | undefined;
     shipments?: Shipment[] | undefined;
 
     constructor(data?: IUserModel) {
@@ -2019,6 +2024,7 @@ export class UserModel implements IUserModel {
             this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
             this.filamentTrackingNumber = _data["filamentTrackingNumber"];
             this.batchRequiredTime = _data["batchRequiredTime"];
+            this.filamentAmountRecieved = _data["filamentAmountRecieved"];
             if (Array.isArray(_data["shipments"])) {
                 this.shipments = [] as any;
                 for (let item of _data["shipments"])
@@ -2055,6 +2061,7 @@ export class UserModel implements IUserModel {
         data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
         data["filamentTrackingNumber"] = this.filamentTrackingNumber;
         data["batchRequiredTime"] = this.batchRequiredTime;
+        data["filamentAmountRecieved"] = this.filamentAmountRecieved;
         if (Array.isArray(this.shipments)) {
             data["shipments"] = [];
             for (let item of this.shipments)
@@ -2084,6 +2091,7 @@ export interface IUserModel {
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
     batchRequiredTime: number;
+    filamentAmountRecieved?: number | undefined;
     shipments?: Shipment[] | undefined;
 }
 
@@ -2286,6 +2294,7 @@ export class UserFilamentModel implements IUserFilamentModel {
     needsFilament!: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
+    filamentAmountRecieved?: number | undefined;
 
     constructor(data?: IUserFilamentModel) {
         if (data) {
@@ -2304,6 +2313,7 @@ export class UserFilamentModel implements IUserFilamentModel {
             this.needsFilament = _data["needsFilament"];
             this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
             this.filamentTrackingNumber = _data["filamentTrackingNumber"];
+            this.filamentAmountRecieved = _data["filamentAmountRecieved"];
         }
     }
 
@@ -2322,6 +2332,7 @@ export class UserFilamentModel implements IUserFilamentModel {
         data["needsFilament"] = this.needsFilament;
         data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
         data["filamentTrackingNumber"] = this.filamentTrackingNumber;
+        data["filamentAmountRecieved"] = this.filamentAmountRecieved;
         return data; 
     }
 }
@@ -2333,6 +2344,7 @@ export interface IUserFilamentModel {
     needsFilament: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
+    filamentAmountRecieved?: number | undefined;
 }
 
 export class SwaggerException extends Error {

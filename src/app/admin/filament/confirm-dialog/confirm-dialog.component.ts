@@ -22,7 +22,8 @@ export class ConfirmDialogComponent implements OnInit{
   ngOnInit(): void {
     this.filamentForm = this._form.group({
       sentFilamentDate: ['', Validators.required],
-      filamentTrackingNumber:  ['']
+      filamentTrackingNumber:  [''],
+      filamentAmountRecieved: [1, Validators.required]
     });
   }
 
@@ -30,5 +31,9 @@ export class ConfirmDialogComponent implements OnInit{
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onSubmit() {
+    this.dialogRef.close(this.filamentForm.value);
   }
 }

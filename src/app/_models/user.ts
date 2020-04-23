@@ -16,4 +16,5 @@
     shippedQuantity?: number;
     latestShippedDate?: Date;
     needsFilament!: boolean;
+    filamentAmountRecieved?: number;
 }

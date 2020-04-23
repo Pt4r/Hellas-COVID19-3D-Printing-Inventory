@@ -27,7 +27,7 @@
             <ng-template #filament>
                 <p *ngIf="currentUser.sentFilamentDate !== null"
                    class="text-success">
-                    Το filament σου έχει σταλεί στις <strong>{{ currentUser.sentFilamentDate | date }}</strong> με αριθμό αποστολής: <strong><a target="_blank"
+                    Τα {{currentUser.filamentAmountRecieved}}Kg filament σου έχουν σταλεί στις <strong>{{ currentUser.sentFilamentDate | date }}</strong> με αριθμό αποστολής: <strong><a target="_blank"
                            href="https://www.taxydromiki.com/track/{{currentUser.filamentTrackingNumber}}">{{currentUser.filamentTrackingNumber}}</a></strong>.
                 </p>
             </ng-template>
