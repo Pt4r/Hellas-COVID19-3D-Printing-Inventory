@@ -8,9 +8,21 @@ import { AsyncSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class TotalsService {
     private _totals: AsyncSubject<TotalsModel[]>;
+    private _liveTotals: AsyncSubject<TotalsModel>;
     private _topTen: AsyncSubject<TopTen[]>;
 
     constructor(private backoffice: BackofficeApiService) {
+    }
+
+    getTotalsLive() {
+        if (!this._liveTotals) {
+            this._liveTotals = new AsyncSubject<TotalsModel>();
+            this.backoffice.totals_GetTotalsLive().subscribe((totals: TotalsModel) => {
+                this._liveTotals.next(totals);
+                this._liveTotals.complete();
+            });
+        }
+        return this._liveTotals;
     }
 
     getTotals() {

@@ -60,8 +60,8 @@ export class AdminComponent implements OnInit {
     }
 
     getTotals() {
-        this.totalsService.getTotals().subscribe((totals: TotalsModel[]) => {
-            this.totals = totals[0];
+        this.totalsService.getTotalsLive().subscribe((totals: TotalsModel) => {
+            this.totals = totals;
         })
     }
 

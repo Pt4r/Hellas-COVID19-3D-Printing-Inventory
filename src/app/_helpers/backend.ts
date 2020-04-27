@@ -25,6 +25,7 @@ export interface IBackofficeApiService {
     shipments_GetShipmentsWithUsersCP(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<AdminShipmentsModel[]>;
     shipments_PackageReceived(shipmentId?: string | undefined, recieved?: boolean | undefined): Observable<void>;
     totals_GetTotals(): Observable<TotalsModel[]>;
+    totals_GetTotalsLive(): Observable<TotalsModel>;
     totals_GetTopTen(): Observable<TopTen[]>;
     users_Authenticate(model: AuthenticateModel): Observable<UserModel>;
     users_Register(model: RegisterModel): Observable<void>;
@@ -783,6 +784,68 @@ export class BackofficeApiService implements IBackofficeApiService {
             }));
         }
         return _observableOf<TotalsModel[]>(<any>null);
+    }
+
+    totals_GetTotalsLive(): Observable<TotalsModel> {
+        let url_ = this.baseUrl + "/Totals/live";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processTotals_GetTotalsLive(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTotals_GetTotalsLive(<any>response_);
+                } catch (e) {
+                    return <Observable<TotalsModel>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TotalsModel>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processTotals_GetTotalsLive(response: HttpResponseBase): Observable<TotalsModel> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result401: any = null;
+            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result401 = AppException.fromJS(resultData401);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result401);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result403: any = null;
+            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result403 = AppException.fromJS(resultData403);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result403);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TotalsModel.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TotalsModel>(<any>null);
     }
 
     totals_GetTopTen(): Observable<TopTen[]> {
