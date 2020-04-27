@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/f
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, UserService } from '@app/_services';
 import { first } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,8 @@ export class ProfileComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _authenticationService: AuthenticationService,
-    private _userService: UserService
+    private _userService: UserService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -38,9 +40,11 @@ export class ProfileComponent implements OnInit {
         Validators.required,
         Validators.email
       ])],
-      address: ['', Validators.required],
       printerModel: ['', Validators.required],
       batchRequiredTime: [0, Validators.required],
+      addressStreet: ['', Validators.required],
+      addressCity: ['', Validators.required],
+      addressTK: ['', Validators.required],
       printerActive: [true],
       username: ['', Validators.required],
       password: ['', [Validators.required,
@@ -54,11 +58,14 @@ export class ProfileComponent implements OnInit {
     // get user details
     this._userService.getById(this._authenticationService.currentUserValue.id).subscribe((user: User) => {
       this.user = user;
+      const address = this.user.address.split(',');
       this.f.firstName.setValue(user.firstName);
       this.f.lastName.setValue(user.lastName);
       this.f.phoneNumber.setValue(user.phoneNumber);
       this.f.email.setValue(user.email);
-      this.f.address.setValue(user.address);
+      this.f.addressStreet.setValue(address[0]);
+      this.f.addressCity.setValue(address[1]);
+      this.f.addressTK.setValue(address[2]);
       this.f.printerModel.setValue(this.user.printerModel);
       this.f.batchRequiredTime.setValue(user.batchRequiredTime);
       this.f.printerActive.setValue(user.printerActive);
@@ -76,13 +83,15 @@ export class ProfileComponent implements OnInit {
     this.updatedUser.lastName = this.f.lastName.value;
     this.updatedUser.phoneNumber = this.f.phoneNumber.value;
     this.updatedUser.email = this.f.email.value;
-    this.updatedUser.address = this.f.address.value;
+    this.updatedUser.address = this.f.addressStreet.value + ', ' + this.f.addressCity.value + ', ' + this.f.addressTK.value;
     this.updatedUser.printerModel = this.f.printerModel.value;
     this.updatedUser.batchRequiredTime = this.f.batchRequiredTime.value;
     this.updatedUser.printerActive = this.f.printerActive.value;
     this.updatedUser.password = this.f.password.value;
     this.updatedUser.newPassword = this.f.newPassword.value;
     this.updatedUser.username = this.f.username.value;
+
+    this.updatedUser.needsFilament = this.user.needsFilament;
     // stop here if form is invalid
     if (this.updateForm.invalid) {
       Object.keys(this.updateForm.controls).forEach(key => {
@@ -116,6 +125,6 @@ export class ProfileComponent implements OnInit {
   }
 
   goBack() {
-    this._router.navigate([this.returnUrl]);
+    this.location.back()
   }
 }

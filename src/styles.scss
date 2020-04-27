@@ -67,7 +67,7 @@ input[type=time]::-webkit-clear-button {
 
 .facts-area {
   position: relative;
-  background: #ccc url('../src/assets/img/background2.png');
+  background: #ccc url('../src/assets/img/background2.webp');
   background-size: cover;
   background-attachment: fixed;
   margin: 0;
@@ -154,4 +154,10 @@ input[type=time]::-webkit-clear-button {
   border: white;
   border-width: 4px;
   border-bottom-style: solid;
+}
+
+.latestShipmentRows {
+  border: silver;
+  border-width: 1px;
+  border-left-style: solid;
 }

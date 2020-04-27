@@ -32,19 +32,21 @@ export class FilamentComponent implements OnInit {
     this.loading = true;
 
     this.columns = [
-      { prop: 'firstName', name: 'First Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
-      { prop: 'lastName', name: 'Last Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      { prop: 'firstName', name: 'First Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false, width: 80 },
+      { prop: 'lastName', name: 'Last Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false, width: 80 },
       {
         prop: 'shippedQuantity', name: 'Total Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
         width: 50
       },
       {
         prop: 'latestShippedDate', name: 'Latest Shipped Date', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
-        cellTemplate: this._dateTemplate
+        cellTemplate: this._dateTemplate, cellClass: 'latestShipmentRows', headerClass: 'latestShipmentRows', width: 90
       },
       {
         prop: 'latestShippedQuantity', name: 'Latest Shippment', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
-        width: 70
+        width: 50
+      },{
+        prop: 'latestShippedCompany', name: 'Latest Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false
       },
       {
         prop: 'id', name: 'Actions', draggable: false, canAutoResize: false, sortable: true, resizeable: false,

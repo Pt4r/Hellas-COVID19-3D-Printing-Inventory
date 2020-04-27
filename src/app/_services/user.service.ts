@@ -45,7 +45,7 @@ export class UserService {
     }
 
     deliverFilament(user: UserFilamentModel) {
-        return this.backoffice.users_deliverFilament(user).pipe(map(_ => {
+        return this.backoffice.users_DeliverFilament(user).pipe(map(_ => {
             this.users = null;
         }));
     }

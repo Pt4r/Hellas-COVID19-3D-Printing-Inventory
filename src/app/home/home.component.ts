@@ -57,8 +57,8 @@ export class HomeComponent implements OnInit, AfterContentChecked {
     }
 
     getTotals() {
-        this.totalsService.getTotals().subscribe((totals: TotalsModel) => {
-            this.totals = totals;
+        this.totalsService.getTotals().subscribe((totals: TotalsModel[]) => {
+            this.totals = totals[0];
         })
     }
 

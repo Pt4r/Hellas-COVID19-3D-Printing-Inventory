@@ -1,4 +1,4 @@
-import { ShipmentModel, TotalsModel } from './../../_helpers/backend';
+import { ShipmentModel, TotalsModel, AdminShipmentsModel } from './../../_helpers/backend';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { TableColumn } from '@swimlane/ngx-datatable';
 import { SearchEvent } from '@app/_helpers/list-view/models/search-event';
@@ -16,7 +16,7 @@ export class ShipmentsComponent implements OnInit {
   @ViewChild('trackingNumberTemplate', { static: true }) private _trackingNumberTemplate: TemplateRef<HTMLElement>;
   loading = false;
   deliveryLoading = false;
-  pendingShipments: ShipmentModel[] = new Array<ShipmentModel>();
+  pendingShipments: AdminShipmentsModel[] = new Array<AdminShipmentsModel>();
   columns: TableColumn[] = [];
   totals: TotalsModel = new TotalsModel();
   private event: SearchEvent;
@@ -30,24 +30,29 @@ export class ShipmentsComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.columns = [
-      { prop: 'quantity', name: 'Quantity', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      { prop: 'firstName', name: 'First Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
+      { prop: 'lastName', name: 'Last Name', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
       {
-        prop: 'shippingCompany', name: 'Shipping Company', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+          prop: 'shippedQuantity', name: 'Quantity', draggable: false, canAutoResize: false, sortable: true, resizeable: false,
+          width: 70
       },
       {
-        prop: 'trackingNumber', name: 'Trancking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
-        cellTemplate: this._trackingNumberTemplate
-      },
-      { prop: 'fileName', name: 'File', draggable: false, canAutoResize: true, sortable: true, resizeable: false },
-      {
-        prop: 'dateShipped', name: 'Date Shipped', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
-        cellTemplate: this._dateTemplate
+          prop: 'shippingCompany', name: 'Shipped By', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+          width: 170
       },
       {
-        prop: 'recieved', name: 'Recieved', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
-        cellTemplate: this._deliveryTemplate
+          prop: 'trackingNumber', name: 'Trancking Number', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+          cellTemplate: this._trackingNumberTemplate
+      },
+      {
+          prop: 'dateShipped', name: 'Date Shipped', draggable: false, canAutoResize: true, sortable: true,
+          resizeable: false, cellTemplate: this._dateTemplate
+      },
+      {
+          prop: 'recieved', name: 'Recieved', draggable: false, canAutoResize: true, sortable: true, resizeable: false,
+          cellTemplate: this._deliveryTemplate
       }
-    ];
+  ];
 
     this.pendingShipments.map(x => x.dateShipped = new Date());
     this.getTotals();
@@ -55,7 +60,7 @@ export class ShipmentsComponent implements OnInit {
 
   getUsersWithShipments(event: SearchEvent): void {
     this.event = event;
-    this.shipmentService.getAll(event).pipe(first()).subscribe((users: ShipmentModel[]) => {
+    this.shipmentService.getAll(event).pipe(first()).subscribe((users: AdminShipmentsModel[]) => {
       this.loading = false;
       this.pendingShipments = users;
     });
@@ -70,8 +75,8 @@ export class ShipmentsComponent implements OnInit {
   }
 
   getTotals() {
-    this.totalsService.getTotals().subscribe((totals: TotalsModel) => {
-        this.totals = totals;
+    this.totalsService.getTotals().subscribe((totals: TotalsModel[]) => {
+        this.totals = totals[0];
     })
 }
 }

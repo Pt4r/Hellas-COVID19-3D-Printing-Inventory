@@ -1,4 +1,5 @@
-﻿import { BackofficeApiService, AuthenticateModel, UserModel, RegisterModel, UpdateModel } from './../_helpers/backend';
+﻿import { UserService, ShipmentService } from '@app/_services';
+import { BackofficeApiService, AuthenticateModel, UserModel, RegisterModel, UpdateModel } from './../_helpers/backend';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,7 +9,10 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<UserModel>;
     public currentUser: Observable<UserModel>;
 
-    constructor(private backoffice: BackofficeApiService) {
+    constructor(
+        private backoffice: BackofficeApiService,
+        private userService: UserService,
+        private shipmentService: ShipmentService) {
         this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -33,6 +37,8 @@ export class AuthenticationService {
     logout(): void {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        this.userService.users = null;
+        this.shipmentService._shipmentsByUser = null;
         this.currentUserSubject.next(null);
     }
 

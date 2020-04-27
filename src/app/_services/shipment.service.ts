@@ -10,14 +10,14 @@ import { SearchEvent } from '@app/_helpers/list-view/models/search-event';
 @Injectable({ providedIn: 'root' })
 export class ShipmentService {
     private _shipment: AsyncSubject<Shipment>;
-    private _shipmentsByUser: AsyncSubject<Shipment[]>;
+    public _shipmentsByUser: AsyncSubject<Shipment[]>;
 
     constructor(
         private backoffice: BackofficeApiService,
         private userService: UserService
     ) { }
 
-    getAll(event: SearchEvent): Observable<ShipmentModel[]> {
+    getAll(event: SearchEvent): Observable<AdminShipmentsModel[]> {
         return this.backoffice.shipments_GetAll(event.page, event.pageSize, event.sortField, event.searchTerm);
     }
 
@@ -60,7 +60,8 @@ export class ShipmentService {
     }
 
     packageRecieved(packageId: string, recieved: boolean): Observable<void> {
-        return this.backoffice.shipments_packageRecieved(packageId, recieved);
+        this._shipment = null;
+        return this.backoffice.shipments_PackageReceived(packageId, recieved);
     }
 }
 

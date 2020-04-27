@@ -15,7 +15,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 export const BACKOFFICE_API_BASE_URL = new InjectionToken<string>('BACKOFFICE_API_BASE_URL');
 
 export interface IBackofficeApiService {
-    shipments_GetAll(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<ShipmentModel[]>;
+    shipments_GetAll(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<AdminShipmentsModel[]>;
     shipments_Create(model: CreateShipmentModel): Observable<Shipment>;
     shipments_GetShipmentsByUser(id: string): Observable<Shipment[]>;
     shipments_GetById(id: string): Observable<Shipment>;
@@ -23,8 +23,8 @@ export interface IBackofficeApiService {
     shipments_Delete(id: string): Observable<void>;
     shipments_GetShipmentsWithUsers(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<AdminShipmentsModel[]>;
     shipments_GetShipmentsWithUsersCP(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<AdminShipmentsModel[]>;
-    shipments_packageRecieved(shipmentId?: string | undefined, recieved?: boolean | undefined): Observable<void>;
-    totals_GetTotals(): Observable<TotalsModel>;
+    shipments_PackageReceived(shipmentId?: string | undefined, recieved?: boolean | undefined): Observable<void>;
+    totals_GetTotals(): Observable<TotalsModel[]>;
     totals_GetTopTen(): Observable<TopTen[]>;
     users_Authenticate(model: AuthenticateModel): Observable<UserModel>;
     users_Register(model: RegisterModel): Observable<void>;
@@ -33,8 +33,9 @@ export interface IBackofficeApiService {
     users_Update(id: string, model: UpdateModel): Observable<void>;
     users_Delete(id: string): Observable<void>;
     users_GetUsersWithoutFilament(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<UserModel[]>;
-    users_deliverFilament(model: UserFilamentModel): Observable<void>;
+    users_DeliverFilament(model: UserFilamentModel): Observable<void>;
     users_GetUsersWithoutFilamentCP(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<UserModel[]>;
+    users_SendAnnouncement(): Observable<void>;
 }
 
 @Injectable({
@@ -50,7 +51,7 @@ export class BackofficeApiService implements IBackofficeApiService {
         this.baseUrl = baseUrl ? baseUrl : "http://localhost:4000";
     }
 
-    shipments_GetAll(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<ShipmentModel[]> {
+    shipments_GetAll(page?: number | undefined, size?: number | undefined, sort?: string | null | undefined, search?: string | null | undefined): Observable<AdminShipmentsModel[]> {
         let url_ = this.baseUrl + "/Shipments?";
         if (page === null)
             throw new Error("The parameter 'page' cannot be null.");
@@ -81,14 +82,14 @@ export class BackofficeApiService implements IBackofficeApiService {
                 try {
                     return this.processShipments_GetAll(<any>response_);
                 } catch (e) {
-                    return <Observable<ShipmentModel[]>><any>_observableThrow(e);
+                    return <Observable<AdminShipmentsModel[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ShipmentModel[]>><any>_observableThrow(response_);
+                return <Observable<AdminShipmentsModel[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processShipments_GetAll(response: HttpResponseBase): Observable<ShipmentModel[]> {
+    protected processShipments_GetAll(response: HttpResponseBase): Observable<AdminShipmentsModel[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -116,7 +117,7 @@ export class BackofficeApiService implements IBackofficeApiService {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(ShipmentModel.fromJS(item));
+                    result200!.push(AdminShipmentsModel.fromJS(item));
             }
             return _observableOf(result200);
             }));
@@ -125,7 +126,7 @@ export class BackofficeApiService implements IBackofficeApiService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ShipmentModel[]>(<any>null);
+        return _observableOf<AdminShipmentsModel[]>(<any>null);
     }
 
     shipments_Create(model: CreateShipmentModel): Observable<Shipment> {
@@ -645,7 +646,7 @@ export class BackofficeApiService implements IBackofficeApiService {
         return _observableOf<AdminShipmentsModel[]>(<any>null);
     }
 
-    shipments_packageRecieved(shipmentId?: string | undefined, recieved?: boolean | undefined): Observable<void> {
+    shipments_PackageReceived(shipmentId?: string | undefined, recieved?: boolean | undefined): Observable<void> {
         let url_ = this.baseUrl + "/Shipments/delivered?";
         if (shipmentId === null)
             throw new Error("The parameter 'shipmentId' cannot be null.");
@@ -665,11 +666,11 @@ export class BackofficeApiService implements IBackofficeApiService {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processShipments_packageRecieved(response_);
+            return this.processShipments_PackageReceived(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processShipments_packageRecieved(<any>response_);
+                    return this.processShipments_PackageReceived(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -678,7 +679,7 @@ export class BackofficeApiService implements IBackofficeApiService {
         }));
     }
 
-    protected processShipments_packageRecieved(response: HttpResponseBase): Observable<void> {
+    protected processShipments_PackageReceived(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -718,7 +719,7 @@ export class BackofficeApiService implements IBackofficeApiService {
         return _observableOf<void>(<any>null);
     }
 
-    totals_GetTotals(): Observable<TotalsModel> {
+    totals_GetTotals(): Observable<TotalsModel[]> {
         let url_ = this.baseUrl + "/Totals";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -737,14 +738,14 @@ export class BackofficeApiService implements IBackofficeApiService {
                 try {
                     return this.processTotals_GetTotals(<any>response_);
                 } catch (e) {
-                    return <Observable<TotalsModel>><any>_observableThrow(e);
+                    return <Observable<TotalsModel[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<TotalsModel>><any>_observableThrow(response_);
+                return <Observable<TotalsModel[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processTotals_GetTotals(response: HttpResponseBase): Observable<TotalsModel> {
+    protected processTotals_GetTotals(response: HttpResponseBase): Observable<TotalsModel[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -769,7 +770,11 @@ export class BackofficeApiService implements IBackofficeApiService {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = TotalsModel.fromJS(resultData200);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TotalsModel.fromJS(item));
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -777,7 +782,7 @@ export class BackofficeApiService implements IBackofficeApiService {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<TotalsModel>(<any>null);
+        return _observableOf<TotalsModel[]>(<any>null);
     }
 
     totals_GetTopTen(): Observable<TopTen[]> {
@@ -1342,7 +1347,7 @@ export class BackofficeApiService implements IBackofficeApiService {
         return _observableOf<UserModel[]>(<any>null);
     }
 
-    users_deliverFilament(model: UserFilamentModel): Observable<void> {
+    users_DeliverFilament(model: UserFilamentModel): Observable<void> {
         let url_ = this.baseUrl + "/Users/filament";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1358,11 +1363,11 @@ export class BackofficeApiService implements IBackofficeApiService {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUsers_deliverFilament(response_);
+            return this.processUsers_DeliverFilament(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUsers_deliverFilament(<any>response_);
+                    return this.processUsers_DeliverFilament(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -1371,7 +1376,7 @@ export class BackofficeApiService implements IBackofficeApiService {
         }));
     }
 
-    protected processUsers_deliverFilament(response: HttpResponseBase): Observable<void> {
+    protected processUsers_DeliverFilament(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1488,6 +1493,60 @@ export class BackofficeApiService implements IBackofficeApiService {
         }
         return _observableOf<UserModel[]>(<any>null);
     }
+
+    users_SendAnnouncement(): Observable<void> {
+        let url_ = this.baseUrl + "/Users/announcement";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUsers_SendAnnouncement(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUsers_SendAnnouncement(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUsers_SendAnnouncement(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 401) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result401: any = null;
+            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result401 = AppException.fromJS(resultData401);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result401);
+            }));
+        } else if (status === 403) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result403: any = null;
+            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result403 = AppException.fromJS(resultData403);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result403);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 export class Exception implements IException {
@@ -1565,17 +1624,20 @@ export class AppException extends Exception implements IAppException {
 export interface IAppException extends IException {
 }
 
-export class ShipmentModel implements IShipmentModel {
-    id!: string;
-    quantity!: number;
-    minQuantity!: number;
-    fileName?: string | undefined;
-    trackingNumber?: string | undefined;
+export class AdminShipmentsModel implements IAdminShipmentsModel {
+    shipmentId!: string;
+    userId!: string;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
     shippingCompany?: string | undefined;
-    dateShipped!: Date;
+    trackingNumber?: string | undefined;
+    printerActive!: boolean;
+    shippedQuantity?: number | undefined;
+    dateShipped?: Date | undefined;
+    needsFilament!: boolean;
     recieved!: boolean;
 
-    constructor(data?: IShipmentModel) {
+    constructor(data?: IAdminShipmentsModel) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1586,46 +1648,55 @@ export class ShipmentModel implements IShipmentModel {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
-            this.quantity = _data["quantity"];
-            this.minQuantity = _data["minQuantity"];
-            this.fileName = _data["fileName"];
-            this.trackingNumber = _data["trackingNumber"];
+            this.shipmentId = _data["shipmentId"];
+            this.userId = _data["userId"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
             this.shippingCompany = _data["shippingCompany"];
+            this.trackingNumber = _data["trackingNumber"];
+            this.printerActive = _data["printerActive"];
+            this.shippedQuantity = _data["shippedQuantity"];
             this.dateShipped = _data["dateShipped"] ? new Date(_data["dateShipped"].toString()) : <any>undefined;
+            this.needsFilament = _data["needsFilament"];
             this.recieved = _data["recieved"];
         }
     }
 
-    static fromJS(data: any): ShipmentModel {
+    static fromJS(data: any): AdminShipmentsModel {
         data = typeof data === 'object' ? data : {};
-        let result = new ShipmentModel();
+        let result = new AdminShipmentsModel();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["quantity"] = this.quantity;
-        data["minQuantity"] = this.minQuantity;
-        data["fileName"] = this.fileName;
-        data["trackingNumber"] = this.trackingNumber;
+        data["shipmentId"] = this.shipmentId;
+        data["userId"] = this.userId;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
         data["shippingCompany"] = this.shippingCompany;
+        data["trackingNumber"] = this.trackingNumber;
+        data["printerActive"] = this.printerActive;
+        data["shippedQuantity"] = this.shippedQuantity;
         data["dateShipped"] = this.dateShipped ? this.dateShipped.toISOString() : <any>undefined;
+        data["needsFilament"] = this.needsFilament;
         data["recieved"] = this.recieved;
         return data; 
     }
 }
 
-export interface IShipmentModel {
-    id: string;
-    quantity: number;
-    minQuantity: number;
-    fileName?: string | undefined;
-    trackingNumber?: string | undefined;
+export interface IAdminShipmentsModel {
+    shipmentId: string;
+    userId: string;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
     shippingCompany?: string | undefined;
-    dateShipped: Date;
+    trackingNumber?: string | undefined;
+    printerActive: boolean;
+    shippedQuantity?: number | undefined;
+    dateShipped?: Date | undefined;
+    needsFilament: boolean;
     recieved: boolean;
 }
 
@@ -1973,20 +2044,17 @@ export interface ICreateShipmentModel {
     needsFilament: boolean;
 }
 
-export class AdminShipmentsModel implements IAdminShipmentsModel {
-    shipmentId!: string;
-    userId!: string;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
-    shippingCompany?: string | undefined;
+export class ShipmentModel implements IShipmentModel {
+    id!: string;
+    quantity!: number;
+    minQuantity!: number;
+    fileName?: string | undefined;
     trackingNumber?: string | undefined;
-    printerActive!: boolean;
-    shippedQuantity?: number | undefined;
-    dateShipped?: Date | undefined;
-    needsFilament!: boolean;
+    shippingCompany?: string | undefined;
+    dateShipped!: Date;
     recieved!: boolean;
 
-    constructor(data?: IAdminShipmentsModel) {
+    constructor(data?: IShipmentModel) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1997,59 +2065,51 @@ export class AdminShipmentsModel implements IAdminShipmentsModel {
 
     init(_data?: any) {
         if (_data) {
-            this.shipmentId = _data["shipmentId"];
-            this.userId = _data["userId"];
-            this.firstName = _data["firstName"];
-            this.lastName = _data["lastName"];
-            this.shippingCompany = _data["shippingCompany"];
+            this.id = _data["id"];
+            this.quantity = _data["quantity"];
+            this.minQuantity = _data["minQuantity"];
+            this.fileName = _data["fileName"];
             this.trackingNumber = _data["trackingNumber"];
-            this.printerActive = _data["printerActive"];
-            this.shippedQuantity = _data["shippedQuantity"];
+            this.shippingCompany = _data["shippingCompany"];
             this.dateShipped = _data["dateShipped"] ? new Date(_data["dateShipped"].toString()) : <any>undefined;
-            this.needsFilament = _data["needsFilament"];
             this.recieved = _data["recieved"];
         }
     }
 
-    static fromJS(data: any): AdminShipmentsModel {
+    static fromJS(data: any): ShipmentModel {
         data = typeof data === 'object' ? data : {};
-        let result = new AdminShipmentsModel();
+        let result = new ShipmentModel();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["shipmentId"] = this.shipmentId;
-        data["userId"] = this.userId;
-        data["firstName"] = this.firstName;
-        data["lastName"] = this.lastName;
-        data["shippingCompany"] = this.shippingCompany;
+        data["id"] = this.id;
+        data["quantity"] = this.quantity;
+        data["minQuantity"] = this.minQuantity;
+        data["fileName"] = this.fileName;
         data["trackingNumber"] = this.trackingNumber;
-        data["printerActive"] = this.printerActive;
-        data["shippedQuantity"] = this.shippedQuantity;
+        data["shippingCompany"] = this.shippingCompany;
         data["dateShipped"] = this.dateShipped ? this.dateShipped.toISOString() : <any>undefined;
-        data["needsFilament"] = this.needsFilament;
         data["recieved"] = this.recieved;
         return data; 
     }
 }
 
-export interface IAdminShipmentsModel {
-    shipmentId: string;
-    userId: string;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
-    shippingCompany?: string | undefined;
+export interface IShipmentModel {
+    id: string;
+    quantity: number;
+    minQuantity: number;
+    fileName?: string | undefined;
     trackingNumber?: string | undefined;
-    printerActive: boolean;
-    shippedQuantity?: number | undefined;
-    dateShipped?: Date | undefined;
-    needsFilament: boolean;
+    shippingCompany?: string | undefined;
+    dateShipped: Date;
     recieved: boolean;
 }
 
 export class TotalsModel implements ITotalsModel {
+    date!: Date;
     totalUsers?: number | undefined;
     totalQuantityRecieved?: number | undefined;
     totalQuantityPrinted?: number | undefined;
@@ -2066,6 +2126,7 @@ export class TotalsModel implements ITotalsModel {
 
     init(_data?: any) {
         if (_data) {
+            this.date = _data["date"] ? new Date(_data["date"].toString()) : <any>undefined;
             this.totalUsers = _data["totalUsers"];
             this.totalQuantityRecieved = _data["totalQuantityRecieved"];
             this.totalQuantityPrinted = _data["totalQuantityPrinted"];
@@ -2082,6 +2143,7 @@ export class TotalsModel implements ITotalsModel {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
         data["totalUsers"] = this.totalUsers;
         data["totalQuantityRecieved"] = this.totalQuantityRecieved;
         data["totalQuantityPrinted"] = this.totalQuantityPrinted;
@@ -2091,6 +2153,7 @@ export class TotalsModel implements ITotalsModel {
 }
 
 export interface ITotalsModel {
+    date: Date;
     totalUsers?: number | undefined;
     totalQuantityRecieved?: number | undefined;
     totalQuantityPrinted?: number | undefined;
@@ -2153,6 +2216,7 @@ export class UserModel implements IUserModel {
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
     latestShippedQuantity?: number | undefined;
+    latestShippedCompany?: string | undefined;
     needsFilament!: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
@@ -2186,6 +2250,7 @@ export class UserModel implements IUserModel {
             this.shippedQuantity = _data["shippedQuantity"];
             this.latestShippedDate = _data["latestShippedDate"] ? new Date(_data["latestShippedDate"].toString()) : <any>undefined;
             this.latestShippedQuantity = _data["latestShippedQuantity"];
+            this.latestShippedCompany = _data["latestShippedCompany"];
             this.needsFilament = _data["needsFilament"];
             this.sentFilamentDate = _data["sentFilamentDate"] ? new Date(_data["sentFilamentDate"].toString()) : <any>undefined;
             this.filamentTrackingNumber = _data["filamentTrackingNumber"];
@@ -2223,6 +2288,7 @@ export class UserModel implements IUserModel {
         data["shippedQuantity"] = this.shippedQuantity;
         data["latestShippedDate"] = this.latestShippedDate ? this.latestShippedDate.toISOString() : <any>undefined;
         data["latestShippedQuantity"] = this.latestShippedQuantity;
+        data["latestShippedCompany"] = this.latestShippedCompany;
         data["needsFilament"] = this.needsFilament;
         data["sentFilamentDate"] = this.sentFilamentDate ? this.sentFilamentDate.toISOString() : <any>undefined;
         data["filamentTrackingNumber"] = this.filamentTrackingNumber;
@@ -2253,6 +2319,7 @@ export interface IUserModel {
     shippedQuantity?: number | undefined;
     latestShippedDate?: Date | undefined;
     latestShippedQuantity?: number | undefined;
+    latestShippedCompany?: string | undefined;
     needsFilament: boolean;
     sentFilamentDate?: Date | undefined;
     filamentTrackingNumber?: string | undefined;
@@ -2386,6 +2453,7 @@ export class UpdateModel implements IUpdateModel {
     printerActive!: boolean;
     printerModel!: string;
     batchRequiredTime!: number;
+    needsFilament!: boolean;
 
     constructor(data?: IUpdateModel) {
         if (data) {
@@ -2410,6 +2478,7 @@ export class UpdateModel implements IUpdateModel {
             this.printerActive = _data["printerActive"];
             this.printerModel = _data["printerModel"];
             this.batchRequiredTime = _data["batchRequiredTime"];
+            this.needsFilament = _data["needsFilament"];
         }
     }
 
@@ -2434,6 +2503,7 @@ export class UpdateModel implements IUpdateModel {
         data["printerActive"] = this.printerActive;
         data["printerModel"] = this.printerModel;
         data["batchRequiredTime"] = this.batchRequiredTime;
+        data["needsFilament"] = this.needsFilament;
         return data; 
     }
 }
@@ -2451,6 +2521,7 @@ export interface IUpdateModel {
     printerActive: boolean;
     printerModel: string;
     batchRequiredTime: number;
+    needsFilament: boolean;
 }
 
 export class UserFilamentModel implements IUserFilamentModel {
