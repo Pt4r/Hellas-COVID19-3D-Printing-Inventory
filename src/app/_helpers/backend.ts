@@ -2043,7 +2043,7 @@ export class CreateShipmentModel implements ICreateShipmentModel {
     id!: string;
     quantity!: number;
     fileName?: string | undefined;
-    minQuantity!: number;
+    minQuantity?: number | undefined;
     trackingNumber?: string | undefined;
     shippingCompany?: string | undefined;
     dateShipped!: Date;
@@ -2099,7 +2099,7 @@ export interface ICreateShipmentModel {
     id: string;
     quantity: number;
     fileName?: string | undefined;
-    minQuantity: number;
+    minQuantity?: number | undefined;
     trackingNumber?: string | undefined;
     shippingCompany?: string | undefined;
     dateShipped: Date;

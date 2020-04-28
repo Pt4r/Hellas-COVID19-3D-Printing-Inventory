@@ -49,7 +49,7 @@ export class ShipmentComponent implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
     this.currentUser = this.authenticationService.currentUserValue;
-    this.selfCheckout = this.currentUser.username === 'Markosgr';
+    this.selfCheckout = this.currentUser.username === 'Markosgr' || this.currentUser.username === 'civilprotection';
   }
 
   get f() { return this.shipmentForm.controls; }
